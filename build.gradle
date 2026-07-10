@@ -1,0 +1,25 @@
+plugins {
+    id 'eclipse'
+    id 'net.neoforged.moddev' version '2.0.141'
+}
+
+version = '1.0'
+base.archivesName = "modid"
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+dependencies {
+    implementation files('run/mods/cc-tweaked-1.21.1-forge-1.119.0.jar')
+}
+
+neoForge {
+    version = "21.1.219"
+    runs {
+        client { client(); def o=System.getenv('MCREATOR_JVM_OPTIONS');if(o){o.split("\\s+").findAll{it.trim()}.each{a->jvmArgument(a)}} }
+        server { server() }
+        configureEach { systemProperty 'forge.logging.markers','REGISTRIES'; logLevel=org.slf4j.event.Level.DEBUG }
+    }
+    mods { mcreator { sourceSet sourceSets.main } }
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+apply from: 'mcreator.gradle'

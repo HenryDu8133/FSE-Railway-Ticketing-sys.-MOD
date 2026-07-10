@@ -1,0 +1,52 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="fseticket"
+version="1.8.6"
+displayName="FSETicket"
+displayURL="https://modrinth.com/mod/fseticket"
+logoFile="logo.png"
+credits="FSE Media Group ftc Henry_Du"
+authors="FMG-ftc-Henry_Du"
+description="\u9002\u7528\u4E8EFSE\u670D\u52A1\u5668\u7684\u7968\u52A1\u7CFB\u7EDF"
+
+# Start of user code block mod configuration
+# End of user code block mod configuration
+
+
+# Start of user code block custom mixins
+# End of user code block custom mixins
+
+[[dependencies.fseticket]]
+    modId="neoforge"
+    type="required"
+    versionRange="[21.1.190,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.fseticket]]
+    modId="minecraft"
+    type="required"
+    versionRange="[1.21.1]"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.fseticket]]
+    modId="kubejs"
+    type="required"
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.fseticket]]
+    modId="computercraft"
+    type="required"
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
+
+
+
+# Start of user code block dependencies configuration
+# End of user code block dependencies configuration

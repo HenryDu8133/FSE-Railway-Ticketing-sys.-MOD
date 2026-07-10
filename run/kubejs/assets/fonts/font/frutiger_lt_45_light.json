@@ -1,0 +1,10 @@
+{
+    "providers": [
+        {
+            "type": "ttf",
+            "file": "fonts:frutiger_lt_45_light.ttf",
+            "size": 12.0,
+            "oversample": 8.0
+        }
+    ]
+}

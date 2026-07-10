@@ -1,0 +1,390 @@
+{
+  "mod_elements": [
+    {
+      "name": "FSETicket",
+      "type": "tab",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "fse_ticket",
+      "metadata": {
+        "files": []
+      }
+    },
+    {
+      "name": "LocalTicket",
+      "type": "item",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "local_ticket",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/fseticket/models/item/local_ticket.json",
+          "src/main/java/net/fsefmgftc/fseticket/item/inventory/LocalTicketInventoryCapability.java",
+          "src/main/java/net/fsefmgftc/fseticket/item/LocalTicketItem.java"
+        ]
+      }
+    },
+    {
+      "name": "ExpTicket",
+      "type": "item",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "exp_ticket",
+      "metadata": {
+        "files": [
+          "src/main/java/net/fsefmgftc/fseticket/item/ExpTicketItem.java",
+          "src/main/java/net/fsefmgftc/fseticket/item/inventory/ExpTicketInventoryCapability.java",
+          "src/main/resources/assets/fseticket/models/item/exp_ticket.json"
+        ]
+      }
+    },
+    {
+      "name": "LocalTicketGUI",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "local_ticket_gui",
+      "metadata": {
+        "files": [
+          "src/main/java/net/fsefmgftc/fseticket/client/gui/LocalTicketGUIScreen.java",
+          "src/main/java/net/fsefmgftc/fseticket/network/LocalTicketGUIButtonMessage.java",
+          "src/main/java/net/fsefmgftc/fseticket/world/inventory/LocalTicketGUIMenu.java"
+        ]
+      }
+    },
+    {
+      "name": "OpenTicketWeb",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "open_ticket_web",
+      "metadata": {
+        "dependencies": [],
+        "files": [
+          "src/main/java/net/fsefmgftc/fseticket/procedures/OpenTicketWebProcedure.java"
+        ]
+      }
+    },
+    {
+      "name": "TicketVendingMachine",
+      "type": "block",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "ticket_vending_machine",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/fseticket/models/block/ticket_vending_machine.json",
+          "src/main/resources/assets/fseticket/models/item/ticket_vending_machine.json",
+          "src/main/resources/data/fseticket/loot_table/blocks/ticket_vending_machine.json",
+          "src/main/resources/assets/fseticket/blockstates/ticket_vending_machine.json",
+          "src/main/java/net/fsefmgftc/fseticket/block/TicketVendingMachineBlock.java"
+        ]
+      }
+    },
+    {
+      "name": "TicketInspectionMachine",
+      "type": "block",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "ticket_inspection_machine",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/fseticket/models/item/ticket_inspection_machine.json",
+          "src/main/resources/data/fseticket/loot_table/blocks/ticket_inspection_machine.json",
+          "src/main/resources/assets/fseticket/blockstates/ticket_inspection_machine.json",
+          "src/main/resources/assets/fseticket/models/block/ticket_inspection_machine.json",
+          "src/main/java/net/fsefmgftc/fseticket/block/TicketInspectionMachineBlock.java"
+        ]
+      }
+    },
+    {
+      "name": "LoadTicketData",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "load_ticket_data",
+      "metadata": {
+        "dependencies": [],
+        "files": [
+          "src/main/java/net/fsefmgftc/fseticket/procedures/LoadTicketDataProcedure.java"
+        ]
+      }
+    },
+    {
+      "name": "ExpTicketGUI",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "exp_ticket_gui",
+      "metadata": {
+        "files": [
+          "src/main/java/net/fsefmgftc/fseticket/world/inventory/ExpTicketGUIMenu.java",
+          "src/main/java/net/fsefmgftc/fseticket/client/gui/ExpTicketGUIScreen.java",
+          "src/main/java/net/fsefmgftc/fseticket/network/ExpTicketGUIButtonMessage.java"
+        ]
+      }
+    },
+    {
+      "name": "RecipeVendingMachine",
+      "type": "recipe",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "recipe_vending_machine",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/fseticket/recipe/recipe_vending_machine.json",
+          "src/main/resources/data/fseticket/advancement/recipes/recipe_vending_machine.json"
+        ]
+      }
+    },
+    {
+      "name": "RecipeInspectionMachine",
+      "type": "recipe",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "recipe_inspection_machine",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/fseticket/recipe/recipe_inspection_machine.json",
+          "src/main/resources/data/fseticket/advancement/recipes/recipe_inspection_machine.json"
+        ]
+      }
+    },
+    {
+      "name": "ICRefillMachine",
+      "type": "block",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "ic_refill_machine",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/fseticket/loot_table/blocks/ic_refill_machine.json",
+          "src/main/resources/assets/fseticket/blockstates/ic_refill_machine.json",
+          "src/main/resources/assets/fseticket/models/block/ic_refill_machine.json",
+          "src/main/java/net/fsefmgftc/fseticket/block/ICRefillMachineBlock.java",
+          "src/main/resources/assets/fseticket/models/item/ic_refill_machine.json"
+        ]
+      }
+    },
+    {
+      "name": "ICGUI",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "icgui",
+      "metadata": {
+        "files": [
+          "src/main/java/net/fsefmgftc/fseticket/client/gui/ICGUIScreen.java",
+          "src/main/java/net/fsefmgftc/fseticket/world/inventory/ICGUIMenu.java"
+        ]
+      }
+    },
+    {
+      "name": "ICCard",
+      "type": "item",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "ic_card",
+      "metadata": {
+        "files": [
+          "src/main/java/net/fsefmgftc/fseticket/item/ICCardItem.java",
+          "src/main/resources/assets/fseticket/models/item/ic_card.json"
+        ]
+      }
+    },
+    {
+      "name": "SingletripTicket",
+      "type": "item",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "singletrip_ticket",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/fseticket/models/item/singletrip_ticket.json",
+          "src/main/java/net/fsefmgftc/fseticket/item/SingletripTicketItem.java"
+        ]
+      }
+    },
+    {
+      "name": "FSEPassGUI",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "fse_pass_gui",
+      "metadata": {
+        "files": [
+          "src/main/java/net/fsefmgftc/fseticket/network/FSEPassGUIButtonMessage.java",
+          "src/main/java/net/fsefmgftc/fseticket/world/inventory/FSEPassGUIMenu.java",
+          "src/main/java/net/fsefmgftc/fseticket/client/gui/FSEPassGUIScreen.java"
+        ]
+      }
+    }
+  ],
+  "variable_elements": [
+    {
+      "name": "ticketRides",
+      "type": "number",
+      "scope": "player_lifetime",
+      "value": "0"
+    },
+    {
+      "name": "ticketId",
+      "type": "string",
+      "scope": "player_lifetime",
+      "value": "\"\""
+    },
+    {
+      "name": "cost",
+      "type": "number",
+      "scope": "player_lifetime",
+      "value": "0"
+    },
+    {
+      "name": "order_datetime",
+      "type": "string",
+      "scope": "player_lifetime",
+      "value": "\"\""
+    },
+    {
+      "name": "start_name_en",
+      "type": "string",
+      "scope": "player_lifetime",
+      "value": "\"\""
+    },
+    {
+      "name": "terminal_name_en",
+      "type": "string",
+      "scope": "player_lifetime",
+      "value": "\"\""
+    }
+  ],
+  "sound_elements": [],
+  "tag_elements": {
+    "BLOCKS:minecraft:mineable/pickaxe": []
+  },
+  "tab_element_order": {},
+  "language_map": {
+    "en_us": {
+      "block.fsetisket.ticket_vending_machine": "Ticket Vending Machine",
+      "item_group.fseticket.fse_ticket": "FSE Ticket",
+      "item.fseticket.local_ticket": "Local Ticket",
+      "item.fseticket.exp_ticket": "Exp Ticket",
+      "gui.fseticket.local_ticket_gui.label_a_fare_ticket": "[A] FARE TICKET",
+      "gui.fseticket.local_ticket_gui.tooltip_empty": "",
+      "gui.fseticket.local_ticket_gui.label_empty": "--\u003e",
+      "block.fseticket.ticket_vending_machine": "Ticket Vending Machine",
+      "block.fseticket.ticket_inspection_machine": "Ticket Inspection Machine",
+      "gui.fseticket.local_ticket_gui.label_valid_variableticketrides_tr": "%variable:ticketrides%",
+      "gui.fseticket.local_ticket_gui.label_variableticketfrom": "%variable:ticketfrom%",
+      "gui.fseticket.local_ticket_gui.label_variableticketto": "%variable:ticketto%",
+      "gui.fseticket.local_ticket_gui.label_variableticketid": "%variable:ticketId%",
+      "gui.fseticket.local_ticket_gui.label_trips": "TRIP)",
+      "gui.fseticket.local_ticket_gui.label_variableticketid1": "%variable:ticketId%",
+      "gui.fseticket.local_ticket_gui.label_ben_piao_ke_gong_ci_cheng_che": "(VALID",
+      "gui.fseticket.local_ticket_gui.label_empty9": "|",
+      "gui.fseticket.local_ticket_gui.label_empty7": "|",
+      "gui.fseticket.local_ticket_gui.label_empty8": "|",
+      "gui.fseticket.local_ticket_gui.label_empty5": "|",
+      "gui.fseticket.local_ticket_gui.label_empty6": "-------------------",
+      "gui.fseticket.local_ticket_gui.label_empty3": "|",
+      "gui.fseticket.local_ticket_gui.label_tuo_shan_bao_guan_yi_shi_bu_bu": "妥善保管 遺失不補",
+      "gui.fseticket.local_ticket_gui.label_empty4": "|",
+      "gui.fseticket.local_ticket_gui.label_empty1": "¥",
+      "gui.fseticket.local_ticket_gui.label_empty2": "-------------------",
+      "gui.fseticket.local_ticket_gui.label_qing_ping_ci_piao_zai_zhi_ding_che_zhan_jin_zhan_cheng_che": "請凭此票在指定車站進站乘車",
+      "gui.fseticket.local_ticket_gui.label_variablecost": "%variable:cost%",
+      "gui.fseticket.local_ticket_gui.label_variableorder_datetime": "%variable:order_datetime%",
+      "gui.fseticket.local_ticket_gui.label_variablestartstation": "%variable:startstation%",
+      "gui.fseticket.local_ticket_gui.label_variableterminalstation": "%variable:terminalstation%",
+      "gui.fseticket.local_ticket_gui.label_cheng_che_quan": "乗車券",
+      "gui.fseticket.local_ticket_gui.label_variablefromnamecnu": "%variable:fromNameCnU%",
+      "gui.fseticket.local_ticket_gui.label_variabletonamecnu": "%variable:toNameCnU%",
+      "gui.fseticket.exp_ticket_gui.label_cheng_che_quan": "特急乗車券",
+      "gui.fseticket.exp_ticket_gui.label_variableticketto": "%variable:ticketto%",
+      "gui.fseticket.exp_ticket_gui.label_variableticketid": "%variable:ticketId%",
+      "gui.fseticket.exp_ticket_gui.label_empty1": "¥",
+      "gui.fseticket.exp_ticket_gui.label_ben_piao_ke_gong_ci_cheng_che": "(VALID",
+      "gui.fseticket.exp_ticket_gui.label_empty": "--\u003e",
+      "gui.fseticket.exp_ticket_gui.label_qing_ping_ci_piao_zai_zhi_ding_che_zhan_jin_zhan_cheng_che": "請凭此票在指定車站進站乘車",
+      "gui.fseticket.exp_ticket_gui.label_variablefromnamecnu": "%variable:fromNameCnU%",
+      "gui.fseticket.exp_ticket_gui.label_a_fare_ticket": "LTD.EXP",
+      "gui.fseticket.exp_ticket_gui.label_valid_variableticketrides_tr": "%variable:ticketrides%",
+      "gui.fseticket.exp_ticket_gui.label_variableorder_datetime": "%variable:order_datetime%",
+      "gui.fseticket.exp_ticket_gui.tooltip_empty": "",
+      "gui.fseticket.exp_ticket_gui.label_variablecost": "%variable:cost%",
+      "gui.fseticket.exp_ticket_gui.label_variableticketfrom": "%variable:ticketfrom%",
+      "gui.fseticket.exp_ticket_gui.label_variableterminalstation": "%variable:terminalstation%",
+      "gui.fseticket.exp_ticket_gui.label_trips": "TRIP)",
+      "gui.fseticket.exp_ticket_gui.label_variablestartstation": "%variable:startstation%",
+      "gui.fseticket.exp_ticket_gui.label_variabletonamecnu": "%variable:toNameCnU%",
+      "gui.fseticket.exp_ticket_gui.label_tuo_shan_bao_guan_yi_shi_bu_bu": "妥善保管 遺失不補",
+      "block.fseticket.ic_refill_machine": "IC Refill Machine",
+      "gui.fseticket.icgui.label_tie_lu_jiao_tong_icqia": "铁路交通IC卡",
+      "item.fseticket.ic_card": "IC Card",
+      "gui.fseticket.icgui.label_variablebalance": "%variablebalance%",
+      "gui.fseticket.icgui.label_variableowneruuid": "%variableowneruuid%",
+      "gui.fseticket.icgui.label_variablecardid": "%variablecardid%",
+      "gui.fseticket.icgui.label_variableownername": "%variableownername%",
+      "item.fseticket.singletrip_ticket": "Singletrip Ticket",
+      "gui.fseticket.fse_pass_gui.label_valid_variableticketrides_tr": "%variable:ticketrides%",
+      "gui.fseticket.fse_pass_gui.label_variablestartstation": "%variable:startstation%",
+      "gui.fseticket.fse_pass_gui.label_variablecost": "%variable:cost%",
+      "gui.fseticket.fse_pass_gui.label_tuo_shan_bao_guan_yi_shi_bu_bu": "妥善保管 遺失不補",
+      "gui.fseticket.fse_pass_gui.label_empty": "--\u003e",
+      "gui.fseticket.fse_pass_gui.label_empty1": "¥",
+      "gui.fseticket.fse_pass_gui.label_variabletonamecnu": "%variable:toNameCnU%",
+      "gui.fseticket.fse_pass_gui.label_a_fare_ticket": "[A] FARE TICKET",
+      "gui.fseticket.fse_pass_gui.label_ben_piao_ke_gong_ci_cheng_che": "(VALID",
+      "gui.fseticket.fse_pass_gui.label_variablefromnamecnu": "%variable:fromNameCnU%",
+      "gui.fseticket.fse_pass_gui.label_trips": "TRIP)",
+      "gui.fseticket.fse_pass_gui.label_variableorder_datetime": "%variable:order_datetime%",
+      "gui.fseticket.fse_pass_gui.label_variableticketto": "%variable:ticketto%",
+      "gui.fseticket.fse_pass_gui.label_variableticketid": "%variable:ticketId%",
+      "gui.fseticket.fse_pass_gui.label_qing_ping_ci_piao_zai_zhi_ding_che_zhan_jin_zhan_cheng_che": "請凭此票在指定車站進站乘車",
+      "gui.fseticket.fse_pass_gui.label_variableticketfrom": "%variable:ticketfrom%",
+      "gui.fseticket.fse_pass_gui.label_variableterminalstation": "%variable:terminalstation%",
+      "gui.fseticket.fse_pass_gui.tooltip_empty": "",
+      "gui.fseticket.fse_pass_gui.label_cheng_che_quan": "乗車券"
+    }
+  },
+  "metadata": {
+    "files": [
+      "src/main/java/net/fsefmgftc/fseticket/init/FseticketModScreens.java",
+      "src/main/java/net/fsefmgftc/fseticket/network/MenuStateUpdateMessage.java",
+      "src/main/java/net/fsefmgftc/fseticket/init/FseticketModMenus.java",
+      "src/main/java/net/fsefmgftc/fseticket/init/FseticketModBlocks.java",
+      "src/main/java/net/fsefmgftc/fseticket/init/FseticketModItems.java",
+      "src/main/resources/pack.mcmeta",
+      "src/main/java/net/fsefmgftc/fseticket/network/FseticketModVariables.java",
+      "src/main/java/net/fsefmgftc/fseticket/FseticketMod.java",
+      "src/main/java/net/fsefmgftc/fseticket/init/FseticketModTabs.java",
+      "src/main/resources/META-INF/neoforge.mods.toml"
+    ]
+  },
+  "foldersRoot": {
+    "name": "~",
+    "children": []
+  },
+  "workspaceSettings": {
+    "modid": "fseticket",
+    "modName": "FSETicket",
+    "version": "1.8.6",
+    "description": "适用于FSE服务器的票务系统",
+    "author": "FMG-ftc-Henry_Du",
+    "websiteURL": "https://modrinth.com/mod/fseticket",
+    "license": "All Rights Reserved",
+    "serverSideOnly": false,
+    "modPicture": "fse-ticket",
+    "requiredMods": [
+      "kubejs",
+      "computercraft"
+    ],
+    "dependencies": [],
+    "dependants": [],
+    "mcreatorDependencies": [],
+    "currentGenerator": "neoforge-1.21.1",
+    "credits": "FSE Media Group ftc Henry_Du",
+    "modElementsPackage": "net.fsefmgftc.fseticket"
+  },
+  "mcreatorVersion": 202600114619
+}

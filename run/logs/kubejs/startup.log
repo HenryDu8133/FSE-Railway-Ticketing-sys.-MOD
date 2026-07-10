@@ -1,0 +1,14 @@
+[13:13:36] [INIT] KubeJS 2101.7.2-build.368; MC 2101 NeoForge
+[13:13:36] [INIT] Loaded plugins:
+[13:13:36] [INIT] - dev.latvian.mods.kubejs.plugin.builtin.BuiltinKubeJSPlugin
+[13:13:36] [INIT] - dev.latvian.mods.kubejs.plugin.builtin.BuiltinKubeJSClientPlugin
+[13:13:36] [INIT] - dev.latvian.mods.kubejs.create.KubeJSCreatePlugin
+[13:13:37] [INFO] Loaded script startup_scripts:fse_title/block_and_fluid.js in 0.087 s
+[13:13:37] [INFO] Loaded script startup_scripts:fse_title/creative_item.js in 0.016 s
+[13:13:37] [INFO] Loaded script startup_scripts:fse_title/extended.js in 0.007 s
+[13:13:37] [INFO] Loaded script startup_scripts:fse_title/tools_reg.js in 0.011 s
+[13:13:37] [INFO] startup_scripts:main.js#2: Hello, World! (Loaded startup example script)
+[13:13:37] [INFO] Loaded script startup_scripts:main.js in 0.004 s
+[13:13:37] [INFO] Loaded 5/5 KubeJS startup scripts in 0.71 s with 0 errors and 0 warnings
+[13:13:37] [INFO] Validated 179 files in kubejs/assets/ in 283ms
+[13:13:37] [INFO] Validated 0 files in kubejs/data/ in 1ms

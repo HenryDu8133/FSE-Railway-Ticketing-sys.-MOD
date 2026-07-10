@@ -1,0 +1,10 @@
+{
+    "providers": [
+        {
+            "type": "ttf",
+            "file": "fonts:fz_yaoti.ttf",
+            "size": 12.0,
+            "oversample": 8.0
+        }
+    ]
+}
