@@ -48,7 +48,7 @@ public record ExpTicketGUIButtonMessage(int buttonID, int x, int y, int z) imple
 			return;
 		if (buttonID == 0) {
 
-			OpenTicketWebProcedure.execute();
+			OpenTicketWebProcedure.execute(entity);
 		}
 	}
 

@@ -14,12 +14,11 @@ dependencies {
 neoForge {
     version = "21.1.219"
     runs {
-        client { client(); def o=System.getenv('MCREATOR_JVM_OPTIONS');if(o){o.split("\\s+").findAll{it.trim()}.each{a->jvmArgument(a)}} }
+        client { client() }
         server { server() }
         configureEach { systemProperty 'forge.logging.markers','REGISTRIES'; logLevel=org.slf4j.event.Level.DEBUG }
     }
-    mods { mcreator { sourceSet sourceSets.main } }
+    mods { fseticket { sourceSet sourceSets.main } }
 }
 
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
-apply from: 'mcreator.gradle'

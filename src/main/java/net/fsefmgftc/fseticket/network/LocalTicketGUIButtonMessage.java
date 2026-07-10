@@ -48,7 +48,7 @@ public record LocalTicketGUIButtonMessage(int buttonID, int x, int y, int z) imp
 			return;
 		if (buttonID == 0) {
 
-			OpenTicketWebProcedure.execute();
+			OpenTicketWebProcedure.execute(entity);
 		}
 	}
 
