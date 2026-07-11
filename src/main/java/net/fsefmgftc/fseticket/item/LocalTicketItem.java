@@ -31,11 +31,11 @@ public class LocalTicketItem extends Item {
 		String from=t.getString("start_name_en");from=from.isEmpty()||from.equals("\"\"")?"---":from;
 		String to=t.getString("terminal_name_en");to=to.isEmpty()||to.equals("\"\"")?"---":to;
 		int rides=t.getInt("rides");boolean en=t.getBoolean("entered");boolean ex=t.getBoolean("exited");
-		list.add(Component.literal("§7区间: §f"+from+" §7→ §f"+to));
-		list.add(Component.literal("§7票价: §6¥"+String.format("%.2f",t.getDouble("cost"))));
-		list.add(Component.literal("§7乘次: §f"+rides));
-		list.add(Component.literal("§7票号: §f"+t.getString("ticketId")));
-		list.add(Component.literal(en?"§a已进站":ex?"§c已出站":"§7未进站"));
+		list.add(Component.literal("§7区间：§f"+from+"§7→§f"+to));
+		list.add(Component.literal("§7票价：§6¤"+String.format("%.2f",t.getDouble("cost"))));
+		list.add(Component.literal("§7乘次：§f"+rides));
+		list.add(Component.literal("§7票号：§f"+t.getString("ticketId")));
+		list.add(Component.literal(en?"§a已进站":ex?"§e已出站":"§7未进站"));
 	}
 
 	@Override public InteractionResultHolder<ItemStack> use(Level w,Player e,InteractionHand h){

@@ -1,7 +1,7 @@
 local DEFAULT_SERVER_BASE = "http://ticket.fse-media.group"
 local DEFAULT_SERVER_PATH = "/api/tickets/check"
 local GATE_OPEN_SECONDS = 2
-local VERSION = "v1.5.10"
+local VERSION = "v1.5.13.2"
 local VERSION_CHECK_INTERVAL = 5
 
 local CONFIG_PATH = "gate_config.json"
@@ -89,9 +89,56 @@ local speaker = peripheral.find("speaker")
 local inspection = peripheral.find("ticket_inspection_machine")
 
 local serverConnected = nil
-local serverLastChangeTs = 0
-local expectedGateVersion = nil
 local versionMismatch = nil
+local expectedGateVersion = nil
+local failedUpdateVersion = nil
+local pendingGateUpdate = false
+local remoteForceUpdate = false
+local isUpdating = false
+local gateBusyUntilTs = 0
+
+local function nowMs()
+  return (os.epoch and os.epoch("utc")) or (os.time() * 1000)
+end
+
+local function markGateBusy(seconds)
+  local secondsNum = tonumber(seconds) or 0
+  local untilTs = nowMs() + math.max(1000, math.floor(secondsNum * 1000))
+  if untilTs > gateBusyUntilTs then
+    gateBusyUntilTs = untilTs
+  end
+end
+
+local function isGateIdleForUpdate()
+  return nowMs() >= gateBusyUntilTs
+end
+
+local function getLastUpdateVersion()
+  if not fs.exists(".last_update_version") then return nil end
+  local f = fs.open(".last_update_version", "r")
+  if not f then return nil end
+  local v = f.readAll()
+  f.close()
+  return v
+end
+
+local function setLastUpdateVersion(v)
+  local f = fs.open(".last_update_version", "w")
+  if f then f.write(tostring(v)); f.close() end
+end
+
+local function runSilentGateUpdate()
+  if not fs.exists("update_gate.lua") then
+    return false, "update_gate.lua not found"
+  end
+  local baseEnv = (getfenv and getfenv()) or _ENV or _G
+  local env = setmetatable({ AUTO_UPDATE_SILENT = true }, { __index = baseEnv })
+  local fn, err = loadfile("update_gate.lua", env)
+  if not fn then return false, err end
+  local ok, res = pcall(fn, "--silent")
+  if not ok then return false, tostring(res) end
+  return true, true
+end
 
 local function setServerConnected(ok)
   if serverConnected == ok then return end
@@ -134,24 +181,37 @@ local function drawServerStatusIndicator(w)
   termDev.setTextColor(colors.white)
 end
 
+local lastUpdateError = nil
+
 local function drawVersionIndicator(w)
   local s = tostring(VERSION or "")
   if #s == 0 then return end
   if w < #s then return end
   local markerColor = colors.yellow
-  if versionMismatch == true then
+  local markerText = "*   "
+  if isUpdating then
+    markerColor = colors.yellow
+    markerText = "^ing"
+  elseif versionMismatch == true then
     markerColor = colors.red
+    markerText = "*   "
   elseif versionMismatch == false then
     markerColor = colors.lime
+    markerText = "    "
   end
   termDev.setBackgroundColor(colors.black)
   termDev.setTextColor(colors.gray)
   termDev.setCursorPos(1, 1)
   termDev.write(s)
-  if w >= (#s + 1) then
-    termDev.setTextColor(markerColor)
-    termDev.write("*")
+  termDev.setTextColor(markerColor)
+  termDev.write(markerText)
+  
+  if lastUpdateError then
+    termDev.setCursorPos(1, 2)
+    termDev.setTextColor(colors.red)
+    termDev.write(string.sub(tostring(lastUpdateError), 1, w))
   end
+  
   termDev.setTextColor(colors.white)
 end
 
@@ -366,6 +426,7 @@ local function refreshRemoteLuaVersion(serverBase)
   local ok, parsed = getJSON(url)
   if not ok or type(parsed) ~= "table" then return false end
   local remote = normalizeVersionTag(type(parsed.lua_versions) == "table" and parsed.lua_versions.gate or nil)
+  remoteForceUpdate = (parsed.force_update == true)
   if #remote == 0 then
     expectedGateVersion = nil
     versionMismatch = nil
@@ -375,6 +436,7 @@ local function refreshRemoteLuaVersion(serverBase)
   versionMismatch = (remote ~= normalizeVersionTag(VERSION))
   return true
 end
+
 
 local function inferStationCodeFromName(name)
   local key = normKey(name or "")
@@ -893,6 +955,36 @@ local function updateDeviceField(dev, key, value)
   pcall(dev.updateTicket, key, value)
 end
 
+local function callTicketStateMethod(dev, methodName)
+  if type(dev) ~= "table" then return false end
+  local fn = dev[methodName]
+  if type(fn) ~= "function" then return false end
+  local okCall, okRes = pcall(fn)
+  if not okCall then return false end
+  return okRes ~= false
+end
+
+local function applyTicketDeviceState(dev, action, rides)
+  if type(dev) ~= "table" then return end
+  if action == "entry" then
+    if not callTicketStateMethod(dev, "markEntered") then
+      updateDeviceField(dev, "entered", true)
+      updateDeviceField(dev, "exited", false)
+    end
+  elseif action == "exit" then
+    if not callTicketStateMethod(dev, "markExited") then
+      updateDeviceField(dev, "exited", true)
+      updateDeviceField(dev, "entered", false)
+    end
+  elseif action == "reset" then
+    if not callTicketStateMethod(dev, "resetTicketState") then
+      updateDeviceField(dev, "entered", false)
+      updateDeviceField(dev, "exited", false)
+    end
+  end
+  if rides ~= nil then updateDeviceField(dev, "rides", rides) end
+end
+
 local function updateICCardField(dev, key, value)
   if type(dev) ~= "table" or type(dev.updateICCard) ~= "function" then return false end
   local okCall, okRes, detail = pcall(dev.updateICCard, key, value)
@@ -990,6 +1082,14 @@ local function deductICCardBalance(dev, amount)
   if not okCall then return false, tostring(okRes) end
   if okRes == true then return true, tonumber(detail) end
   return false, tostring(detail or "deduct_failed")
+end
+
+local function currentDeviceId()
+  local label = os.getComputerLabel()
+  if label and label ~= "" then
+    return label
+  end
+  return "#" .. tostring(os.getComputerID())
 end
 
 local function syncICCardState(cardId, payload)
@@ -1131,7 +1231,7 @@ local function handleICCardScan(scan, side, scanDev)
   local okSync, syncResp = syncICCardState(cardId, {
     type = "check",
     action = usedAction,
-    device = "gate",
+    device = currentDeviceId(),
     ts = syncTs,
     station_code = exitStation,
     entry_station = entryStation,
@@ -1189,7 +1289,7 @@ local function handleScan(scan, side, scanDev)
       action = act,
       station_codes = stationCodesPayload,
       station_code = stationCodeForSide(side),
-      device = "gate",
+      device = currentDeviceId(),
       ts = os.epoch("utc"),
       trips_total = hintTripsTotal,
       trips_remaining = hintTripsRemaining,
@@ -1230,23 +1330,14 @@ local function handleScan(scan, side, scanDev)
       or tonumber(scan.trips_remaining or scan.rides_remaining)
       or tonumber(scan.rides)
     for _, dev in ipairs(inspectionDevs) do
-      if type(dev) == "table" and type(dev.updateTicket) == "function" then
-        if usedAction == "entry" then
-          dev.updateTicket("entered", true)
-          dev.updateTicket("exited", false)
-          if newRides ~= nil then dev.updateTicket("rides", newRides) end
-        else
-          dev.updateTicket("exited", true)
-          dev.updateTicket("entered", false)
-          if newRides ~= nil then dev.updateTicket("rides", newRides) end
-        end
-      end
+      applyTicketDeviceState(dev, usedAction, newRides)
     end
   end)
 
   local remaining = tonumber(resp.trips_remaining)
   if usedAction == "exit" and isTruthy(resp.destroy_ticket) and remaining ~= nil and remaining <= 0 then
     for _, dev in ipairs(inspectionDevs) do
+      applyTicketDeviceState(dev, "reset", remaining)
       if type(dev) == "table" and type(dev.destroyTicket) == "function" then
         pcall(dev.destroyTicket)
       end
@@ -1342,30 +1433,54 @@ end
 
 local versionTimer = os.startTimer(VERSION_CHECK_INTERVAL)
 
+-- 启动时不再自动触发更新检查逻辑，等待事件触发
+-- if pendingGateUpdate and isGateIdleForUpdate() then
+--   isUpdating = true
+--   drawReadyScreen()
+--   os.sleep(0.5)
+--   local ok, updated = pcall(runSilentGateUpdate)
+--   if ok and updated then
+--     os.reboot()
+--     return
+--   end
+--   isUpdating = false
+--   drawReadyScreen()
+-- end
+
 while true do
   local ev = pack(os.pullEvent())
   if ev[1] == "ticket_scanned" or ev[1] == "ic_card_scanned" then
+    markGateBusy(GATE_OPEN_SECONDS + 2)
     processInspectionEvent(ev[1], ev)
     os.sleep(0.35)
     drawReadyScreen()
+  elseif ev[1] == "trigger_update" then
+    pendingGateUpdate = true
   elseif ev[1] == "timer" and ev[2] == versionTimer then
     pcall(function()
       refreshRemoteLuaVersion(guessBaseFromStatusURL(serverURL))
     end)
-    if versionMismatch == true then
-      pcall(function()
-        clear()
-        local w, h = termDev.getSize()
-        centerText(math.floor(h / 2), "Auto Updating...", colors.yellow)
-      end)
-      pcall(function()
-        if shell and type(shell.run) == "function" then
-          shell.run("update_gate.lua")
-        else
-          os.run(getfenv and getfenv() or _ENV, "update_gate.lua")
-        end
-      end)
-      os.reboot()
+    if remoteForceUpdate then
+      if expectedGateVersion and expectedGateVersion ~= getLastUpdateVersion() and expectedGateVersion ~= failedUpdateVersion then
+        pendingGateUpdate = true
+      end
+    end
+
+    if pendingGateUpdate and isGateIdleForUpdate() then
+      isUpdating = true
+      lastUpdateError = nil
+      drawReadyScreen()
+      os.sleep(0.5)
+      local ok, updated = pcall(runSilentGateUpdate)
+      if ok and updated == true then
+        if expectedGateVersion then setLastUpdateVersion(expectedGateVersion) end
+        os.reboot()
+        return
+      end
+      isUpdating = false
+      pendingGateUpdate = false
+      lastUpdateError = tostring(updated)
+      failedUpdateVersion = expectedGateVersion
     end
     drawReadyScreen()
     versionTimer = os.startTimer(VERSION_CHECK_INTERVAL)

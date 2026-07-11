@@ -61,32 +61,31 @@ public class ExpTicketGUIScreen extends AbstractContainerScreen<ExpTicketGUIMenu
 		String fcnu = ud(nv(m.fromNameCnU)), tcnu = ud(nv(m.toNameCnU));
 		String tid = nv(m.ticketId), odt = nv(m.orderDatetime);
 		String rides = String.valueOf(m.rides), costStr = String.format("%.2f", m.cost);
-		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_a_fare_ticket"), -22, -59, -16777216, false);
-		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_empty"), -12, -46, -16777216, false);
+		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_type"), -22, -59, -16777216, false);
+		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_arrow"), -12, -46, -16777216, false);
 		g.drawString(font, LJF(from), -108, -32, -16777216, false);
 		g.drawString(font, LJF(to), 21, -31, -16777216, false);
 		g.drawString(font, LJF(rides), -75, -4, -16777216, false);
 		g.drawString(font, LJF(tid), 47, 75, -16777216, false);
-		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_ben_piao_ke_gong_ci_cheng_che"), -115, -4, -16777216, false);
-		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_trips"), -59, -4, -12829636, false);
-		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_empty1"), -115, 9, -12829636, false);
-		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_qing_ping_ci_piao_zai_zhi_ding_che_zhan_jin_zhan_cheng_che"), -117, 54, -12829636, false);
-		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_tuo_shan_bao_guan_yi_shi_bu_bu"), -117, 67, -12829636, false);
+		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_validtrip1"), -115, -4, -16777216, false);
+		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_validtrip2"), -59, -4, -12829636, false);
+		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_tip1"), -117, 54, -12829636, false);
+		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_tip2"), -117, 67, -12829636, false);
 		g.drawString(font, LJF(costStr), -108, 9, -12829636, false);
 		g.drawString(font, LJF(odt), -115, 23, -12829636, false);
 		g.drawString(font, LJF(ss), -108, -21, -6710887, false);
 		g.drawString(font, LJF(ts), 22, -21, -6710887, false);
-		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_cheng_che_quan"), -27, -70, -12829636, false);
+		g.drawString(font, TJF("gui.fseticket.exp_ticket_gui.label_title"), -27, -70, -12829636, false);
 		g.drawString(font, LCF(fcnu), -108, -46, -12829636, false);
 		g.drawString(font, LCF(tcnu), 20, -46, -12829636, false);
 	}
 	@Override public void init() {
 		super.init();
 		String tid = nv(((ExpTicketGUIMenu)menu).ticketId);
-		if (!tid.equals("---")) qrTexture = QRCodeGenerator.getOrGenerate("https://ticket-detail.fse-media.group/" + tid, 64);
+		if (!tid.equals("---")) qrTexture = QRCodeGenerator.getOrGenerate("https://ticket.fse-media.group/detail/" + tid, 64);
 		imagebutton_localticket = new ImageButton(leftPos + 65, topPos + 13, 52, 52,
 			new WidgetSprites(ResourceLocation.parse("fseticket:textures/screens/localticket.png"), ResourceLocation.parse("fseticket:textures/screens/localticket.png")),
-			e -> { if (!tid.equals("---")) net.minecraft.Util.getPlatform().openUri("https://ticket-detail.fse-media.group/" + tid); })
+			e -> { if (!tid.equals("---")) net.minecraft.Util.getPlatform().openUri("https://ticket.fse-media.group/detail/" + tid); })
 			{ @Override public void renderWidget(GuiGraphics g, int mx, int my, float pt) {} };
 		addRenderableWidget(imagebutton_localticket);
 	}

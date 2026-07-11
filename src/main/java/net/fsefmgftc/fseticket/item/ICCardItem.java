@@ -22,9 +22,7 @@ public class ICCardItem extends Item {
 	private static CustomData def(){CompoundTag t=new CompoundTag();t.putString("cardId","");t.putString("ownerName","");t.putDouble("balance",0);return CustomData.of(t);}
 
 	@Override public Component getName(ItemStack s){
-		String n=s.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag().getString("ownerName");
-		if(n!=null&&!n.isEmpty()&&!n.equals("\"\""))return Component.literal("IC Card - "+n);
-		return super.getName(s);
+		return Component.literal("FSEICA");
 	}
 
 	@Override public InteractionResultHolder<ItemStack> use(Level w,Player e,InteractionHand h){

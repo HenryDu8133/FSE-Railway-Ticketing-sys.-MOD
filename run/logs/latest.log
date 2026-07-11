@@ -1,360 +1,46 @@
-[10Jul2026 13:13:09.507] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientdev, --version, 21.1.219, --assetIndex, 17, --assetsDir, C:\\Users\\19764\\.mcreator\\gradle\\caches\\neoformruntime\\assets, --gameDir, ., --fml.fmlVersion, 4.0.42, --fml.mcVersion, 1.21.1, --fml.neoForgeVersion, 21.1.219, --fml.neoFormVersion, 20240808.144430]
-[10Jul2026 13:13:09.514] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as JetBrains s.r.o. OpenJDK 64-Bit Server VM 21.0.10+1-b1163.105
-[10Jul2026 13:13:09.519] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 11.0.5+main.901c6ea8 starting: java version 21.0.10 by JetBrains s.r.o.; OS Windows 11 arch amd64 version 10.0
-[10Jul2026 13:13:10.012] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
-[10Jul2026 13:13:10.254] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
-[10Jul2026 13:13:10.732] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
-[10Jul2026 13:13:11.197] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/19764/.mcreator/gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%23138!/ Service=ModLauncher Env=CLIENT
-[10Jul2026 13:13:11.450] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: Intel(R) Iris(R) Xe Graphics GL version 4.6.0 - Build 32.0.101.7076, Intel
-[10Jul2026 13:13:14.002] [main/INFO] [net.neoforged.fml.loading.moddiscovery.locators.JarInJarDependencyLocator/]: Found 11 dependencies adding them to mods collection
-[10Jul2026 13:13:14.008] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/]: 
-     Mod List:
-		Name Version (Mod Id)
-
-		Better Advanced Tooltips 2101.1.0-build.1 (betteradvancedtooltips)
-		CC: Tweaked 1.119.0 (computercraft)
-		CC:C Bridge 1.7.3 (cccbridge)
-		Create 6.0.10 (create)
-		Create: Numismatics 1.0.20+neoforge-mc1.21.1 (numismatics)
-		Flywheel 1.0.6 (flywheel)
-		FSETicket 1.8.6 (fseticket)
-		IMBlocker 5.4.6.1 (imblocker)
-		KubeJS 2101.7.2-build.368 (kubejs)
-		KubeJS Create 2101.3.1-build.18 (kubejs_create)
-		Minecraft 1.21.1 (minecraft)
-		NeoForge 21.1.219 (neoforge)
-		Ponder 1.0.82+mc1.21.1 (ponder)
-		Rhino 2101.2.7-build.81 (rhino)
-		Screenshot Viewer 1.3.4 (screenshot_viewer)
-[10Jul2026 13:13:18.283] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[10Jul2026 13:13:18.292] [main/INFO] [mixin/]: Compatibility level set to JAVA_21
-[10Jul2026 13:13:18.426] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientdev' with arguments [--version, 21.1.219, --gameDir, ., --assetsDir, C:\Users\19764\.mcreator\gradle\caches\neoformruntime\assets, --assetIndex, 17]
-[10Jul2026 13:13:18.601] [main/WARN] [mixin/]: Reference map 'ponder.refmap.json' for ponder-common.mixins.json could not be read. If this is a development environment you can ignore this message
-[10Jul2026 13:13:18.673] [main/WARN] [mixin/]: Reference map 'screenshot_viewer.refmap.json' for screenshot_viewer.mixins.json could not be read. If this is a development environment you can ignore this message
-[10Jul2026 13:13:20.543] [main/WARN] [mixin/]: Error loading class: org/jetbrains/annotations/ApiStatus$ScheduledForRemoval (java.lang.ClassNotFoundException: org.jetbrains.annotations.ApiStatus$ScheduledForRemoval)
-[10Jul2026 13:13:20.581] [main/WARN] [mixin/]: Error loading class: net/minecraft/client/gui/components/AbstractScrollArea (java.lang.ClassNotFoundException: net.minecraft.client.gui.components.AbstractScrollArea)
-[10Jul2026 13:13:20.581] [main/WARN] [mixin/]: @Mixin target net.minecraft.client.gui.components.AbstractScrollArea was not found imblocker-neoforge.mixins.json:AbstractScrollWidgetMixin from mod imblocker
-[10Jul2026 13:13:20.589] [main/WARN] [mixin/]: Error loading class: net/minecraft/client/gui/components/AbstractScrollArea (java.lang.ClassNotFoundException: net.minecraft.client.gui.components.AbstractScrollArea)
-[10Jul2026 13:13:20.590] [main/WARN] [mixin/]: Error loading class: net/minecraft/client/gui/components/AbstractScrollArea (java.lang.ClassNotFoundException: net.minecraft.client.gui.components.AbstractScrollArea)
-[10Jul2026 13:13:20.653] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.0).
-[10Jul2026 13:13:25.902] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 229 Datafixer optimizations took 2314 milliseconds
-[10Jul2026 13:13:35.046] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
-[10Jul2026 13:13:35.050] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
-[10Jul2026 13:13:35.055] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
-[10Jul2026 13:13:35.061] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
-[10Jul2026 13:13:35.065] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
-[10Jul2026 13:13:35.426] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/D:/TaoYuan2023_HSTG/HSTG/MODCreate/fseticket/build/moddev/artifacts/neoforge-21.1.219.jar%23198!/assets/.mcassetsroot' uses unexpected schema
-[10Jul2026 13:13:35.427] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/D:/TaoYuan2023_HSTG/HSTG/MODCreate/fseticket/build/moddev/artifacts/neoforge-21.1.219.jar%23198!/data/.mcassetsroot' uses unexpected schema
-[10Jul2026 13:13:35.475] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
-[10Jul2026 13:13:35.489] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
-[10Jul2026 13:13:35.767] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.3+5
-[10Jul2026 13:13:36.366] [modloading-worker-0/INFO] [Create: Numismatics/]: Create: Numismatics 1.0.20+neoforge-mc1.21.1 initializing! Create version: 6.0.10 on platform: NEOFORGE
-[10Jul2026 13:13:36.376] [modloading-worker-0/INFO] [Create: Numismatics/]: Registering creative tabs for Create: Numismatics
-[10Jul2026 13:13:36.377] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.219, for MC 1.21.1
-[10Jul2026 13:13:36.408] [modloading-worker-0/WARN] [io.github.reserveword.imblocker.common.IMBlockerCore/]: [IMBlocker] Class net.mehvahdjukaar.supplementaries.client.screens.TextHolderEditScreen not found, ignored.
-[10Jul2026 13:13:36.413] [modloading-worker-0/INFO] [io.github.reserveword.imblocker.common.IMBlockerCore/]: [IMBlocker] bakelist screenWhitelist result [class net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen, class net.minecraft.client.gui.screens.inventory.BookEditScreen, class com.simibubi.create.content.equipment.clipboard.ClipboardScreen]
-[10Jul2026 13:13:36.456] [modloading-worker-0/INFO] [Create: Numismatics/]: Registering items for Create: Numismatics
-[10Jul2026 13:13:36.528] [modloading-worker-0/INFO] [com.simibubi.create.Create/]: Create 6.0.10 initializing! Commit hash: ac0c444d9828da3453ae8cc65338e8de063286fb
-[10Jul2026 13:13:36.759] [modloading-worker-0/INFO] [Create: Numismatics/]: Registering block entities for Create: Numismatics
-[10Jul2026 13:13:36.759] [modloading-worker-0/INFO] [Create: Numismatics/]: Registering blocks for Create: Numismatics
-[10Jul2026 13:13:36.774] [modloading-worker-0/INFO] [Create: Numismatics/]: Registering menu types for Create: Numismatics
-[10Jul2026 13:13:36.776] [modloading-worker-0/INFO] [Create: Numismatics/]: Registering block tags for Create: Numismatics
-[10Jul2026 13:13:36.776] [modloading-worker-0/INFO] [Create: Numismatics/]: Registering item tags for Create: Numismatics
-[10Jul2026 13:13:36.778] [modloading-worker-0/INFO] [Create: Numismatics/]: Registering data components for Create: Numismatics
-[10Jul2026 13:13:36.804] [modloading-worker-0/INFO] [KubeJS Startup/]: Capturing errors for startup scripts enabled
-[10Jul2026 13:13:36.804] [modloading-worker-0/INFO] [KubeJS Client/]: Capturing errors for client scripts enabled
-[10Jul2026 13:13:36.804] [modloading-worker-0/INFO] [KubeJS/]: Loading vanilla registries...
-[10Jul2026 13:13:36.834] [modloading-worker-0/INFO] [KubeJS/]: Looking for KubeJS plugins...
-[10Jul2026 13:13:36.838] [modloading-worker-0/INFO] [KubeJS/]: Found plugin source kubejs
-[10Jul2026 13:13:36.846] [modloading-worker-0/WARN] [KubeJS/]: Plugin dev.latvian.mods.kubejs.integration.architectury.ArchitecturyIntegration does not have required mod 'architectury' loaded, skipping
-[10Jul2026 13:13:36.846] [modloading-worker-0/INFO] [KubeJS/]: Found plugin source kubejs_create
-[10Jul2026 13:13:36.852] [modloading-worker-0/INFO] [KubeJS/]: Done in 15.66 ms
-[10Jul2026 13:13:37.530] [modloading-worker-0/INFO] [KubeJS Startup/]: Loaded script startup_scripts:fse_title/block_and_fluid.js in 0.087 s
-[10Jul2026 13:13:37.546] [modloading-worker-0/INFO] [KubeJS Startup/]: Loaded script startup_scripts:fse_title/creative_item.js in 0.016 s
-[10Jul2026 13:13:37.553] [modloading-worker-0/INFO] [KubeJS Startup/]: Loaded script startup_scripts:fse_title/extended.js in 0.007 s
-[10Jul2026 13:13:37.564] [modloading-worker-0/INFO] [KubeJS Startup/]: Loaded script startup_scripts:fse_title/tools_reg.js in 0.011 s
-[10Jul2026 13:13:37.568] [modloading-worker-0/INFO] [KubeJS Startup/]: startup_scripts:main.js#2: Hello, World! (Loaded startup example script)
-[10Jul2026 13:13:37.569] [modloading-worker-0/INFO] [KubeJS Startup/]: Loaded script startup_scripts:main.js in 0.004 s
-[10Jul2026 13:13:37.571] [modloading-worker-0/INFO] [KubeJS Startup/]: Loaded 5/5 KubeJS startup scripts in 0.71 s with 0 errors and 0 warnings
-[10Jul2026 13:13:37.606] [modloading-worker-0/INFO] [KubeJS Client/]: client_scripts:main.js#2: Hello, World! (Loaded client example script)
-[10Jul2026 13:13:37.606] [modloading-worker-0/INFO] [KubeJS Client/]: Loaded script client_scripts:main.js in 0.001 s
-[10Jul2026 13:13:37.606] [modloading-worker-0/INFO] [KubeJS Client/]: Loaded 1/1 KubeJS client scripts in 0.031 s with 0 errors and 0 warnings
-[10Jul2026 13:13:37.895] [modloading-worker-0/INFO] [KubeJS Startup/]: Validated 179 files in kubejs/assets/ in 283ms
-[10Jul2026 13:13:37.897] [modloading-worker-0/INFO] [KubeJS Startup/]: Validated 0 files in kubejs/data/ in 1ms
-[10Jul2026 13:13:43.229] [modloading-sync-worker/WARN] [net.neoforged.fml.config.ConfigTracker/CONFIG]: Configuration file D:\TaoYuan2023_HSTG\HSTG\MODCreate\fseticket\run\config\screenshot_viewer-client.toml is not correct. Correcting
-[10Jul2026 13:13:43.424] [modloading-sync-worker/WARN] [net.neoforged.neoforge.common.ModConfigSpec/CORE]: Configuration LoadedConfig[config=SynchronizedConfig{DataHolder:{ingame=SynchronizedConfig{DataHolder:{showButtonInGamePauseMenu=true, pauseMenuButtonVerticalOffset=0, showButtonOnTitleScreen=true, titleScreenButtonHorizontalOffset=0, redirectScreenshotChatLinks=false}}, ingui=SynchronizedConfig{DataHolder:{screenshotsFolder=D:\TaoYuan2023_HSTG\HSTG\MODCreate\fseticket\run\.\screenshots, defaultListOrder=ASCENDING, promptWhenDeletingScreenshot=true, enableScreenshotEnlargementAnimation=true, displayHintTooltip=true, renderWidePropertiesButton=true, invertZoomDirection=false, initialScreenshotAmountPerRow=4, screenScrollSpeed=10, screenshotElementBackgroundOpacity=100, screenshotElementTextVisibility=VISIBLE, screenshotElementTextColor=#FFFFFF, renderScreenshotElementFontShadow=true}}, screenshot_thumbnails=SynchronizedConfig{DataHolder:{screenshotsFolder=D:\TaoYuan2023_HSTG\HSTG\MODCreate\fseticket\run\.\screenshots\thumbnails, compression_ratio=NONE}}}}, path=D:\TaoYuan2023_HSTG\HSTG\MODCreate\fseticket\run\config\screenshot_viewer-client.toml, modConfig=net.neoforged.fml.config.ModConfig@7a8e7723] is not correct. Correcting
-[10Jul2026 13:13:43.425] [modloading-sync-worker/WARN] [net.neoforged.neoforge.common.ModConfigSpec/CORE]: Incorrect key ingui.screenshotsFolder was corrected from D:\TaoYuan2023_HSTG\HSTG\MODCreate\fseticket\run\.\screenshots to its default, D:\TaoYuan2023_HSTG\HSTG\MODCreate\fseticket\run\.\screenshots. 
-[10Jul2026 13:13:43.427] [modloading-sync-worker/WARN] [net.neoforged.neoforge.common.ModConfigSpec/CORE]: Incorrect key screenshot_thumbnails.screenshotsFolder was corrected from D:\TaoYuan2023_HSTG\HSTG\MODCreate\fseticket\run\.\screenshots\thumbnails to its default, D:\TaoYuan2023_HSTG\HSTG\MODCreate\fseticket\run\.\screenshots\thumbnails. 
-[10Jul2026 13:13:44.318] [Render thread/INFO] [net.neoforged.neoforge.gametest.GameTestHooks/]: Enabled Gametest Namespaces: []
-[10Jul2026 13:13:45.272] [Render thread/INFO] [KubeJS/]: Loaded 21 asset packs: vanilla, KubeJS Virtual Resource Pack [Before Mods, assets], mod_resources, mod/rhino, mod/numismatics, mod/cccbridge, mod/computercraft, mod/screenshot_viewer, mod/flywheel, mod/ponder, mod/create, mod/imblocker, mod/neoforge, mod/kubejs, mod/kubejs_create, mod/betteradvancedtooltips, KubeJS Virtual Resource Pack [Internal, assets], KubeJS Virtual Resource Pack [After Mods, assets], KubeJS File Resource Pack [assets], mod/fseticket, KubeJS Virtual Resource Pack [Last, assets]
-[10Jul2026 13:13:45.275] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: vanilla, KubeJS Virtual Resource Pack [Before Mods, assets], mod_resources, mod/rhino, mod/numismatics, mod/cccbridge, mod/computercraft, mod/screenshot_viewer, mod/flywheel, mod/ponder, mod/create, mod/imblocker, mod/neoforge, mod/kubejs, mod/kubejs_create, mod/betteradvancedtooltips, KubeJS Virtual Resource Pack [Internal, assets], KubeJS Virtual Resource Pack [After Mods, assets], KubeJS File Resource Pack [assets], mod/fseticket, KubeJS Virtual Resource Pack [Last, assets]
-[10Jul2026 13:13:45.733] [Render thread/ERROR] [net.minecraft.Util/]: Invalid path in pack: fseticket:font/JNR_Font.ttf, ignoring
-[10Jul2026 13:13:45.740] [Render thread/ERROR] [net.minecraft.Util/]: Invalid path in pack: fseticket:font/SourceHanSansSC.otf, ignoring
-[10Jul2026 13:13:46.019] [NeoForge Version Check/INFO] [net.neoforged.fml.VersionChecker/]: [cccbridge] Starting version check at https://api.modrinth.com/updates/cccbridge/forge_updates.json
-[10Jul2026 13:13:46.355] [Worker-Main-8/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_all_no_pua-15.1.05.hex, loading
-[10Jul2026 13:13:46.525] [Worker-Main-11/WARN] [net.minecraft.client.gui.font.FontManager/]: Unable to load font 'fseticket:jnr' in fonts.json in resourcepack: 'mod/fseticket'
-com.google.gson.JsonParseException: Not a valid resource location: fseticket:font/JNR_Font.ttf Non [a-z0-9/._-] character in path of location: fseticket:font/JNR_Font.ttf
-	at MC-BOOTSTRAP/datafixerupper@8.0.16/com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287) ~[datafixerupper-8.0.16.jar%23121!/:?]
-	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.gui.font.FontManager.loadResourceStack(FontManager.java:236) ~[neoforge-21.1.219.jar%23198!/:?]
-	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.gui.font.FontManager.lambda$prepare$4(FontManager.java:94) ~[neoforge-21.1.219.jar%23198!/:?]
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) [?:?]
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1760) [?:?]
-	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507) [?:?]
-	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1491) [?:?]
-	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:2073) [?:?]
-	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2035) [?:?]
-	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187) [?:?]
-[10Jul2026 13:13:46.537] [Render thread/INFO] [KubeJS Client/]: Client resource reload complete!
-[10Jul2026 13:13:47.358] [Worker-Main-12/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_jp_patch-15.1.05.hex, loading
-[10Jul2026 13:13:48.560] [NeoForge Version Check/INFO] [net.neoforged.fml.VersionChecker/]: [cccbridge] Found status: BETA Current: 1.7.3 Target: null
-[10Jul2026 13:13:48.561] [NeoForge Version Check/INFO] [net.neoforged.fml.VersionChecker/]: [computercraft] Starting version check at https://api.modrinth.com/updates/cc-tweaked/forge_updates.json
-[10Jul2026 13:13:48.744] [Render thread/INFO] [KubeJS/]: Started the local web server at http://localhost:61423
-[10Jul2026 13:13:48.906] [NeoForge Version Check/INFO] [net.neoforged.fml.VersionChecker/]: [computercraft] Found status: BETA Current: 1.119.0 Target: null
-[10Jul2026 13:13:48.906] [NeoForge Version Check/INFO] [net.neoforged.fml.VersionChecker/]: [create] Starting version check at https://api.modrinth.com/updates/create/forge_updates.json?neoforge=only
-[10Jul2026 13:13:49.182] [Worker-Main-3/WARN] [net.minecraft.client.renderer.texture.SpriteLoader/]: Texture kubejs:item/night_crest with size 12x12 limits mip level from 4 to 2
-[10Jul2026 13:13:49.239] [NeoForge Version Check/INFO] [net.neoforged.fml.VersionChecker/]: [create] Found status: OUTDATED Current: 6.0.10 Target: 6.0.10+mc1.21.1
-[10Jul2026 13:13:54.939] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:rainbow_solution#level=1:
-    minecraft:textures/atlas/blocks.png:kubejs:fluid/rainbow_solution_still
-[10Jul2026 13:13:54.943] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_core_mk4#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_core_mk4
-[10Jul2026 13:13:54.947] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_core_mk8#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_core_mk8
-[10Jul2026 13:13:54.947] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:chromatic_compound_prefab#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/chromatic_compound_prefab
-[10Jul2026 13:13:54.948] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:virtual_simulant#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/virtual_simulant
-[10Jul2026 13:13:54.948] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:item_component#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/item_component
-[10Jul2026 13:13:54.948] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:chromatic_sheet#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/chromatic_sheet
-[10Jul2026 13:13:54.948] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:arknights_endfield_exe#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/arknights_endfield_exe
-[10Jul2026 13:13:54.952] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:chorus_solvent#level=7:
-    minecraft:textures/atlas/blocks.png:kubejs:fluid/chorus_solvent_still
-[10Jul2026 13:13:54.952] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:tree3#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/tree3
-[10Jul2026 13:13:54.952] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:glowflow_solution_bucket#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/generated/glowflow_solution_bucket_fluid
-[10Jul2026 13:13:54.952] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:mutation_fluid_bucket#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/generated/mutation_fluid_bucket_fluid
-[10Jul2026 13:13:54.953] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:coolant#level=15:
-    minecraft:textures/atlas/blocks.png:kubejs:block/coolant_still
-[10Jul2026 13:13:54.953] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:creative_core_inactive#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/creative_core_inactive
-[10Jul2026 13:13:54.953] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_core_mk3#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_core_mk3
-[10Jul2026 13:13:54.954] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:shadow_sheet#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/shadow_sheet
-[10Jul2026 13:13:54.957] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_core_mk7#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_core_mk7
-[10Jul2026 13:13:54.958] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:prefab_glowflow_solution#level=12:
-    minecraft:textures/atlas/blocks.png:kubejs:fluid/prefab_glowflow_solution_still
-[10Jul2026 13:13:54.958] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:chromatic_shadow_sheet#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/chromatic_shadow_sheet
-[10Jul2026 13:13:54.958] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:infinite_simulacrum#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/infinite_simulacrum
-[10Jul2026 13:13:54.959] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:chromatic_compound_normal#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/chromatic_compound_normal
-[10Jul2026 13:13:54.959] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:empty_calculation_core#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/empty_calculation_core
-[10Jul2026 13:13:54.959] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:glowing_fluid_bucket#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/generated/glowing_fluid_bucket_fluid
-[10Jul2026 13:13:54.959] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:placeholder#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/placeholder
-[10Jul2026 13:13:54.959] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:creative_core_active#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/creative_core_active
-[10Jul2026 13:13:54.959] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_numerical_mass#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_numerical_mass
-[10Jul2026 13:13:54.959] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:lumen_ingot#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/lumen_ingot
-[10Jul2026 13:13:54.959] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:rainbow_solution_bucket#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/generated/rainbow_solution_bucket_fluid
-[10Jul2026 13:13:54.960] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_core_mk6#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_core_mk6
-[10Jul2026 13:13:54.960] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:chorus_solvent_bucket#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/generated/chorus_solvent_bucket_fluid
-[10Jul2026 13:13:54.960] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:coolant_bucket#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/generated/coolant_bucket_fluid
-[10Jul2026 13:13:54.960] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:virtual_numerical_mass#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/virtual_numerical_mass
-[10Jul2026 13:13:54.960] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:creative_drive_device#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/creative_drive_device
-[10Jul2026 13:13:54.960] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:mutation_orb#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/mutation_orb
-[10Jul2026 13:13:54.960] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_core_mk2#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_core_mk2
-[10Jul2026 13:13:54.960] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:mutation_medium#level=0:
-    minecraft:textures/atlas/blocks.png:kubejs:fluid/mutation_medium_still
-[10Jul2026 13:13:54.961] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:mutation_fluid#level=0:
-    minecraft:textures/atlas/blocks.png:kubejs:fluid/mutation_fluid_still
-[10Jul2026 13:13:54.962] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:slag_ingot#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/slag_ingot
-[10Jul2026 13:13:54.962] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:southeast_ascetic_mountain_mp4#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/southeast_ascetic_mountain_mp4
-[10Jul2026 13:13:54.962] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:mutation_shard#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/mutation_shard
-[10Jul2026 13:13:54.962] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:glowflow_coupler#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/glowflow_coupler
-[10Jul2026 13:13:54.962] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_core_mk5#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_core_mk5
-[10Jul2026 13:13:54.962] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:oxidizer#level=0:
-    minecraft:textures/atlas/blocks.png:kubejs:block/oxidizer_still
-[10Jul2026 13:13:54.962] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:mutation_medium_bucket#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/generated/mutation_medium_bucket_fluid
-[10Jul2026 13:13:54.970] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:oxidizer_bucket#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/generated/oxidizer_bucket_fluid
-[10Jul2026 13:13:54.970] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:uncalculationed_core#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_core_mk1
-[10Jul2026 13:13:54.971] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_core_mk9#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_core_mk9
-[10Jul2026 13:13:54.971] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:operator_core#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/operator_core
-[10Jul2026 13:13:54.971] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:creative_core_activing#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/creative_core_activing
-[10Jul2026 13:13:54.983] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:pressed_calculation_matrix#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/pressed_calculation_matrix
-[10Jul2026 13:13:54.991] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:glowing_fluid#level=10:
-    minecraft:textures/atlas/blocks.png:kubejs:fluid/glowing_fluid_still
-[10Jul2026 13:13:54.994] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_core_mk1#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_core_mk1
-[10Jul2026 13:13:54.995] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:infinite_simulation_cube#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/infinite_simulation_cube
-[10Jul2026 13:13:55.000] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:prefab_glowflow_solution_bucket#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/generated/prefab_glowflow_solution_bucket_fluid
-[10Jul2026 13:13:55.000] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:super_heavy_item_component#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/super_heavy_item_component
-[10Jul2026 13:13:55.001] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:glowflow_solution#level=9:
-    minecraft:textures/atlas/blocks.png:kubejs:fluid/glowflow_solution_still
-[10Jul2026 13:13:55.001] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:chromatic_shadow_compound_ingot#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/chromatic_shadow_compound_ingot
-[10Jul2026 13:13:55.001] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:heavy_item_component#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/heavy_item_component
-[10Jul2026 13:13:55.001] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:adaptive_heavy_creative_item_component#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/adaptive_heavy_creative_item_component
-[10Jul2026 13:13:55.001] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:frost_ingot#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/frost_ingot
-[10Jul2026 13:13:55.001] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:mutation_energy_core#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/mutation_energy_core
-[10Jul2026 13:13:55.001] [Worker-Main-11/WARN] [net.minecraft.client.resources.model.ModelManager/]: Missing textures in model kubejs:calculation_matrix_ingot#inventory:
-    minecraft:textures/atlas/blocks.png:kubejs:item/calculation_matrix_ingot
-[10Jul2026 13:13:55.528] [Worker-Main-9/INFO] [PonderIndex/]: Registering Ponder Scenes took 206.9 ms
-[10Jul2026 13:13:55.538] [Worker-Main-9/INFO] [PonderIndex/]: Registering Ponder Tags took 9.570 ms
-[10Jul2026 13:13:55.605] [Render thread/INFO] [KubeJS Startup/]: Capturing errors for startup scripts disabled
-[10Jul2026 13:13:55.606] [Render thread/INFO] [KubeJS Client/]: Capturing errors for client scripts disabled
-[10Jul2026 13:13:55.989] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:item.goat_horn.play
-[10Jul2026 13:13:55.990] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
-[10Jul2026 13:13:56.256] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on 耳机 (J16)
-[10Jul2026 13:13:56.257] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
-[10Jul2026 13:13:57.499] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 2048x1024x4 minecraft:textures/atlas/blocks.png-atlas
-[10Jul2026 13:14:00.222] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
-[10Jul2026 13:14:00.263] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
-[10Jul2026 13:14:00.329] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
-[10Jul2026 13:14:00.386] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 2048x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
-[10Jul2026 13:14:01.365] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
-[10Jul2026 13:14:01.405] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
-[10Jul2026 13:14:01.423] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
-[10Jul2026 13:14:01.454] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
-[10Jul2026 13:14:01.656] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
-[10Jul2026 13:14:01.778] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
-[10Jul2026 13:14:01.796] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
-[10Jul2026 13:14:01.801] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
-[10Jul2026 13:14:01.806] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
-[10Jul2026 13:14:01.960] [Render thread/WARN] [net.minecraft.client.renderer.ShaderInstance/]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
-[10Jul2026 13:14:02.460] [Render thread/INFO] [flywheel/backend/shaders/]: Loaded 77 shader sources in 29.556 ms
-[10Jul2026 13:14:02.506] [Render thread/INFO] [com.simibubi.create.Create/]: Loaded 58 train hat configurations.
-[10Jul2026 13:14:02.508] [Render thread/INFO] [net.neoforged.neoforge.client.entity.animation.json.AnimationLoader/]: Loaded 0 entity animations
-[10Jul2026 13:16:10.076] [Render thread/INFO] [com.simibubi.create.Create/]: Created 157 recipes which will be injected into the game
-[10Jul2026 13:16:10.083] [Render thread/INFO] [com.simibubi.create.Create/]: Created 0 tags which will be injected into the game
-[10Jul2026 13:16:10.204] [Render thread/INFO] [KubeJS Server/]: Capturing errors for server scripts enabled
-[10Jul2026 13:16:10.283] [Render thread/INFO] [KubeJS Server/]: Loaded script server_scripts:creactive_recipe.js in 0.036 s
-[10Jul2026 13:16:10.288] [Render thread/INFO] [KubeJS Server/]: Loaded script server_scripts:create.js in 0.004 s
-[10Jul2026 13:16:10.293] [Render thread/INFO] [KubeJS Server/]: Loaded script server_scripts:from_plants13.js in 0.004 s
-[10Jul2026 13:16:10.293] [Render thread/INFO] [KubeJS Server/]: server_scripts:main.js#2: Hello, World! (Loaded server example script)
-[10Jul2026 13:16:10.296] [Render thread/INFO] [KubeJS Server/]: Loaded script server_scripts:main.js in 0.002 s
-[10Jul2026 13:16:10.299] [Render thread/INFO] [KubeJS Server/]: Loaded script server_scripts:tag.js in 0.003 s
-[10Jul2026 13:16:10.342] [Render thread/INFO] [KubeJS Server/]: Loaded 5/5 KubeJS server scripts in 0.141 s with 0 errors and 0 warnings
-[10Jul2026 13:16:10.354] [Render thread/INFO] [KubeJS/]: Loaded 23 data packs: create:dynamic_data, vanilla, KubeJS Virtual Resource Pack [Before Mods, data], mod_data, mod/rhino, mod/numismatics, mod/cccbridge, mod/computercraft, mod/screenshot_viewer, mod/flywheel, mod/ponder, mod/create, mod/imblocker, mod/neoforge, mod/kubejs, mod/kubejs_create, mod/betteradvancedtooltips, KubeJS Virtual Resource Pack [Internal, data], KubeJS Virtual Resource Pack [Registries, data], KubeJS Virtual Resource Pack [After Mods, data], KubeJS File Resource Pack [data], mod/fseticket, KubeJS Virtual Resource Pack [Last, data]
-[10Jul2026 13:16:12.561] [Worker-Main-18/INFO] [KubeJS Server/]: [minecraft:block] Found 351 tags, added 63 objects, removed 0 objects
-[10Jul2026 13:16:12.589] [Worker-Main-29/INFO] [KubeJS Server/]: [minecraft:item] Found 471 tags, added 59 objects, removed 0 objects
-[10Jul2026 13:16:13.621] [Render thread/INFO] [KubeJS Server/]: Processing recipes...
-[10Jul2026 13:16:13.627] [Render thread/INFO] [KubeJS Server/]: Initializing recipe event...
-[10Jul2026 13:16:13.937] [Render thread/INFO] [KubeJS Server/]: Found 2,936 recipes (skipped 515) in 304.6 ms
-[10Jul2026 13:16:13.972] [Render thread/WARN] [KubeJS Server/]: server_scripts:creactive_recipe.js#62: Failed to read ae2:energy_acceptor (left: create:sized_fluid_ingredient)!: Failed to read SizedFluidIngredient from ae2:energy_acceptor: Fluid with ID ae2:energy_acceptor does not exist!
-[10Jul2026 13:16:13.977] [Render thread/WARN] [KubeJS Server/]: server_scripts:creactive_recipe.js#62: Failed to read ae2:energy_acceptor (right: sized_ingredient)!: Failed to read ingredient from ae2:energy_acceptor: Item with ID ae2:energy_acceptor does not exist!
-[10Jul2026 13:16:13.978] [Render thread/ERROR] [KubeJS Server/]: server_scripts:creactive_recipe.js#62: Failed to create a 'create:deploying' recipe from args [kubejs:uncalculationed_core, [kubejs:uncalculationed_core, ae2:energy_acceptor]]: Unable to set 'ingredients: either<create:sized_fluid_ingredient, ingredient>[]' to '[kubejs:uncalculationed_core, ae2:energy_acceptor]' as 'either<create:sized_fluid_ingredient, ingredient>[]'! - Failed to read ae2:energy_acceptor as either create:sized_fluid_ingredient or sized_ingredient!
-[10Jul2026 13:16:13.982] [Render thread/ERROR] [KubeJS Server/]: server_scripts:creactive_recipe.js#62: Failed to create a 'create:sequenced_assembly' recipe from args [[com.simibubi.create.content.processing.recipe.ProcessingOutput@4e68c590, com.simibubi.create.content.processing.recipe.ProcessingOutput@690a7fcf, com.simibubi.create.content.processing.recipe.ProcessingOutput@50818b2f, com.simibubi.create.content.processing.recipe.ProcessingOutput@3a75e25a, com.simibubi.create.content.processing.recipe.ProcessingOutput@3239f4c1, com.simibubi.create.content.processing.recipe.ProcessingOutput@877114e, com.simibubi.create.content.processing.recipe.ProcessingOutput@54733b9c, com.simibubi.create.content.processing.recipe.ProcessingOutput@4101747a, com.simibubi.create.content.processing.recipe.ProcessingOutput@3ce30f67, com.simibubi.create.content.processing.recipe.ProcessingOutput@cae84d4, com.simibubi.create.content.processing.recipe.ProcessingOutput@414cf106, com.simibubi.create.content.processing.recipe.ProcessingOutput@b24fff1], ae2:mysterious_cube, [create:kjs/uncalculationed_core[create:deploying], create:kjs/uncalculationed_core_2[create:deploying], create:kjs/uncalculationed_core_3[create:deploying], create:kjs/uncalculationed_core_4[create:deploying], create:kjs/c2dphwnx6y49lg2m23o2uqhy9[create:deploying]]]: Unable to set 'ingredient: ingredient' to 'ae2:mysterious_cube' as 'ingredient'! - Failed to read ingredient from ae2:mysterious_cube: Item with ID ae2:mysterious_cube does not exist!
-[10Jul2026 13:16:14.010] [Render thread/WARN] [KubeJS Server/]: server_scripts:creactive_recipe.js#386: Failed to read 2x ae2:mysterious_cube (left: fluid_stack)!: Failed to read FluidStack from 2x ae2:mysterious_cube: Fluid with ID ae2:mysterious_cube does not exist!
-[10Jul2026 13:16:14.011] [Render thread/WARN] [KubeJS Server/]: server_scripts:creactive_recipe.js#386: Failed to read 2x ae2:mysterious_cube (right: create:processing_output)!: Failed to read item stack from 2x ae2:mysterious_cube: Item with ID ae2:mysterious_cube does not exist!
-[10Jul2026 13:16:14.013] [Render thread/ERROR] [KubeJS Server/]: server_scripts:creactive_recipe.js#386: Failed to create a 'create:pressing' recipe from args [2x ae2:mysterious_cube, kubejs:tree3]: Unable to set 'results: either<fluid_stack, create:processing_output>[]' to '2x ae2:mysterious_cube' as 'either<fluid_stack, create:processing_output>[]'! - Failed to read 2x ae2:mysterious_cube as either fluid_stack or create:processing_output!
-[10Jul2026 13:16:14.014] [Render thread/WARN] [KubeJS Server/]: server_scripts:creactive_recipe.js#390: Failed to read ae2:mysterious_cube (left: fluid_stack)!: Failed to read FluidStack from ae2:mysterious_cube: Fluid with ID ae2:mysterious_cube does not exist!
-[10Jul2026 13:16:14.014] [Render thread/WARN] [KubeJS Server/]: server_scripts:creactive_recipe.js#390: Failed to read ae2:mysterious_cube (right: create:processing_output)!: Failed to read item stack from ae2:mysterious_cube: Item with ID ae2:mysterious_cube does not exist!
-[10Jul2026 13:16:14.014] [Render thread/ERROR] [KubeJS Server/]: server_scripts:creactive_recipe.js#390: Failed to create a 'create:pressing' recipe from args [ae2:mysterious_cube, kubejs:empty_calculation_core]: Unable to set 'results: either<fluid_stack, create:processing_output>[]' to 'ae2:mysterious_cube' as 'either<fluid_stack, create:processing_output>[]'! - Failed to read ae2:mysterious_cube as either fluid_stack or create:processing_output!
-[10Jul2026 13:16:14.028] [Render thread/ERROR] [KubeJS Server/]: server_scripts:creactive_recipe.js#489: Failed to create a 'create:mixing' recipe from args [1000 kubejs:rainbow_solution, [1000 kubejs:chorus_solvent, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e]]: Unable to set 'ingredients: either<create:sized_fluid_ingredient, ingredient>[]' to '[1000 kubejs:chorus_solvent, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e, net.minecraft.world.item.crafting.Ingredient@e802728e]' as 'either<create:sized_fluid_ingredient, ingredient>[]'! - Failed to read net.minecraft.world.item.crafting.Ingredient@e802728e as either create:sized_fluid_ingredient or ingredient!
-[10Jul2026 13:16:14.035] [Render thread/ERROR] [KubeJS Server/]: server_scripts:creactive_recipe.js#557: Error in 'ServerEvents.recipes': Failed to read item stack from ae2:creative_energy_cell: Item with ID ae2:creative_energy_cell does not exist!
-[10Jul2026 13:16:14.056] [Render thread/WARN] [KubeJS Server/]: server_scripts:from_plants13.js#2: Failed to read ingredient from fluidlogistics:infinite_fluid_tank: Item with ID fluidlogistics:infinite_fluid_tank does not exist!
-[10Jul2026 13:16:14.057] [Render thread/ERROR] [KubeJS Server/]: server_scripts:from_plants13.js#3: Error in 'ServerEvents.recipes': Failed to read FluidStack from ratatouille:egg_yolk: Fluid with ID ratatouille:egg_yolk does not exist!
-[10Jul2026 13:16:14.061] [Render thread/INFO] [KubeJS Server/]: Posted recipe events in 122 ms
-[10Jul2026 13:16:14.086] [Render thread/INFO] [KubeJS Server/]: KubeJS modifications to recipe manager finished in 23.70 ms
-[10Jul2026 13:16:14.279] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 3021 recipes
-[10Jul2026 13:16:14.281] [Render thread/INFO] [KubeJS Server/]: Added 85 recipes, removed 0 recipes, modified 0 recipes, with 5 failed recipes taking 652 ms in total
-[10Jul2026 13:16:14.582] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 2621 advancements
-[10Jul2026 13:16:16.884] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.21.1
-[10Jul2026 13:16:16.885] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
-[10Jul2026 13:16:18.003] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
-[10Jul2026 13:16:18.007] [Server thread/INFO] [KubeJS Server/]: Capturing errors for server scripts disabled
-[10Jul2026 13:16:18.015] [Server thread/INFO] [KubeJS Server/]: Server resource reload complete!
-[10Jul2026 13:16:18.448] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: 准备生成区域中：0%
-[10Jul2026 13:16:18.532] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: 准备生成区域中：2%
-[10Jul2026 13:16:18.752] [Server thread/INFO] [net.neoforged.neoforge.server.permission.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
-[10Jul2026 13:16:18.758] [Server thread/WARN] [net.neoforged.neoforge.common.TagConventionLogWarning/]: 
-   Dev warning - Legacy Tags detected. Please migrate your 'forge' namespace tags to the 'c' namespace! See net.neoforged.neoforge.common.Tags.java for all tags.
-   NOTE: Many tags have been moved around or renamed. Some new ones were added so please review the new tags.
-    And make sure you follow tag conventions for new tags! The convention is `c` with nouns generally being plural and adjectives being singular.
-   You can disable this message in NeoForge's common config by setting `logLegacyTagWarnings` to "SILENCED" or see individual tags with "DEV_VERBOSE".
-
-[10Jul2026 13:16:18.764] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 750 ms
-[10Jul2026 13:16:19.335] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 12, from 10
-[10Jul2026 13:16:19.335] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 12, from 0
-[10Jul2026 13:16:21.017] [Render thread/INFO] [com.simibubi.create.Create/]: Created 157 recipes which will be injected into the game
-[10Jul2026 13:16:21.020] [Render thread/INFO] [com.simibubi.create.Create/]: Created 0 tags which will be injected into the game
-[10Jul2026 13:16:22.036] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:7e9a9a2e] logged in with entity id 16 at (-3.049862022086633, -59.0, 8.116011233683611)
-[10Jul2026 13:16:22.135] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev加入了游戏
-[10Jul2026 13:16:22.297] [Render thread/INFO] [flywheel/]: Started 10 worker threads
-[10Jul2026 13:16:22.962] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] ! KubeJS errors found [7]!
-[10Jul2026 13:16:22.973] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 20 advancements
-[10Jul2026 13:17:32.297] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[10Jul2026 13:17:32.384] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
-[10Jul2026 13:17:32.420] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
-[10Jul2026 13:17:32.422] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
-[10Jul2026 13:17:43.548] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[10Jul2026 13:17:43.585] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
-[10Jul2026 13:17:43.596] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
-[10Jul2026 13:17:43.596] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
-[10Jul2026 13:17:47.647] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[10Jul2026 13:17:47.694] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
-[10Jul2026 13:17:47.704] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
-[10Jul2026 13:17:47.704] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
-[10Jul2026 13:19:28.597] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[10Jul2026 13:19:28.633] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
-[10Jul2026 13:19:28.644] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
-[10Jul2026 13:19:28.644] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
-[10Jul2026 13:22:13.497] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[10Jul2026 13:22:13.536] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
-[10Jul2026 13:22:13.557] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
-[10Jul2026 13:22:13.557] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
-[10Jul2026 13:24:50.097] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[10Jul2026 13:24:50.219] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
-[10Jul2026 13:24:50.246] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
-[10Jul2026 13:24:50.248] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
-[10Jul2026 13:26:05.998] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[10Jul2026 13:26:06.071] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
-[10Jul2026 13:26:06.092] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
-[10Jul2026 13:26:06.095] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
-[10Jul2026 13:26:49.897] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[10Jul2026 13:26:50.053] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
-[10Jul2026 13:26:50.087] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
-[10Jul2026 13:26:50.087] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
-[10Jul2026 13:27:39.898] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[10Jul2026 13:27:40.015] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
-[10Jul2026 13:27:40.050] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
-[10Jul2026 13:27:40.051] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
+[117月2026 00:22:01.867] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[117月2026 00:22:02.141] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
+[117月2026 00:22:02.171] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
+[117月2026 00:22:02.176] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
+[117月2026 01:08:15.665] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[117月2026 01:08:15.834] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
+[117月2026 01:08:15.849] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
+[117月2026 01:08:15.851] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
+[117月2026 01:12:21.337] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[117月2026 01:12:21.684] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
+[117月2026 01:12:21.772] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
+[117月2026 01:12:21.772] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
+[117月2026 01:14:22.827] [Server thread/WARN] [net.minecraft.server.MinecraftServer/]: Can't keep up! Is the server overloaded? Running 2698ms or 53 ticks behind
+[117月2026 08:11:15.463] [Server thread/WARN] [net.minecraft.server.MinecraftServer/]: Can't keep up! Is the server overloaded? Running 2302ms or 46 ticks behind
+[117月2026 08:11:54.068] [Server thread/WARN] [net.minecraft.server.MinecraftServer/]: Can't keep up! Is the server overloaded? Running 2600ms or 52 ticks behind
+[117月2026 08:25:07.670] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[117月2026 08:25:07.719] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
+[117月2026 08:25:07.725] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
+[117月2026 08:25:07.725] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
+[117月2026 08:49:08.323] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[117月2026 08:49:08.470] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
+[117月2026 08:49:08.488] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
+[117月2026 08:49:08.518] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
+[117月2026 08:49:09.806] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: 连接中断
+[117月2026 08:49:09.811] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev退出了游戏
+[117月2026 08:49:09.938] [Server thread/INFO] [net.minecraft.server.network.ServerCommonPacketListenerImpl/]: Stopping singleplayer server as player logged out
+[117月2026 08:49:10.118] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[117月2026 08:49:10.130] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[117月2026 08:49:10.132] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[117月2026 08:49:15.368] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:overworld
+[117月2026 08:49:15.776] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_end
+[117月2026 08:49:15.798] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[研发]'/minecraft:the_nether
+[117月2026 08:49:15.902] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (研发): All chunks are saved
+[117月2026 08:49:15.902] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[117月2026 08:49:15.902] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[117月2026 08:49:15.903] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[117月2026 08:49:16.028] [Server thread/INFO] [KubeJS/]: Closed KubeJS Virtual Resource Pack [Before Mods, data]
+[117月2026 08:49:16.033] [Server thread/INFO] [KubeJS/]: Closed KubeJS Virtual Resource Pack [Internal, data]
+[117月2026 08:49:16.033] [Server thread/INFO] [KubeJS/]: Closed KubeJS Virtual Resource Pack [Registries, data]
+[117月2026 08:49:16.033] [Server thread/INFO] [KubeJS/]: Closed KubeJS Virtual Resource Pack [After Mods, data]
+[117月2026 08:49:16.034] [Server thread/INFO] [KubeJS/]: Closed KubeJS Virtual Resource Pack [Last, data]
+[117月2026 08:49:33.447] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!
+[117月2026 08:49:34.396] [Render thread/INFO] [KubeJS/]: Closed KubeJS Virtual Resource Pack [Before Mods, assets]
+[117月2026 08:49:34.397] [Render thread/INFO] [KubeJS/]: Closed KubeJS Virtual Resource Pack [Internal, assets]
+[117月2026 08:49:34.397] [Render thread/INFO] [KubeJS/]: Closed KubeJS Virtual Resource Pack [After Mods, assets]
+[117月2026 08:49:34.397] [Render thread/INFO] [KubeJS/]: Closed KubeJS Virtual Resource Pack [Last, assets]

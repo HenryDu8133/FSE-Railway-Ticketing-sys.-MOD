@@ -41,6 +41,7 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 				String tc=args.count()>8?args.getString(8):"";
 				CompoundTag d=new CompoundTag();
 				d.putString("start_name_en",sn!=null?sn:"???"); d.putString("terminal_name_en",tn!=null?tn:"???");
+				d.putString("line_name","single".equals(type) && sn != null ? sn : "");
 				d.putString("start_station",ss!=null?ss:""); d.putString("terminal_station",ts!=null?ts:"");
 				d.putString("fromNameCnU",fc!=null?fc:""); d.putString("toNameCnU",tc!=null?tc:"");
 				d.putString("type",type); d.putInt("rides",rides); d.putBoolean("entered",false); d.putBoolean("exited",false);

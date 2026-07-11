@@ -27,7 +27,7 @@ public class ICGUIScreen extends AbstractContainerScreen<ICGUIMenu> implements F
 	private String nv(String s){return s==null||s.isEmpty()||s.equals("\"\"")?"---":s;}
 	@Override protected void renderLabels(GuiGraphics g,int mx,int my){
 		ICGUIMenu m=(ICGUIMenu)menu;
-		g.drawString(font,Component.translatable("gui.fseticket.icgui.label_tie_lu_jiao_tong_icqia").withStyle(FONT),24,-77,-12829636,false);
+		g.drawString(font,Component.translatable("gui.fseticket.icgui.label_title").withStyle(FONT),24,-77,-12829636,false);
 		g.drawString(font,Component.literal(nv(m.ownerName)).withStyle(FONT),-12,-55,-12829636,false);
 		g.pose().pushPose();g.pose().scale(2f,2f,1);g.drawString(font,Component.literal(String.format("%.2f",m.balance)).withStyle(FONT),14,-15,-16758869,false);g.pose().popPose();
 		g.drawString(font,Component.literal(nv(m.cardId)).withStyle(FONT),4,-1,-12829636,false);

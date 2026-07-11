@@ -1,6 +1,7 @@
 local CURRENT_STATION_CODE = 'Ticket-Machine'
 local API_BASE = 'http://ticket.fse-media.group/api'
-local VERSION = 'v1.5.12'
+local VERSION = 'v1.5.13.2'
+local UPDATE_CHECK_INTERVAL = 5
 
 -- ###########################
 -- Core HTTP & JSON Utilities
@@ -13,6 +14,10 @@ end
 
 local serverConnected = nil
 local versionMismatch = nil
+local failedUpdateVersion = nil
+local pendingMachineUpdate = false
+local isUpdating = false
+local state = {}
 
 local function normalizeVersionTag(v)
   local s = tostring(v or ''):gsub('^%s+', ''):gsub('%s+$', '')
@@ -237,7 +242,11 @@ local function firstNumber(...)
 end
 
 local function currentDeviceId()
-  return 'ticket_machine'
+  local label = os.getComputerLabel()
+  if label and label ~= "" then
+    return label
+  end
+  return "#" .. tostring(os.getComputerID())
 end
 
 local function normalizeTrainTypeLabel(v)
@@ -648,20 +657,95 @@ local function clickSound() end
 -- ###########################
 -- Background Tasks
 -- ###########################
+local function getLastUpdateVersion()
+  if not fs.exists(".last_update_version") then return nil end
+  local f = fs.open(".last_update_version", "r")
+  if not f then return nil end
+  local v = f.readAll()
+  f.close()
+  return v
+end
+
+local function setLastUpdateVersion(v)
+  local f = fs.open(".last_update_version", "w")
+  if f then f.write(tostring(v)); f.close() end
+end
+
+local function runSilentMachineUpdate()
+  if not fs.exists('update_machine.lua') then
+    return false, "update_machine.lua not found"
+  end
+  local baseEnv = (getfenv and getfenv()) or _ENV or _G
+  local env = setmetatable({ AUTO_UPDATE_SILENT = true }, { __index = baseEnv })
+  local fn, err = loadfile('update_machine.lua', env)
+  if not fn then return false, err end
+  local ok, res = pcall(fn, '--silent')
+  if not ok then return false, tostring(res) end
+  return true, true
+end
+
+local lastUpdateError = nil
+
+local function drawVersionIndicator()
+  if w < 1 then return end
+  local markerColor = colors.yellow
+  local markerText = '*   '
+  if isUpdating then
+    markerColor = colors.yellow
+    markerText = '^ing'
+  elseif versionMismatch == true then
+    markerColor = colors.red
+    markerText = '*   '
+  elseif versionMismatch == false then
+    markerColor = colors.lime
+    markerText = '    '
+  end
+  termDev.setBackgroundColor(colors.black)
+  termDev.setTextColor(colors.gray)
+  termDev.setCursorPos(1, 1)
+  termDev.write(tostring(VERSION))
+  termDev.setTextColor(markerColor)
+  termDev.write(markerText)
+  
+  if lastUpdateError then
+    termDev.setCursorPos(1, 2)
+    termDev.setTextColor(colors.red)
+    termDev.write(string.sub(tostring(lastUpdateError), 1, w))
+  end
+  
+  termDev.setTextColor(colors.white)
+end
+
 local function backgroundSyncTask()
+  pcall(refreshConfigOnce)
   while true do
-    sleep(5)
-    pcall(refreshConfigOnce)
-    if versionMismatch == true then
-      pcall(function()
-        if shell and type(shell.run) == "function" then
-          shell.run("update_machine.lua")
-        else
-          os.run(getfenv and getfenv() or _ENV, "update_machine.lua")
-        end
-      end)
-      -- Removed os.reboot() to prevent interrupting user unexpectedly
+    if type(CFG) == 'table' and type(CFG.force_update) == 'boolean' and CFG.force_update == true then
+      local expected = CFG.lua_versions and CFG.lua_versions.ticketmachine
+      if expected and expected ~= getLastUpdateVersion() and expected ~= failedUpdateVersion then
+        pendingMachineUpdate = true
+      end
     end
+
+    if pendingMachineUpdate then
+      isUpdating = true
+      lastUpdateError = nil
+      pcall(drawVersionIndicator)
+      sleep(0.5)
+      local ok, updated = pcall(runSilentMachineUpdate)
+      if ok and updated == true then
+        local expected = CFG.lua_versions and CFG.lua_versions.ticketmachine   
+        if expected then setLastUpdateVersion(expected) end
+        os.reboot()
+        return
+      end
+      isUpdating = false
+      pendingMachineUpdate = false
+      lastUpdateError = tostring(updated)
+      failedUpdateVersion = CFG.lua_versions and CFG.lua_versions.ticketmachine
+      pcall(drawVersionIndicator)
+    end
+    sleep(UPDATE_CHECK_INTERVAL)
+    pcall(refreshConfigOnce)
   end
 end
 
@@ -946,15 +1030,15 @@ local function waitButtons()
   while true do
     local ev, p1, p2, p3 = os.pullEvent()
     if ev == 'mouse_click' or ev == 'monitor_touch' then
-      -- For mouse_click: p1=button, p2=x, p3=y
-      -- For monitor_touch: p1=side, p2=x, p3=y
       for _, b in ipairs(Buttons) do
         if inRect(b, p2, p3) then 
           clickSound(); if b.onClick then b.onClick() end; return 
         end
       end
+    elseif ev == 'trigger_update' then
+      pendingMachineUpdate = true
     elseif ev == 'config_updated' then
-      -- Ignore config_updated while waiting for buttons, to prevent interrupting user's selection
+      if state and state.page == 'home' then return end
     end
   end
 end
@@ -962,7 +1046,7 @@ end
 -- ###########################
 -- Pages & Navigation
 -- ###########################
-local state = {
+state = {
   page = 'home',
   stationName = (CFG.current_station and (CFG.current_station.en_name or CFG.current_station.name)) or 'Station',
   stationCode = (CFG.current_station and CFG.current_station.code) or CURRENT_STATION_CODE,
@@ -1083,25 +1167,6 @@ local function stationDisplay(code)
   local st = stationByCode[code]
   if st then return tostring(st.en_name or st.en or st.enName or st.name or code) .. ' ' .. code end
   return code
-end
-
-local function drawVersionIndicator()
-  if w < 1 then return end
-  local markerColor = colors.yellow
-  if versionMismatch == true then
-    markerColor = colors.red
-  elseif versionMismatch == false then
-    markerColor = colors.lime
-  end
-  termDev.setBackgroundColor(colors.black)
-  termDev.setTextColor(colors.gray)
-  termDev.setCursorPos(1, 1)
-  termDev.write(tostring(VERSION))
-  if w >= (#tostring(VERSION) + 1) then
-    termDev.setTextColor(markerColor)
-    termDev.write('*')
-  end
-  termDev.setTextColor(colors.white)
 end
 
 local function drawServerStatusIndicator()

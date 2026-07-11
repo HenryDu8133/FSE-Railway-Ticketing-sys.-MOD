@@ -1,5 +1,13 @@
 
 local URL_GATE = "http://gitea.fse-media.group/Henry_Du/FSE-Ticket.sys/raw/branch/main/gate.lua"
+local args = { ... }
+local silent = AUTO_UPDATE_SILENT == true or args[1] == "--silent"
+
+local function log(msg)
+  if not silent then
+    print(msg)
+  end
+end
 
 local function writeFile(path, content, binary)
   local mode = binary and "wb" or "w"
@@ -54,25 +62,29 @@ local function httpGet(url)
   end
 end
 
-term.clear()
-term.setCursorPos(1, 1)
-print("Ticket Gate Updater")
-print("")
-print("Downloading gate program...")
+if not silent then
+  term.clear()
+  term.setCursorPos(1, 1)
+  log("Ticket Gate Updater")
+  log("")
+end
+log("Downloading gate program...")
 
 local ok, code = httpGet(URL_GATE)
 if not ok or type(code) ~= "string" or #code == 0 then
-  print("Download failed: " .. tostring(code or ""))
-  return
+  error("Download failed: " .. tostring(code or ""))
 end
 
 if not atomicWrite("startup.lua", code, false) then
-  print("Write failed: startup.lua")
-  return
+  error("Write failed: startup.lua")
 end
 atomicWrite("startup", code, false)
 if fs.exists("gate.lua") then atomicWrite("gate.lua", code, false) end
 
-print("")
-print("Done.")
-print("Reboot the computer to apply the update.")
+if not silent then
+  log("")
+  log("Done.")
+  log("Reboot the computer to apply the update.")
+end
+
+return true
