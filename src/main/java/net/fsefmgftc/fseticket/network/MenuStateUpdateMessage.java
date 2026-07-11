@@ -60,14 +60,22 @@ public record MenuStateUpdateMessage(int elementType, String name, Object elemen
 		context.enqueueWork(() -> {
 			if (context.player().containerMenu instanceof FseticketModMenus.MenuAccessor menu) {
 				menu.getMenuState().put(message.elementType + ":" + message.name, message.elementState);
-				if (context.flow() == PacketFlow.CLIENTBOUND && Minecraft.getInstance().screen instanceof FseticketModScreens.ScreenAccessor accessor) {
-					accessor.updateMenuState(message.elementType, message.name, message.elementState);
+				if (context.flow() == PacketFlow.CLIENTBOUND) {
+					ClientMenuUpdater.updateClient(message);
 				}
 			}
 		}).exceptionally(e -> {
 			context.connection().disconnect(Component.literal(e.getMessage()));
 			return null;
 		});
+	}
+
+	private static class ClientMenuUpdater {
+		public static void updateClient(MenuStateUpdateMessage message) {
+			if (Minecraft.getInstance().screen instanceof FseticketModMenus.ScreenAccessor accessor) {
+				accessor.updateMenuState(message.elementType, message.name, message.elementState);
+			}
+		}
 	}
 
 	@SubscribeEvent

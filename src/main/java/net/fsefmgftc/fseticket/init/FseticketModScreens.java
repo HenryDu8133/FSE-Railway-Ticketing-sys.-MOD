@@ -23,8 +23,4 @@ public final class FseticketModScreens {
 		event.register(FseticketModMenus.ICGUI.get(), ICGUIScreen::new);
 		event.register(FseticketModMenus.FSE_PASS_GUI.get(), FSEPassGUIScreen::new);
 	}
-
-	public interface ScreenAccessor {
-		void updateMenuState(int elementType, String name, Object elementState);
-	}
 }

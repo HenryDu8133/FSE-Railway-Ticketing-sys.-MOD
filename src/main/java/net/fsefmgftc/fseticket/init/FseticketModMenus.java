@@ -46,8 +46,7 @@ public final class FseticketModMenus {
 			if (player instanceof ServerPlayer serverPlayer) {
 				PacketDistributor.sendToPlayer(serverPlayer, new MenuStateUpdateMessage(elementType, name, elementState));
 			} else if (player.level().isClientSide) {
-				if (Minecraft.getInstance().screen instanceof FseticketModScreens.ScreenAccessor accessor && needClientUpdate)
-					accessor.updateMenuState(elementType, name, elementState);
+				ClientMenuAccessorUpdater.updateClient(elementType, name, elementState, needClientUpdate);
 				PacketDistributor.sendToServer(new MenuStateUpdateMessage(elementType, name, elementState));
 			}
 		}
@@ -59,5 +58,17 @@ public final class FseticketModMenus {
 				return defaultValue;
 			}
 		}
+	}
+
+	private static class ClientMenuAccessorUpdater {
+		public static void updateClient(int elementType, String name, Object elementState, boolean needClientUpdate) {
+			if (needClientUpdate && Minecraft.getInstance().screen instanceof ScreenAccessor accessor) {
+				accessor.updateMenuState(elementType, name, elementState);
+			}
+		}
+	}
+
+	public interface ScreenAccessor {
+		void updateMenuState(int elementType, String name, Object elementState);
 	}
 }

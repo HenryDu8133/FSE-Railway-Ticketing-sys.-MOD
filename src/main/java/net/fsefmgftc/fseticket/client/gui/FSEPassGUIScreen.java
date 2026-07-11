@@ -9,11 +9,11 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 
 import net.fsefmgftc.fseticket.world.inventory.FSEPassGUIMenu;
-import net.fsefmgftc.fseticket.init.FseticketModScreens;
+import net.fsefmgftc.fseticket.init.FseticketModMenus;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
-public class FSEPassGUIScreen extends AbstractContainerScreen<FSEPassGUIMenu> implements FseticketModScreens.ScreenAccessor {
+public class FSEPassGUIScreen extends AbstractContainerScreen<FSEPassGUIMenu> implements FseticketModMenus.ScreenAccessor {
 	private final Level world;
 	private final int x, y, z;
 	private final Player entity;

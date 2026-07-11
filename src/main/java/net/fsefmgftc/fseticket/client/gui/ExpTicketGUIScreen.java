@@ -11,12 +11,12 @@ import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.fsefmgftc.fseticket.world.inventory.ExpTicketGUIMenu;
-import net.fsefmgftc.fseticket.init.FseticketModScreens;
+import net.fsefmgftc.fseticket.init.FseticketModMenus;
 import net.fsefmgftc.fseticket.util.QRCodeGenerator;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 public class ExpTicketGUIScreen extends AbstractContainerScreen<ExpTicketGUIMenu>
-		implements FseticketModScreens.ScreenAccessor {
+		implements FseticketModMenus.ScreenAccessor {
 	private final Level world;
 	private final int x, y, z;
 	private final Player entity;

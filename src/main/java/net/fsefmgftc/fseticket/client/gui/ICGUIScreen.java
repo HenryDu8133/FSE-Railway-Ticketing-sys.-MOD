@@ -6,11 +6,11 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.fsefmgftc.fseticket.world.inventory.ICGUIMenu;
-import net.fsefmgftc.fseticket.init.FseticketModScreens;
+import net.fsefmgftc.fseticket.init.FseticketModMenus;
 import net.fsefmgftc.fseticket.util.QRCodeGenerator;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-public class ICGUIScreen extends AbstractContainerScreen<ICGUIMenu> implements FseticketModScreens.ScreenAccessor {
+public class ICGUIScreen extends AbstractContainerScreen<ICGUIMenu> implements FseticketModMenus.ScreenAccessor {
 	private ResourceLocation qrTexture=null;
 	private static final Style FONT=Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath("fonts","misans_demibold"));
 
