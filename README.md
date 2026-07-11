@@ -4,7 +4,7 @@
 
 ## 🚂 功能特性
 
-* **多类型票卡**: 包含区间票 (Local Ticket)、特快票 (Exp Ticket)、单程票 (Single-trip Ticket) 以及 IC 交通卡，支持动态 NBT 数据展示（如乘车区间、票价、乘次、票号及状态）。
+* **多类型票卡**: 包含普通票 (Local Ticket)、特急票 (Exp Ticket)、单程票 (Single-trip Ticket) 以及 FSEICA交通卡。
 * **智能闸机与售票机**:
   * 包含检票机 (Ticket Inspection Machine) 和售票机 (Ticket Vending Machine) 方块。
   * 支持自定义 GUI 与票务处理逻辑。
