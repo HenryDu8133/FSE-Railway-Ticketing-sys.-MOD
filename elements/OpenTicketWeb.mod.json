@@ -1,8 +1,0 @@
-{
-  "_fv": 85,
-  "_type": "procedure",
-  "definition": {
-    "procedurexml": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"event_trigger\" deletable=\"false\" x=\"40\" y=\"40\"><field name=\"trigger\">no_ext_trigger</field><next><block type=\"java_code\"><field name=\"CODE\">if (entity instanceof net.minecraft.world.entity.player.Player _player) {&amp;#10;    net.fsefmgftc.fseticket.network.FseticketModVariables.PlayerVariables _vars =&amp;#10;        _player.getData(net.fsefmgftc.fseticket.network.FseticketModVariables.PLAYER_VARIABLES);&amp;#10;    net.minecraft.Util.getPlatform().openUri(\"https://ticket.fse-media.group/\" + _vars.ticketId);&amp;#10;}</field></block></next></block></xml>",
-    "skipDependencyNullCheck": false
-  }
-}

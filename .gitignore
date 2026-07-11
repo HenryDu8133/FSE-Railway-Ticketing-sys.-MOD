@@ -2,6 +2,7 @@
 build/
 run/
 .vscode/
+.trae/
 *.jar
 *.class
 *.log
@@ -14,4 +15,6 @@ run/
 .eclipse/
 .mcreator/
 *.jar
+fseticket.mcreator
 fsetisket.mcreator
+elements/
