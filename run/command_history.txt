@@ -1,3 +1,0 @@
-/time set 1200
-/gamerule doDaylightCycle false
-/gamerule doWeatherCycle false
