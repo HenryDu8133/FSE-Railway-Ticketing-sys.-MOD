@@ -103,22 +103,23 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 				return MethodResult.of(false, "not server level");
 			}
 			if (method == 3) {
+				String stationId = args.count() > 0 ? args.getString(0) : "";
 				if (level instanceof net.minecraft.server.level.ServerLevel sl) {
-					sl.getServer().execute(() -> updateTicketState(true, false));
+					sl.getServer().execute(() -> updateTicketState(true, false, stationId));
 					return MethodResult.of(true);
 				}
 				return MethodResult.of(false, "not server level");
 			}
 			if (method == 4) {
 				if (level instanceof net.minecraft.server.level.ServerLevel sl) {
-					sl.getServer().execute(() -> updateTicketState(false, true));
+					sl.getServer().execute(() -> updateTicketState(false, true, ""));
 					return MethodResult.of(true);
 				}
 				return MethodResult.of(false, "not server level");
 			}
 			if (method == 5) {
 				if (level instanceof net.minecraft.server.level.ServerLevel sl) {
-					sl.getServer().execute(() -> updateTicketState(false, false));
+					sl.getServer().execute(() -> updateTicketState(false, false, ""));
 					return MethodResult.of(true);
 				}
 				return MethodResult.of(false, "not server level");
@@ -140,9 +141,9 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 			return MethodResult.of(true);
 		}
 
-		private MethodResult updateTicketState(boolean entered, boolean exited) {
-			if (isICCard || lastScannerUUID == null || level == null) {
-				return MethodResult.of(false, "no ticket");
+		private MethodResult updateTicketState(boolean entered, boolean exited, String stationId) {
+			if (lastScannerUUID == null || level == null) {
+				return MethodResult.of(false, "no scanner");
 			}
 			Player p = level.getPlayerByUUID(lastScannerUUID);
 			if (p == null) {
@@ -150,18 +151,24 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 			}
 			ItemStack h = p.getItemInHand(lastScanHand);
 			Item item = h.getItem();
-			if (item != FseticketModItems.LOCAL_TICKET.get() && item != FseticketModItems.EXP_TICKET.get() && item != FseticketModItems.SINGLETRIP_TICKET.get() && item != FseticketModItems.FSE_PASS.get()) {
-				return MethodResult.of(false, "no ticket");
+			boolean valid = isICCard ? (item == FseticketModItems.IC_CARD.get()) : (item == FseticketModItems.LOCAL_TICKET.get() || item == FseticketModItems.EXP_TICKET.get() || item == FseticketModItems.SINGLETRIP_TICKET.get() || item == FseticketModItems.FSE_PASS.get());
+			if (!valid) {
+				return MethodResult.of(false, "no valid ticket or card");
 			}
 			CompoundTag t = h.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 			t.putBoolean("entered", entered);
 			t.putBoolean("exited", exited);
+			if (entered && stationId != null && !stationId.isEmpty()) {
+				t.putString("entry_station", stationId);
+			} else if (exited || (!entered && !exited)) {
+				t.remove("entry_station");
+			}
 			h.set(DataComponents.CUSTOM_DATA, CustomData.of(t));
 			syncHeldItem(p);
 			lastScannedData = t;
 			setChanged();
-			peripheral.pushToComputers("ticket_state_updated", buildTicketInfo());
-			return MethodResult.of(true, buildTicketInfo());
+			peripheral.pushToComputers(isICCard ? "ic_card_state_updated" : "ticket_state_updated", isICCard ? buildICInfo() : buildTicketInfo());
+			return MethodResult.of(true, isICCard ? buildICInfo() : buildTicketInfo());
 		}
 
 		private MethodResult deductICCard(double amt) {
@@ -227,6 +234,8 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 		info.put("cardId", lastScannedData.getString("cardId"));
 		info.put("ownerName", lastScannedData.getString("ownerName"));
 		info.put("balance", lastScannedData.getDouble("balance"));
+		info.put("entered", lastScannedData.getBoolean("entered"));
+		info.put("entry_station", lastScannedData.getString("entry_station"));
 		info.put("passenger", lastScannerName);
 		return info;
 	}

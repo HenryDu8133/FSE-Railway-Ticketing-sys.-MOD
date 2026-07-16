@@ -14,7 +14,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.client.Minecraft;
 
-import net.fsefmgftc.fseticket.init.FseticketModScreens;
 import net.fsefmgftc.fseticket.init.FseticketModMenus;
 import net.fsefmgftc.fseticket.FseticketMod;
 
