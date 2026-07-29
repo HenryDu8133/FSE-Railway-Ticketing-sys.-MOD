@@ -28,6 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class ICRefillMachineBlockEntity extends BlockEntity {
 	private static final String ERROR_NO_CARD = "no card";
@@ -69,29 +70,24 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 
 		// todo: merge $refill & $deduct into a method
 		@Override
-		public String[] getMethodNames() {
+		public String @NotNull [] getMethodNames() {
 			return new String[] { "getCardInfo", "refill", "deduct", "setBalance" };
 		}
 
 
 		@Override
-		public MethodResult callMethod(IComputerAccess comp, ILuaContext ctx, int method, IArguments args) throws LuaException {
+		public @NotNull MethodResult callMethod(@NotNull IComputerAccess comp, @NotNull ILuaContext ctx, int method, @NotNull IArguments args) throws LuaException {
 			if (insertedCard.isEmpty()) {
 				return MethodResult.of(null, ERROR_NO_CARD);
 			}
 			CompoundTag cardData = insertedCard.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-			switch (method) {
-				case 0:
-					return MethodResult.of(buildCardInfo(cardData));
-				case 1:
-					return updateBalance(cardData, args.getDouble(0), false);
-				case 2:
-					return updateBalance(cardData, -args.getDouble(0), true);
-				case 3:
-					return setBalance(cardData, args.getDouble(0));
-				default:
-					return MethodResult.of();
-			}
+            return switch (method) {
+                case 0 -> MethodResult.of(buildCardInfo(cardData));
+                case 1 -> modifyBalance(cardData, args.getDouble(0), false);
+                case 2 -> modifyBalance(cardData, -args.getDouble(0), true);
+                case 3 -> setBalance(cardData, args.getDouble(0));
+                default -> MethodResult.of();
+            };
 		}
 
 		private Map<String, Object> buildCardInfo(CompoundTag cardData) {
@@ -110,7 +106,7 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 			return MethodResult.of(true, cardData.getDouble(TicketDataUtil.BALANCE));
 		}
 
-		private MethodResult updateBalance(CompoundTag cardData, double delta, boolean blockNegativeResult) {
+		private MethodResult modifyBalance(CompoundTag cardData, double delta, boolean blockNegativeResult) {
 			double newBalance = cardData.getDouble(TicketDataUtil.BALANCE) + delta;
 			if (blockNegativeResult && newBalance < 0) {
 				return MethodResult.of(false, ERROR_INSUFFICIENT);
