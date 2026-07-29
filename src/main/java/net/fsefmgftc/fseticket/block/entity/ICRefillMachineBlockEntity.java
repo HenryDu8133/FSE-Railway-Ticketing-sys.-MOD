@@ -84,9 +84,9 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 				case 0:
 					return MethodResult.of(buildCardInfo(cardData));
 				case 1:
-					return updateBalance(cardData, args.getDouble(0), false);
+					return modifyBalance(cardData, args.getDouble(0), false);
 				case 2:
-					return updateBalance(cardData, -args.getDouble(0), true);
+					return modifyBalance(cardData, -args.getDouble(0), true);
 				case 3:
 					return setBalance(cardData, args.getDouble(0));
 				default:
@@ -110,7 +110,7 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 			return MethodResult.of(true, cardData.getDouble(TicketDataUtil.BALANCE));
 		}
 
-		private MethodResult updateBalance(CompoundTag cardData, double delta, boolean blockNegativeResult) {
+		private MethodResult modifyBalance(CompoundTag cardData, double delta, boolean blockNegativeResult) {
 			double newBalance = cardData.getDouble(TicketDataUtil.BALANCE) + delta;
 			if (blockNegativeResult && newBalance < 0) {
 				return MethodResult.of(false, ERROR_INSUFFICIENT);
