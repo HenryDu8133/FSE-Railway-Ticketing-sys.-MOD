@@ -6,10 +6,10 @@
     },
     {
       "type": "ttf",
-      "file": "fseticket:font/Monoid-Regular.ttf",
+      "file": "fseticket:monoid_regular.ttf",
       "shift": [0, 1],
       "size": 11.0,
-      "oversample": 2.0
+      "oversample": 8.0
     }
   ]
 }
