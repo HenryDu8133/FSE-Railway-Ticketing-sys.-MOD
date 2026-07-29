@@ -7,8 +7,16 @@ version = '1.10.5'
 base.archivesName = 'fseticket'
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
+repositories {
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+}
+
 dependencies {
-    implementation fileTree(dir: 'run/mods', include: ['cc-tweaked-*.jar'])
+//    implementation fileTree(dir: 'run/mods', include: ['cc-tweaked-*.jar'])
+    implementation "maven.modrinth:cc-tweaked:8XEJbAee" // Use net download instead.
 }
 
 neoForge {
@@ -16,7 +24,7 @@ neoForge {
     runs {
         client { client() }
         server { server() }
-        configureEach { systemProperty 'forge.logging.markers','REGISTRIES'; logLevel=org.slf4j.event.Level.DEBUG }
+        configureEach { systemProperty 'forge.logging.markers', 'REGISTRIES'; logLevel = org.slf4j.event.Level.DEBUG }
     }
     mods { fseticket { sourceSet sourceSets.main } }
 }
