@@ -67,10 +67,12 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 			return this == o;
 		}
 
+		// todo: merge $refill & $deduct into a method
 		@Override
 		public String[] getMethodNames() {
-			return new String[] { "getCardInfo", "refill", "deduct" };
+			return new String[] { "getCardInfo", "refill", "deduct", "setBalance" };
 		}
+
 
 		@Override
 		public MethodResult callMethod(IComputerAccess comp, ILuaContext ctx, int method, IArguments args) throws LuaException {
@@ -85,6 +87,8 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 					return updateBalance(cardData, args.getDouble(0), false);
 				case 2:
 					return updateBalance(cardData, -args.getDouble(0), true);
+				case 3:
+					return setBalance(cardData, args.getDouble(0));
 				default:
 					return MethodResult.of();
 			}
@@ -98,6 +102,12 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 			info.put(TicketDataUtil.ENTERED, cardData.getBoolean(TicketDataUtil.ENTERED));
 			info.put(TicketDataUtil.ENTRY_STATION, cardData.getString(TicketDataUtil.ENTRY_STATION));
 			return info;
+		}
+
+		private MethodResult setBalance(CompoundTag cardData, double newBalance) {
+			cardData.putDouble(TicketDataUtil.BALANCE, newBalance);
+			setChanged();
+			return MethodResult.of(true, cardData.getDouble(TicketDataUtil.BALANCE));
 		}
 
 		private MethodResult updateBalance(CompoundTag cardData, double delta, boolean blockNegativeResult) {
