@@ -1,44 +1,77 @@
 package net.fsefmgftc.fseticket.item;
 
-import net.minecraft.world.level.Level;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import io.netty.buffer.Unpooled;
+import net.minecraft.world.level.Level;
+import net.fsefmgftc.fseticket.util.TicketDataUtil;
 
 public class ICCardItem extends Item {
-	public ICCardItem(){super(new Item.Properties().stacksTo(1).fireResistant().component(DataComponents.CUSTOM_DATA,def()));}
-	private static CustomData def(){CompoundTag t=new CompoundTag();t.putString("cardId","");t.putString("ownerName","");t.putDouble("balance",0);return CustomData.of(t);}
+	public ICCardItem() {
+		super(new Item.Properties().stacksTo(1).fireResistant().component(DataComponents.CUSTOM_DATA, def()));
+	}
 
-	@Override public Component getName(ItemStack s){
+	private static CustomData def() {
+		CompoundTag tag = TicketDataUtil.createICCardTag();
+		return CustomData.of(tag);
+	}
+
+	@Override
+	public Component getName(ItemStack s) {
 		return Component.literal("FSEICA");
 	}
 
-	@Override public InteractionResultHolder<ItemStack> use(Level w,Player e,InteractionHand h){
-		if(!(e instanceof ServerPlayer sp))return super.use(w,e,h);
-		ItemStack s=e.getItemInHand(h);CompoundTag t=s.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();
-		sp.openMenu(new MenuProvider(){@Override public Component getDisplayName(){return Component.literal("IC Card");}
-		@Override public AbstractContainerMenu createMenu(int id,Inventory inv,Player p){FriendlyByteBuf b=new FriendlyByteBuf(Unpooled.buffer());b.writeBlockPos(e.blockPosition());b.writeByte(h==InteractionHand.MAIN_HAND?0:1);b.writeUtf(t.getString("cardId"));b.writeUtf(t.getString("ownerName"));b.writeDouble(t.getDouble("balance"));return new net.fsefmgftc.fseticket.world.inventory.ICGUIMenu(id,inv,b);}},buf->{buf.writeBlockPos(e.blockPosition());buf.writeByte(h==InteractionHand.MAIN_HAND?0:1);buf.writeUtf(t.getString("cardId"));buf.writeUtf(t.getString("ownerName"));buf.writeDouble(t.getDouble("balance"));});
-		return super.use(w,e,h);
+	@Override
+	public InteractionResultHolder<ItemStack> use(Level w, Player e, InteractionHand h) {
+		if (!(e instanceof ServerPlayer sp)) {
+			return super.use(w, e, h);
+		}
+
+		ItemStack heldItem = e.getItemInHand(h);
+		CompoundTag cardData = heldItem.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+		sp.openMenu(new MenuProvider() {
+			@Override
+			public Component getDisplayName() {
+				return Component.literal("IC Card");
+			}
+
+			@Override
+			public AbstractContainerMenu createMenu(int id, Inventory inv, Player p) {
+				FriendlyByteBuf buffer = TicketDataUtil.createBuffer();
+				TicketDataUtil.writeICCardMenuData(buffer, e.blockPosition(), h, cardData);
+				return new net.fsefmgftc.fseticket.world.inventory.ICGUIMenu(id, inv, buffer);
+			}
+		}, buffer -> TicketDataUtil.writeICCardMenuData(buffer, e.blockPosition(), h, cardData));
+
+		return super.use(w, e, h);
 	}
 
-	@Override public void appendHoverText(ItemStack s,Item.TooltipContext ctx,java.util.List<Component> list,net.minecraft.world.item.TooltipFlag f){
-		super.appendHoverText(s,ctx,list,f);
-		CompoundTag t=s.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();
-		String n=t.getString("ownerName");String cid=t.getString("cardId");double bal=t.getDouble("balance");
-		if(cid!=null&&!cid.isEmpty()&&!cid.equals("\"\""))list.add(Component.literal("§7卡号: §f"+cid));
-		if(n!=null&&!n.isEmpty()&&!n.equals("\"\""))list.add(Component.literal("§7持卡人: §f"+n));
-		list.add(Component.literal("§7余额: §6"+String.format("%.2f",bal)));
+	@Override
+	public void appendHoverText(ItemStack s, Item.TooltipContext ctx, java.util.List<Component> list, net.minecraft.world.item.TooltipFlag f) {
+		super.appendHoverText(s, ctx, list, f);
+
+		CompoundTag cardData = s.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+		String ownerName = cardData.getString(TicketDataUtil.OWNER_NAME);
+		String cardId = cardData.getString(TicketDataUtil.CARD_ID);
+		double balance = cardData.getDouble(TicketDataUtil.BALANCE);
+
+		if (TicketDataUtil.hasMeaningfulValue(cardId)) {
+			list.add(Component.literal("§7卡号: §f" + cardId));
+		}
+		if (TicketDataUtil.hasMeaningfulValue(ownerName)) {
+			list.add(Component.literal("§7持卡人: §f" + ownerName));
+		}
+		list.add(Component.literal("§7余额: §6" + String.format("%.2f", balance)));
 	}
 }

@@ -1,26 +1,43 @@
 package net.fsefmgftc.fseticket.item;
 
+import java.util.List;
+import net.fsefmgftc.fseticket.util.TicketDataUtil;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.component.CustomData;
-import java.util.List;
 
 public class SingletripTicketItem extends Item {
-	public SingletripTicketItem(){super(new Item.Properties().stacksTo(1).fireResistant().component(DataComponents.CUSTOM_DATA,def()));}
-	private static CustomData def(){CompoundTag t=new CompoundTag();t.putString("type","single");t.putString("ticketId","");t.putString("line_name","");t.putString("start_name_en","");t.putString("terminal_name_en","");t.putString("start_station","");t.putString("terminal_station","");t.putString("fromNameCnU","");t.putString("toNameCnU","");t.putInt("rides",1);t.putBoolean("entered",false);t.putBoolean("exited",false);t.putLong("timestamp",0);t.putDouble("cost",0);t.putString("order_datetime","");return CustomData.of(t);}
+	public SingletripTicketItem() {
+		super(new Item.Properties().stacksTo(1).fireResistant().component(DataComponents.CUSTOM_DATA, def()));
+	}
 
-	@Override public void appendHoverText(ItemStack s,TooltipContext ctx,List<Component> list,TooltipFlag f){
-		super.appendHoverText(s,ctx,list,f);
-		CompoundTag t=s.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();
-		String route=t.getString("line_name");
-		if(route.isEmpty()||route.equals("\"\""))route=t.getString("start_name_en");
-		if(route.isEmpty()||route.equals("\"\""))route=t.getString("fromNameCnU");
-		route=(route.isEmpty()||route.equals("\"\""))?"---":route;
-		list.add(Component.literal("§7区间：§f"+route));
-		list.add(Component.literal(t.getBoolean("entered")?"§a已进站":t.getBoolean("exited")?"§e已出站":"§7未进站"));
+	private static CustomData def() {
+		CompoundTag tag = TicketDataUtil.createSingleTripTicketTag();
+		return CustomData.of(tag);
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+		super.appendHoverText(stack, context, tooltip, flag);
+
+		CompoundTag ticketData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+		String routeName = ticketData.getString(TicketDataUtil.LINE_NAME);
+		if (!TicketDataUtil.hasMeaningfulValue(routeName)) {
+			routeName = ticketData.getString(TicketDataUtil.START_NAME_EN);
+		}
+		if (!TicketDataUtil.hasMeaningfulValue(routeName)) {
+			routeName = ticketData.getString(TicketDataUtil.FROM_NAME_CNU);
+		}
+
+		tooltip.add(Component.literal("§7区间：§f" + TicketDataUtil.normalizedDisplay(routeName)));
+		tooltip.add(Component.literal(
+			ticketData.getBoolean(TicketDataUtil.ENTERED)
+				? "§a已进站"
+				: ticketData.getBoolean(TicketDataUtil.EXITED) ? "§e已出站" : "§7未进站"
+		));
 	}
 }

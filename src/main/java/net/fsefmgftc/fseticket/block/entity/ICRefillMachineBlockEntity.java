@@ -14,6 +14,7 @@ import java.util.Set;
 import net.fsefmgftc.fseticket.block.ICRefillMachineBlock;
 import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
 import net.fsefmgftc.fseticket.init.FseticketModItems;
+import net.fsefmgftc.fseticket.util.TicketDataUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -29,6 +30,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class ICRefillMachineBlockEntity extends BlockEntity {
+	private static final String ERROR_NO_CARD = "no card";
+	private static final String ERROR_INSUFFICIENT = "insufficient";
+
 	private final RefillPeripheral peripheral = new RefillPeripheral();
 	private ItemStack insertedCard = ItemStack.EMPTY;
 
@@ -71,34 +75,41 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 		@Override
 		public MethodResult callMethod(IComputerAccess comp, ILuaContext ctx, int method, IArguments args) throws LuaException {
 			if (insertedCard.isEmpty()) {
-				return MethodResult.of(null, "no card");
+				return MethodResult.of(null, ERROR_NO_CARD);
 			}
-			CompoundTag t = insertedCard.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+			CompoundTag cardData = insertedCard.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 			switch (method) {
 				case 0:
-					Map<String, Object> info = new LinkedHashMap<>();
-					info.put("cardId", t.getString("cardId"));
-					info.put("ownerName", t.getString("ownerName"));
-					info.put("balance", t.getDouble("balance"));
-					return MethodResult.of(info);
+					return MethodResult.of(buildCardInfo(cardData));
 				case 1:
-					t.putDouble("balance", t.getDouble("balance") + args.getDouble(0));
-					insertedCard.set(DataComponents.CUSTOM_DATA, CustomData.of(t));
-					setChanged();
-					return MethodResult.of(true, t.getDouble("balance"));
+					return updateBalance(cardData, args.getDouble(0), false);
 				case 2:
-					double amt = args.getDouble(0);
-					double bal = t.getDouble("balance");
-					if (bal < amt) {
-						return MethodResult.of(false, "insufficient");
-					}
-					t.putDouble("balance", bal - amt);
-					insertedCard.set(DataComponents.CUSTOM_DATA, CustomData.of(t));
-					setChanged();
-					return MethodResult.of(true, t.getDouble("balance"));
+					return updateBalance(cardData, -args.getDouble(0), true);
 				default:
 					return MethodResult.of();
 			}
+		}
+
+		private Map<String, Object> buildCardInfo(CompoundTag cardData) {
+			Map<String, Object> info = new LinkedHashMap<>();
+			info.put(TicketDataUtil.CARD_ID, cardData.getString(TicketDataUtil.CARD_ID));
+			info.put(TicketDataUtil.OWNER_NAME, cardData.getString(TicketDataUtil.OWNER_NAME));
+			info.put(TicketDataUtil.BALANCE, cardData.getDouble(TicketDataUtil.BALANCE));
+			info.put(TicketDataUtil.ENTERED, cardData.getBoolean(TicketDataUtil.ENTERED));
+			info.put(TicketDataUtil.ENTRY_STATION, cardData.getString(TicketDataUtil.ENTRY_STATION));
+			return info;
+		}
+
+		private MethodResult updateBalance(CompoundTag cardData, double delta, boolean blockNegativeResult) {
+			double newBalance = cardData.getDouble(TicketDataUtil.BALANCE) + delta;
+			if (blockNegativeResult && newBalance < 0) {
+				return MethodResult.of(false, ERROR_INSUFFICIENT);
+			}
+
+			cardData.putDouble(TicketDataUtil.BALANCE, newBalance);
+			insertedCard.set(DataComponents.CUSTOM_DATA, CustomData.of(cardData));
+			setChanged();
+			return MethodResult.of(true, cardData.getDouble(TicketDataUtil.BALANCE));
 		}
 	}
 
