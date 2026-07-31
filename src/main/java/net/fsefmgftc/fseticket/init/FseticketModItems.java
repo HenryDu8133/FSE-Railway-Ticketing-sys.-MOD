@@ -30,6 +30,7 @@ public final class FseticketModItems {
 	public static final DeferredItem<Item> TICKET_VENDING_MACHINE;
 	public static final DeferredItem<Item> TICKET_INSPECTION_MACHINE;
 	public static final DeferredItem<Item> IC_REFILL_MACHINE;
+	public static final DeferredItem<Item> BROADCAST_HOST;
 	public static final DeferredItem<Item> IC_CARD;
 	public static final DeferredItem<Item> SINGLETRIP_TICKET;
 	public static final DeferredItem<Item> FSE_PASS;
@@ -39,6 +40,7 @@ public final class FseticketModItems {
 		TICKET_VENDING_MACHINE = block(FseticketModBlocks.TICKET_VENDING_MACHINE, new Item.Properties().fireResistant());
 		TICKET_INSPECTION_MACHINE = block(FseticketModBlocks.TICKET_INSPECTION_MACHINE, new Item.Properties().fireResistant());
 		IC_REFILL_MACHINE = block(FseticketModBlocks.IC_REFILL_MACHINE, new Item.Properties().fireResistant());
+		BROADCAST_HOST = block(FseticketModBlocks.BROADCAST_HOST, new Item.Properties().fireResistant());
 		IC_CARD = REGISTRY.register("ic_card", ICCardItem::new);
 		SINGLETRIP_TICKET = REGISTRY.register("singletrip_ticket", SingletripTicketItem::new);
 		FSE_PASS = REGISTRY.register("fse_pass", FSEPassItem::new);

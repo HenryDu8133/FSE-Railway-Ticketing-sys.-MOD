@@ -20,6 +20,7 @@ public final class FseticketModTabs {
 				tabData.accept(FseticketModBlocks.TICKET_VENDING_MACHINE.get().asItem());
 				tabData.accept(FseticketModBlocks.TICKET_INSPECTION_MACHINE.get().asItem());
 				tabData.accept(FseticketModBlocks.IC_REFILL_MACHINE.get().asItem());
+				tabData.accept(FseticketModBlocks.BROADCAST_HOST.get().asItem());
 				tabData.accept(FseticketModItems.IC_CARD.get());
 				tabData.accept(FseticketModItems.SINGLETRIP_TICKET.get());
 				tabData.accept(FseticketModItems.FSE_PASS.get());
