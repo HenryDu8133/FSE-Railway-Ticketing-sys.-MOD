@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "fseticket:recipe_broadcast_host"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_clipboard": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "create:clipboard"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_clipboard"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "fseticket:recipe_broadcast_host"
+    ]
+  }
+}
