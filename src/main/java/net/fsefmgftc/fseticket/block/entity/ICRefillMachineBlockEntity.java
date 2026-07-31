@@ -82,10 +82,10 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 			}
 			CompoundTag cardData = insertedCard.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
             return switch (method) {
-                case 0 -> MethodResult.of(buildCardInfo(cardData));
-                case 1 -> modifyBalance(cardData, args.getDouble(0), false);
-                case 2 -> modifyBalance(cardData, -args.getDouble(0), true);
-                case 3 -> setBalance(cardData, args.getDouble(0));
+                case 0 -> MethodResult.of(buildCardInfo(cardData)); // getCardInfo() -> boolean, table
+                case 1 -> modifyBalance(cardData, args.getDouble(0), false); // refill(amount: int) -> boolean, double
+                case 2 -> modifyBalance(cardData, -args.getDouble(0), true); // deduct(amount: int) -> boolean, double
+                case 3 -> setBalance(cardData, args.getDouble(0)); // setBalance(amount: int) -> boolean, double
                 default -> MethodResult.of();
             };
 		}
@@ -102,19 +102,19 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 
 		private MethodResult setBalance(CompoundTag cardData, double newBalance) {
 			cardData.putDouble(TicketDataUtil.BALANCE, newBalance);
+			insertedCard.set(DataComponents.CUSTOM_DATA, CustomData.of(cardData));
 			setChanged();
 			return MethodResult.of(true, cardData.getDouble(TicketDataUtil.BALANCE));
 		}
 
 		private MethodResult modifyBalance(CompoundTag cardData, double delta, boolean blockNegativeResult) {
 			double newBalance = cardData.getDouble(TicketDataUtil.BALANCE) + delta;
-			if (blockNegativeResult && newBalance < 0) {
-				return MethodResult.of(false, ERROR_INSUFFICIENT);
-			}
+			if (blockNegativeResult && newBalance < 0) return MethodResult.of(false, ERROR_INSUFFICIENT);
 
 			cardData.putDouble(TicketDataUtil.BALANCE, newBalance);
 			insertedCard.set(DataComponents.CUSTOM_DATA, CustomData.of(cardData));
 			setChanged();
+
 			return MethodResult.of(true, cardData.getDouble(TicketDataUtil.BALANCE));
 		}
 	}
