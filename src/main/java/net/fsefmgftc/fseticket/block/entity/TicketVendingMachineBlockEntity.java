@@ -71,6 +71,7 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
             return switch (methodIndex) {
                 case 0 -> issueTicket(args);
                 case 1 -> issueICCard(args);
+                case 2 -> issueFSEPass(args);
                 default -> MethodResult.of();
             };
         }
@@ -125,6 +126,10 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
             card.set(DataComponents.CUSTOM_DATA, CustomData.of(cardData));
             spawnItem(card);
             return MethodResult.of(true, cardData.getString(TicketDataUtil.CARD_ID));
+        }
+
+        private MethodResult issueFSEPass(IArguments args) throws LuaException {
+            return MethodResult.of(false);
         }
 
         private Item getTicketItem(String type) {
