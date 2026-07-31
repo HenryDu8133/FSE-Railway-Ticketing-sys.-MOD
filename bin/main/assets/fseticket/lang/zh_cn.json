@@ -5,6 +5,7 @@
   "block.fseticket.ticket_inspection_machine": "检票机",
   "block.fseticket.ic_refill_machine": "FSEIC充值机",
   "block.fseticket.broadcast_host": "广播主机",
+  "block.fseticket.broadcast_speaker": "广播扬声器",
   "item.fseticket.local_ticket": "普通票",
   "item.fseticket.exp_ticket": "特急票",
   "item.fseticket.ic_card": "FSEIC交通卡",
