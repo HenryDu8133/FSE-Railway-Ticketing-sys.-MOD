@@ -5,6 +5,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
 
 import java.util.UUID;
@@ -56,5 +57,10 @@ public class BroadcastHostBlockEntity extends BlockEntity {
         CompoundTag tag = super.getUpdateTag(provider);
         this.saveAdditional(tag, provider);
         return tag;
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 }

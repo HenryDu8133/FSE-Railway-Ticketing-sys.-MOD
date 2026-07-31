@@ -13,6 +13,8 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.TooltipFlag;
+import java.util.List;
 
 public class BroadcastSpeakerItem extends BlockItem {
 
@@ -55,5 +57,28 @@ public class BroadcastSpeakerItem extends BlockItem {
         } else {
             player.sendSystemMessage(Component.literal("当前扬声器暂无绑定的广播主机。"));
         }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        if (tag.contains("BoundHostNames", Tag.TAG_LIST)) {
+            ListTag namesList = tag.getList("BoundHostNames", Tag.TAG_STRING);
+            if (!namesList.isEmpty()) {
+                tooltipComponents.add(Component.literal("§7已绑定主机数：§e" + namesList.size()));
+                for (int i = 0; i < Math.min(3, namesList.size()); i++) {
+                    tooltipComponents.add(Component.literal("§8- " + namesList.getString(i)));
+                }
+                if (namesList.size() > 3) {
+                    tooltipComponents.add(Component.literal("§8...等"));
+                }
+            } else {
+                tooltipComponents.add(Component.literal("§7未绑定广播主机"));
+            }
+        } else {
+            tooltipComponents.add(Component.literal("§7未绑定广播主机"));
+        }
+        tooltipComponents.add(Component.literal("§8Shift+右键查看全部绑定详情"));
     }
 }
