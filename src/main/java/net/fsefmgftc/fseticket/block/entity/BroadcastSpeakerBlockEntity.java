@@ -14,13 +14,34 @@ import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Set;
+import java.util.Collections;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BroadcastSpeakerBlockEntity extends BlockEntity {
+    public static final Set<BroadcastSpeakerBlockEntity> ALL_SPEAKERS = Collections.newSetFromMap(new ConcurrentHashMap<>());
+
     private List<UUID> boundHosts = new ArrayList<>();
     private List<String> boundHostNames = new ArrayList<>();
 
     public BroadcastSpeakerBlockEntity(BlockPos pos, BlockState state) {
         super(FseticketModBlockEntities.BROADCAST_SPEAKER.get(), pos, state);
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (this.level != null && !this.level.isClientSide()) {
+            ALL_SPEAKERS.add(this);
+        }
+    }
+
+    @Override
+    public void setRemoved() {
+        super.setRemoved();
+        if (this.level != null && !this.level.isClientSide()) {
+            ALL_SPEAKERS.remove(this);
+        }
     }
 
     public List<UUID> getBoundHosts() {

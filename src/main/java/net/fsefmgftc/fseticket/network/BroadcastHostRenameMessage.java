@@ -57,3 +57,4 @@ public record BroadcastHostRenameMessage(BlockPos pos, String newName) implement
         FseticketMod.addNetworkMessage(BroadcastHostRenameMessage.TYPE, BroadcastHostRenameMessage.STREAM_CODEC, BroadcastHostRenameMessage::handleData);
     }
 }
+

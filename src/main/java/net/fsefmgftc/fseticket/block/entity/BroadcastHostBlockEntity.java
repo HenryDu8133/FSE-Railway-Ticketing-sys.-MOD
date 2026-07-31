@@ -7,15 +7,24 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
+import net.fsefmgftc.fseticket.cc.BroadcastHostPeripheral;
 
 import java.util.UUID;
 
 public class BroadcastHostBlockEntity extends BlockEntity {
     private UUID hostId = UUID.randomUUID();
     private String hostName = "未命名广播主机";
+    private BroadcastHostPeripheral peripheral;
 
     public BroadcastHostBlockEntity(BlockPos pos, BlockState state) {
         super(FseticketModBlockEntities.BROADCAST_HOST.get(), pos, state);
+    }
+
+    public BroadcastHostPeripheral getPeripheral() {
+        if (this.peripheral == null) {
+            this.peripheral = new BroadcastHostPeripheral(this);
+        }
+        return this.peripheral;
     }
 
     public UUID getHostId() {

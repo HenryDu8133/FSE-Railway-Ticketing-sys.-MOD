@@ -9,6 +9,10 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 dependencies {
     implementation fileTree(dir: 'run/mods', include: ['cc-tweaked-*.jar'])
+    implementation 'com.googlecode.soundlibs:mp3spi:1.9.5.4'
+    jarJar('com.googlecode.soundlibs:mp3spi:[1.9.5.4,1.9.6)')
+    jarJar('com.googlecode.soundlibs:jlayer:[1.0.1.4,1.0.2)')
+    jarJar('com.googlecode.soundlibs:tritonus-share:[0.3.7.4,0.3.8)')
 }
 
 neoForge {

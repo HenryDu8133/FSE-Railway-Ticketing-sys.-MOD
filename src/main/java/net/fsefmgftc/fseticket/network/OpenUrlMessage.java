@@ -50,3 +50,4 @@ public record OpenUrlMessage(String url) implements CustomPacketPayload {
 	}
 }
 
+

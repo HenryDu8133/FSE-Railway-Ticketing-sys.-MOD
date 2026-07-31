@@ -57,3 +57,4 @@ public record ExpTicketGUIButtonMessage(int buttonID, int x, int y, int z) imple
 		FseticketMod.addNetworkMessage(ExpTicketGUIButtonMessage.TYPE, ExpTicketGUIButtonMessage.STREAM_CODEC, ExpTicketGUIButtonMessage::handleData);
 	}
 }
+

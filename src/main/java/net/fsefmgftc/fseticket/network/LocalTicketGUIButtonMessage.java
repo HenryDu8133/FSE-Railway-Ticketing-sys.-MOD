@@ -57,3 +57,4 @@ public record LocalTicketGUIButtonMessage(int buttonID, int x, int y, int z) imp
 		FseticketMod.addNetworkMessage(LocalTicketGUIButtonMessage.TYPE, LocalTicketGUIButtonMessage.STREAM_CODEC, LocalTicketGUIButtonMessage::handleData);
 	}
 }
+
