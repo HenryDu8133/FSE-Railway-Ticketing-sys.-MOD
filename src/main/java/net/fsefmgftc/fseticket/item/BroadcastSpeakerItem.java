@@ -1,3 +1,11 @@
+/*
+ * @Author: HenryDu8133 813367384@qq.com
+ * @Date: 2026-07-31 14:47:57
+ * @LastEditors: HenryDu8133 813367384@qq.com
+ * @LastEditTime: 2026-07-31 15:00:27
+ * @FilePath: \fseticket\src\main\java\net\fsefmgftc\fseticket\item\BroadcastSpeakerItem.java
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 package net.fsefmgftc.fseticket.item;
 
 import net.minecraft.world.item.BlockItem;
@@ -55,7 +63,7 @@ public class BroadcastSpeakerItem extends BlockItem {
                 player.sendSystemMessage(Component.literal("暂无绑定"));
             }
         } else {
-            player.sendSystemMessage(Component.literal("当前扬声器暂无绑定的广播主机。"));
+            player.sendSystemMessage(Component.literal("当前扬声器暂无绑定的广播主机"));
         }
     }
 
@@ -66,7 +74,7 @@ public class BroadcastSpeakerItem extends BlockItem {
         if (tag.contains("BoundHostNames", Tag.TAG_LIST)) {
             ListTag namesList = tag.getList("BoundHostNames", Tag.TAG_STRING);
             if (!namesList.isEmpty()) {
-                tooltipComponents.add(Component.literal("§7已绑定主机数：§e" + namesList.size()));
+                tooltipComponents.add(Component.literal("§7已绑定主机：§e" + namesList.size()));
                 for (int i = 0; i < Math.min(3, namesList.size()); i++) {
                     tooltipComponents.add(Component.literal("§8- " + namesList.getString(i)));
                 }

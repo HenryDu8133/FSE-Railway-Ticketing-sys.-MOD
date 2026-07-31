@@ -70,7 +70,6 @@ public class BroadcastSpeakerBlockEntity extends BlockEntity {
                 try {
                     this.boundHosts.add(UUID.fromString(uuidsList.getString(i)));
                 } catch (IllegalArgumentException e) {
-                    // Ignore invalid UUIDs
                 }
             }
         }

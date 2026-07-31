@@ -26,6 +26,10 @@ import java.util.UUID;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.Component;
 
 public class BroadcastSpeakerBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -88,5 +92,24 @@ public class BroadcastSpeakerBlock extends Block implements EntityBlock {
                 speakerEntity.setBoundHosts(uuids, names);
             }
         }
+    }
+
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (!level.isClientSide) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof BroadcastSpeakerBlockEntity speakerEntity) {
+                List<String> namesList = speakerEntity.getBoundHostNames();
+                player.sendSystemMessage(Component.literal("当前扬声器绑定的广播主机："));
+                if (namesList != null && !namesList.isEmpty()) {
+                    for (String name : namesList) {
+                        player.sendSystemMessage(Component.literal("- " + name));
+                    }
+                } else {
+                    player.sendSystemMessage(Component.literal("暂无绑定"));
+                }
+            }
+        }
+        return InteractionResult.SUCCESS;
     }
 }
