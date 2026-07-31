@@ -147,6 +147,47 @@ public class BroadcastHostPeripheral implements IPeripheral {
     }
 
     @LuaFunction
+    public final boolean playUrl(String url) {
+        return playStream(url);
+    }
+
+    @LuaFunction
+    public final boolean playLocal(IArguments args) throws LuaException {
+        if (!(host.getLevel() instanceof ServerLevel serverLevel)) return false;
+        
+        java.nio.ByteBuffer dataBuf = args.getBytes(0);
+        byte[] data = new byte[dataBuf.remaining()];
+        dataBuf.duplicate().get(data);
+        
+        if (data.length == 0) throw new LuaException("Audio data is empty");
+        if (data.length > 8 * 1024 * 1024) throw new LuaException("Audio file too large (max 8MB)");
+
+        List<BroadcastSpeakerBlockEntity> speakers = getBoundSpeakers();
+        if (speakers.isEmpty()) return false;
+
+        long startTick = serverLevel.getServer().getTickCount() + 5; 
+        UUID syncGroupId = UUID.randomUUID();
+
+        for (BroadcastSpeakerBlockEntity speaker : speakers) {
+            BlockPos p = speaker.getBlockPos();
+            SpeakerAudioPacket pkt = new SpeakerAudioPacket(
+                host.getHostId(), 
+                SpeakerAudioPacket.AudioFormat.AUDIO_FILE,
+                this.volume,
+                p.getX() + 0.5f, p.getY() + 0.5f, p.getZ() + 0.5f,
+                p.getX(), p.getY(), p.getZ(),
+                data,
+                "",
+                startTick,
+                syncGroupId,
+                speakers.size()
+            );
+            sendToPlayersNear(pkt, p, serverLevel);
+        }
+        return true;
+    }
+
+    @LuaFunction
     public final Map<String, Object> getStreamMeta() {
         return Map.of(
             "title", icyTitle,
