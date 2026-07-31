@@ -20,6 +20,7 @@ import net.fsefmgftc.fseticket.item.LocalTicketItem;
 import net.fsefmgftc.fseticket.item.ICCardItem;
 import net.fsefmgftc.fseticket.item.FSEPassItem;
 import net.fsefmgftc.fseticket.item.ExpTicketItem;
+import net.fsefmgftc.fseticket.item.BroadcastSpeakerItem;
 import net.fsefmgftc.fseticket.FseticketMod;
 
 @EventBusSubscriber(modid = FseticketMod.MODID, bus = EventBusSubscriber.Bus.MOD)
@@ -42,7 +43,7 @@ public final class FseticketModItems {
 		TICKET_INSPECTION_MACHINE = block(FseticketModBlocks.TICKET_INSPECTION_MACHINE, new Item.Properties().fireResistant());
 		IC_REFILL_MACHINE = block(FseticketModBlocks.IC_REFILL_MACHINE, new Item.Properties().fireResistant());
 		BROADCAST_HOST = block(FseticketModBlocks.BROADCAST_HOST, new Item.Properties().fireResistant());
-		BROADCAST_SPEAKER = block(FseticketModBlocks.BROADCAST_SPEAKER, new Item.Properties().fireResistant());
+		BROADCAST_SPEAKER = REGISTRY.register("broadcast_speaker", () -> new BroadcastSpeakerItem(FseticketModBlocks.BROADCAST_SPEAKER.get(), new Item.Properties().fireResistant()));
 		IC_CARD = REGISTRY.register("ic_card", ICCardItem::new);
 		SINGLETRIP_TICKET = REGISTRY.register("singletrip_ticket", SingletripTicketItem::new);
 		FSE_PASS = REGISTRY.register("fse_pass", FSEPassItem::new);
