@@ -3,9 +3,7 @@ package net.fsefmgftc.fseticket.cc;
 import dan200.computercraft.api.lua.IArguments;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
-import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
-import net.fsefmgftc.fseticket.FseticketMod;
 import net.fsefmgftc.fseticket.block.entity.BroadcastHostBlockEntity;
 import net.fsefmgftc.fseticket.block.entity.BroadcastSpeakerBlockEntity;
 import net.fsefmgftc.fseticket.network.IcyMetaPacket;
@@ -14,7 +12,6 @@ import net.fsefmgftc.fseticket.network.SpeakerStopPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
@@ -68,6 +65,7 @@ public class BroadcastHostPeripheral implements IPeripheral {
         UUID myId = host.getHostId();
         
         for (BroadcastSpeakerBlockEntity speaker : BroadcastSpeakerBlockEntity.ALL_SPEAKERS) {
+            FseticketMod.LOGGER.info("Checking speaker at " + speaker.getBlockPos() + ", bound hosts: " + speaker.getBoundHosts() + " against myId: " + myId);
             if (speaker.getLevel() == serverLevel && speaker.getBoundHosts().contains(myId)) {
                 speakers.add(speaker);
             }
@@ -76,11 +74,12 @@ public class BroadcastHostPeripheral implements IPeripheral {
     }
 
     private void sendToPlayersNear(SpeakerAudioPacket pkt, BlockPos pos, ServerLevel level) {
+        FseticketMod.LOGGER.info("Sending SpeakerAudioPacket format: " + pkt.format + " data size: " + pkt.data.length + " to nearby players");
         for (ServerPlayer player : level.players()) {
             double dx = player.getX() - pos.getX();
             double dy = player.getY() - pos.getY();
             double dz = player.getZ() - pos.getZ();
-            if (dx*dx + dy*dy + dz*dz <= 32*32) {
+            if (dx*dx + dy*dy + dz*dz <= 64*64) {
                 PacketDistributor.sendToPlayer(player, pkt);
             }
         }
@@ -163,6 +162,7 @@ public class BroadcastHostPeripheral implements IPeripheral {
         if (data.length > 8 * 1024 * 1024) throw new LuaException("Audio file too large (max 8MB)");
 
         List<BroadcastSpeakerBlockEntity> speakers = getBoundSpeakers();
+        FseticketMod.LOGGER.info("playLocal invoked. Bound speakers found: " + speakers.size());
         if (speakers.isEmpty()) return false;
 
         long startTick = serverLevel.getServer().getTickCount() + 5; 

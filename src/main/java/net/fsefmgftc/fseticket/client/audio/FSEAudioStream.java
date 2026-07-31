@@ -250,7 +250,7 @@ public class FSEAudioStream implements AudioStream {
     
     private void submitDecode(byte[] raw, String label) {
         if (raw == null || raw.length == 0 || raw.length > SpeakerAudioPacket.MAX_BYTES) {
-            FseticketMod.LOGGER.warn("AudioStream: rejected invalid " + label + " payload");
+            FseticketMod.LOGGER.warn("AudioStream: rejected invalid " + label + " payload, length: " + (raw == null ? 0 : raw.length));
             return;
         }
         decoding = true;

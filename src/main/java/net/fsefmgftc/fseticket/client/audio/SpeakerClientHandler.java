@@ -44,7 +44,11 @@ public final class SpeakerClientHandler {
     private static final int MAX_SYNC_GROUPS = 128;
 
     public static void receive(SpeakerAudioPacket pkt) {
-        if (!isPacketSafe(pkt)) return;
+        FseticketMod.LOGGER.info("SpeakerClientHandler received packet: format=" + pkt.format + ", source=" + pkt.source);
+        if (!isPacketSafe(pkt)) {
+            FseticketMod.LOGGER.warn("SpeakerClientHandler: dropped unsafe packet");
+            return;
+        }
 
         if (!states.containsKey(pkt.source) && states.size() >= MAX_ACTIVE_SPEAKERS) {
             FseticketMod.LOGGER.warn("SpeakerClientHandler: dropping audio; too many active speakers");
