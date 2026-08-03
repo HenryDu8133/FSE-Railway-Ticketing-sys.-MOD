@@ -30,7 +30,11 @@ neoForge {
         server { server() }
         configureEach { systemProperty 'forge.logging.markers', 'REGISTRIES'; logLevel = org.slf4j.event.Level.DEBUG }
     }
-    mods { fseticket { sourceSet sourceSets.main } }
+    mods {
+        fseticket {
+            sourceSet sourceSets.main
+        }
+    }
 }
 
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
