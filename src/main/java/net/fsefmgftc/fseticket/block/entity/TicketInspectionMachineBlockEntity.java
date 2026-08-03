@@ -78,8 +78,8 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
         }
 
         void pushToComputers(String event, Map<String, Object> info) {
-            for (IComputerAccess c : computers) {
-                c.queueEvent(event, new Object[]{info});
+            for (IComputerAccess computer : computers) {
+                computer.queueEvent(event, info);
             }
         }
 

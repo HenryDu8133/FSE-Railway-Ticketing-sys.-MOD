@@ -29,6 +29,9 @@ import net.minecraft.network.chat.Component;
 
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.core.component.DataComponents;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class BroadcastHostBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -39,31 +42,31 @@ public class BroadcastHostBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(FACING);
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite());
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+        return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
-    public BlockState rotate(BlockState state, Rotation rotation) {
+    public @NotNull BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
-    public BlockState mirror(BlockState state, Mirror mirror) {
+    public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new BroadcastHostBlockEntity(pos, state);
     }
 
     @Override
-    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    public @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult) {
         if (level.isClientSide) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof BroadcastHostBlockEntity hostEntity) {
@@ -80,7 +83,7 @@ public class BroadcastHostBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected net.minecraft.world.ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected net.minecraft.world.@NotNull ItemInteractionResult useItemOn(ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
         if (stack.getItem() == FseticketModItems.BROADCAST_SPEAKER.get()) {
             if (!level.isClientSide) {
                 BlockEntity be = level.getBlockEntity(pos);
@@ -106,9 +109,12 @@ public class BroadcastHostBlock extends Block implements EntityBlock {
                         tag.put("BoundHosts", uuidsList);
                         tag.put("BoundHostNames", namesList);
                         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-                        player.sendSystemMessage(Component.literal("扬声器绑定成功！广播主机：" + hostName));
+                        // Why tf use literal, huh?
+//                        player.sendSystemMessage(Component.literal("扬声器绑定成功！广播主机：" + hostName));
+                        player.sendSystemMessage(Component.translatable("message.fseticket.broadcast_host.bind_success", hostName));
                     } else {
-                        player.sendSystemMessage(Component.literal("该扬声器已绑定过此广播主机：" + hostName));
+//                        player.sendSystemMessage(Component.literal("该扬声器已绑定过此广播主机：" + hostName));
+                        player.sendSystemMessage(Component.translatable("message.fseticket.broadcast_host.already_bound", hostName));
                     }
                 }
             }

@@ -33,12 +33,14 @@ description="\u9002\u7528\u4E8EFSE\u670D\u52A1\u5668\u7684\u7968\u52A1\u7CFB\u7E
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.fseticket]]
-    modId="kubejs"
-    type="required"
-    versionRange="[0,)"
-    ordering="NONE"
-    side="BOTH"
+# todo: remove this fucking redundant dependency
+#[[dependencies.fseticket]]
+#    modId="kubejs"
+#    type="required"
+#    versionRange="[0,)"
+#    ordering="NONE"
+#    side="BOTH"
+
 [[dependencies.fseticket]]
     modId="computercraft"
     type="required"

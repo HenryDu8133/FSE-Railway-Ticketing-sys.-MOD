@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class BroadcastSpeakerBlockEntity extends BlockEntity {
     public static final Set<BroadcastSpeakerBlockEntity> ALL_SPEAKERS = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
-    private List<UUID> boundHosts = new ArrayList<>();
-    private List<String> boundHostNames = new ArrayList<>();
+    private final List<UUID> boundHosts = new ArrayList<>();
+    private final List<String> boundHostNames = new ArrayList<>();
 
     public BroadcastSpeakerBlockEntity(BlockPos pos, BlockState state) {
         super(FseticketModBlockEntities.BROADCAST_SPEAKER.get(), pos, state);
@@ -64,7 +65,7 @@ public class BroadcastSpeakerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         super.saveAdditional(tag, provider);
         
         ListTag uuidsList = new ListTag();
@@ -81,7 +82,7 @@ public class BroadcastSpeakerBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         super.loadAdditional(tag, provider);
         
         this.boundHosts.clear();
@@ -90,7 +91,7 @@ public class BroadcastSpeakerBlockEntity extends BlockEntity {
             for (int i = 0; i < uuidsList.size(); i++) {
                 try {
                     this.boundHosts.add(UUID.fromString(uuidsList.getString(i)));
-                } catch (IllegalArgumentException e) {
+                } catch (IllegalArgumentException ignored) {
                 }
             }
         }
@@ -105,7 +106,7 @@ public class BroadcastSpeakerBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
         CompoundTag tag = super.getUpdateTag(provider);
         this.saveAdditional(tag, provider);
         return tag;

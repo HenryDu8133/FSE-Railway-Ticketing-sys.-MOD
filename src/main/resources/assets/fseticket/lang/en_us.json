@@ -75,5 +75,9 @@
   "gui.fseticket.fse_pass_gui.label_validitperiod": "%validitperiod%",
   "gui.fseticket.fse_pass_gui.label_startdate": "%startdate%",
   "gui.fseticket.fse_pass_gui.label_enddate": "%enddate%",
-  "item.fseticket.fse_pass": "FSE Pass"
+  "item.fseticket.fse_pass": "FSE Pass",
+  "message.fseticket.broadcast_host.bind_success": "Successfully bind speaker to a broadcast host: %s",
+  "message.fseticket.broadcast_host.already_bound": "Speaker has already bound to broadcast host %s",
+  "message.fseticket.broadcast_speaker.currently_bound": "Currently bound:",
+  "message.fseticket.broadcast_speaker.not_bound": "No."
 }

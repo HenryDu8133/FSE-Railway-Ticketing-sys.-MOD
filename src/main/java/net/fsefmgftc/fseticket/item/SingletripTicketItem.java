@@ -19,7 +19,8 @@ public class SingletripTicketItem extends Item {
 		CompoundTag tag = TicketDataUtil.createSingleTripTicketTag();
 		return CustomData.of(tag);
 	}
-
+	// i18n when
+	// todo: add i18n & l10n
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltip, flag);

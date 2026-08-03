@@ -22,7 +22,10 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.core.component.DataComponents;
@@ -40,73 +43,73 @@ public class BroadcastSpeakerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(FACING);
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite());
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+        return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
-    public BlockState rotate(BlockState state, Rotation rotation) {
+    public @NotNull BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
-    public BlockState mirror(BlockState state, Mirror mirror) {
+    public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new BroadcastSpeakerBlockEntity(pos, state);
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+    public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof BroadcastSpeakerBlockEntity speakerEntity) {
             CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            if (tag != null) {
-                List<UUID> uuids = new ArrayList<>();
-                List<String> names = new ArrayList<>();
-                
-                if (tag.contains("BoundHosts", Tag.TAG_LIST)) {
-                    ListTag uuidsList = tag.getList("BoundHosts", Tag.TAG_STRING);
-                    for (int i = 0; i < uuidsList.size(); i++) {
-                        try {
-                            uuids.add(UUID.fromString(uuidsList.getString(i)));
-                        } catch (Exception e) {}
-                    }
+            List<UUID> uuids = new ArrayList<>();
+            List<String> names = new ArrayList<>();
+
+            if (tag.contains("BoundHosts", Tag.TAG_LIST)) {
+                ListTag uuidsList = tag.getList("BoundHosts", Tag.TAG_STRING);
+                for (int i = 0; i < uuidsList.size(); i++) {
+                    try {
+                        uuids.add(UUID.fromString(uuidsList.getString(i)));
+                    } catch (Exception ignored) {}
                 }
-                
-                if (tag.contains("BoundHostNames", Tag.TAG_LIST)) {
-                    ListTag namesList = tag.getList("BoundHostNames", Tag.TAG_STRING);
-                    for (int i = 0; i < namesList.size(); i++) {
-                        names.add(namesList.getString(i));
-                    }
-                }
-                
-                speakerEntity.setBoundHosts(uuids, names);
             }
+
+            if (tag.contains("BoundHostNames", Tag.TAG_LIST)) {
+                ListTag namesList = tag.getList("BoundHostNames", Tag.TAG_STRING);
+                for (int i = 0; i < namesList.size(); i++) {
+                    names.add(namesList.getString(i));
+                }
+            }
+
+            speakerEntity.setBoundHosts(uuids, names);
         }
     }
 
     @Override
-    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    public @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult) {
         if (!level.isClientSide) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof BroadcastSpeakerBlockEntity speakerEntity) {
                 List<String> namesList = speakerEntity.getBoundHostNames();
-                player.sendSystemMessage(Component.literal("当前扬声器绑定的广播主机："));
+//                player.sendSystemMessage(Component.literal("当前扬声器绑定的广播主机："));
+                player.sendSystemMessage(Component.translatable("message.fseticket.broadcast_speaker.currently_bound"));
                 if (namesList != null && !namesList.isEmpty()) {
                     for (String name : namesList) {
                         player.sendSystemMessage(Component.literal("- " + name));
                     }
                 } else {
-                    player.sendSystemMessage(Component.literal("暂无绑定"));
+//                    player.sendSystemMessage(Component.literal("暂无绑定"));
+                    player.sendSystemMessage(Component.translatable("message.fseticket.broadcast_speaker.not_bound"));
                 }
             }
         }
