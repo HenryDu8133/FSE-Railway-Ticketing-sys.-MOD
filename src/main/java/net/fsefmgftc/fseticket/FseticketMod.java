@@ -24,6 +24,7 @@ import net.fsefmgftc.fseticket.init.FseticketModMenus;
 import net.fsefmgftc.fseticket.init.FseticketModItems;
 import net.fsefmgftc.fseticket.init.FseticketModBlocks;
 import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
+import net.fsefmgftc.fseticket.init.FseticketModSounds;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.Queue;
@@ -49,6 +50,7 @@ public class FseticketMod {
 		FseticketModTabs.register(modEventBus);
 		FseticketModVariables.ATTACHMENT_TYPES.register(modEventBus);
 		FseticketModMenus.register(modEventBus);
+		FseticketModSounds.register(modEventBus);
 	}
 
 	// Start of user code block mod methods
