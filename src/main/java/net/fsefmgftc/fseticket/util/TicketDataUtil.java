@@ -27,6 +27,7 @@ public final class TicketDataUtil {
 	public static final String TYPE_LOCAL = "local";
 	public static final String TYPE_LIMITED_EXPRESS = "limited_express";
 	public static final String TYPE_SINGLE = "single";
+	public static final String TYPE_FSE_PASS = "fse_pass";
 	public static final String LINE_NAME = "line_name";
 	public static final String START_NAME_EN = "start_name_en";
 	public static final String TERMINAL_NAME_EN = "terminal_name_en";
