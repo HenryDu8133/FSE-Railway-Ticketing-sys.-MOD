@@ -47,6 +47,7 @@ public class ICRefillMachineBlock extends Block implements net.minecraft.world.l
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public BlockState mirror(BlockState state, Mirror mirror) {
 		return state.rotate(mirror.getRotation(state.getValue(FACING)));
 	}

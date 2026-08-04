@@ -45,7 +45,7 @@ public final class FseticketModMenus {
 			getMenuState().put(elementType + ":" + name, elementState);
 			if (player instanceof ServerPlayer serverPlayer) {
 				PacketDistributor.sendToPlayer(serverPlayer, new MenuStateUpdateMessage(elementType, name, elementState));
-			} else if (player.level().isClientSide) {
+			} else if (player != null && player.level() != null && player.level().isClientSide) {
 				ClientMenuAccessorUpdater.updateClient(elementType, name, elementState, needClientUpdate);
 				PacketDistributor.sendToServer(new MenuStateUpdateMessage(elementType, name, elementState));
 			}

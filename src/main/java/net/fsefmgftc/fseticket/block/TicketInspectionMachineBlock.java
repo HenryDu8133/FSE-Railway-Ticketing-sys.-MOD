@@ -45,6 +45,7 @@ public class TicketInspectionMachineBlock extends Block implements net.minecraft
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public BlockState mirror(BlockState state, Mirror mirror) {
 		return state.rotate(mirror.getRotation(state.getValue(FACING)));
 	}
