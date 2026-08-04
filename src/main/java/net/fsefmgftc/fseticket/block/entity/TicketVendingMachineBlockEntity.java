@@ -59,19 +59,18 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 		}
 
 		@Override
-		public String[] getMethodNames() {
-			return new String[] { "issueTicket", "issueICCard", "issueFSEPass" };
+		public String @NotNull [] getMethodNames() {
+			return new String[]{"issueTicket", "issueICCard", "issueFSEPass"};
 		}
 
 		@Override
-		public MethodResult callMethod(IComputerAccess comp, ILuaContext ctx, int m, IArguments args) throws LuaException {
-			if (m == 0) {
-				return issueTicket(args);
-			}
-			if (m == 1) {
-				return issueICCard(args);
-			}
-			return MethodResult.of();
+		public @NotNull MethodResult callMethod(@NotNull IComputerAccess comp, @NotNull ILuaContext ctx, int methodIndex, @NotNull IArguments args) throws LuaException {
+			return switch (methodIndex) {
+				case 0 -> issueTicket(args);
+				case 1 -> issueICCard(args);
+				case 2 -> issueFSEPass(args);
+				default -> MethodResult.of();
+			};
 		}
 
 		private MethodResult issueTicket(IArguments args) throws LuaException {

@@ -90,25 +90,18 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 
 		@Override
 		public MethodResult callMethod(IComputerAccess comp, ILuaContext ctx, int method, IArguments args) throws LuaException {
-			switch (method) {
-				case 0:
-					if (lastScannedData == null) return MethodResult.of(null, ERROR_NO_TICKET_SCANNED);
-					return MethodResult.of(isICCard ? buildICInfo() : buildTicketInfo());
-				case 1:
-					return runOnServer(this::destroyItem);
-				case 2:
-					double amt = args.getDouble(0);
-					return runOnServer(() -> deductICCard(amt));
-				case 3:
-					String stationId = args.optString(0, "");
-					return runOnServer(() -> updateTicketState(true, false, stationId));
-				case 4:
-					return runOnServer(() -> updateTicketState(false, true, ""));
-				case 5:
-					return runOnServer(() -> updateTicketState(false, false, ""));
-				default:
-					return MethodResult.of();
-			}
+			return switch (method) {
+				case 0 -> {
+					if (lastScannedData == null) yield MethodResult.of(null, ERROR_NO_TICKET_SCANNED);
+					yield MethodResult.of(isICCard ? buildICInfo() : buildTicketInfo());
+				}
+				case 1 -> runOnServer(this::destroyItem);
+				case 2 -> runOnServer(() -> deductICCard(args.optDouble(0, 0.0)));
+				case 3 -> runOnServer(() -> updateTicketState(true, false, args.optString(0, "")));
+				case 4 -> runOnServer(() -> updateTicketState(false, true, ""));
+				case 5 -> runOnServer(() -> updateTicketState(false, false, ""));
+				default -> MethodResult.of();
+			};
 		}
 
 		private MethodResult runOnServer(Runnable action) {
