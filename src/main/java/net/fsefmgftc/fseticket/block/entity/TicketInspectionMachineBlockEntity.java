@@ -90,30 +90,25 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 
 		@Override
 		public MethodResult callMethod(IComputerAccess comp, ILuaContext ctx, int method, IArguments args) throws LuaException {
-			if (method == 0) {
-				if (lastScannedData == null) {
-					return MethodResult.of(null, ERROR_NO_TICKET_SCANNED);
-				}
-				return MethodResult.of(isICCard ? buildICInfo() : buildTicketInfo());
+			switch (method) {
+				case 0:
+					if (lastScannedData == null) return MethodResult.of(null, ERROR_NO_TICKET_SCANNED);
+					return MethodResult.of(isICCard ? buildICInfo() : buildTicketInfo());
+				case 1:
+					return runOnServer(this::destroyItem);
+				case 2:
+					double amt = args.getDouble(0);
+					return runOnServer(() -> deductICCard(amt));
+				case 3:
+					String stationId = args.optString(0, "");
+					return runOnServer(() -> updateTicketState(true, false, stationId));
+				case 4:
+					return runOnServer(() -> updateTicketState(false, true, ""));
+				case 5:
+					return runOnServer(() -> updateTicketState(false, false, ""));
+				default:
+					return MethodResult.of();
 			}
-			if (method == 1) {
-				return runOnServer(this::destroyItem);
-			}
-			if (method == 2) {
-				double amt = args.getDouble(0);
-				return runOnServer(() -> deductICCard(amt));
-			}
-			if (method == 3) {
-				String stationId = args.count() > 0 ? args.getString(0) : "";
-				return runOnServer(() -> updateTicketState(true, false, stationId));
-			}
-			if (method == 4) {
-				return runOnServer(() -> updateTicketState(false, true, ""));
-			}
-			if (method == 5) {
-				return runOnServer(() -> updateTicketState(false, false, ""));
-			}
-			return MethodResult.of();
 		}
 
 		private MethodResult runOnServer(Runnable action) {
@@ -158,8 +153,9 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 			syncHeldItem(p);
 			lastScannedData = t;
 			setChanged();
-			peripheral.pushToComputers(isICCard ? "ic_card_state_updated" : "ticket_state_updated", isICCard ? buildICInfo() : buildTicketInfo());
-			return MethodResult.of(true, isICCard ? buildICInfo() : buildTicketInfo());
+			Map<String, Object> info = isICCard ? buildICInfo() : buildTicketInfo();
+			peripheral.pushToComputers(isICCard ? "ic_card_state_updated" : "ticket_state_updated", info);
+			return MethodResult.of(true, info);
 		}
 
 		private MethodResult deductICCard(double amt) {
@@ -209,21 +205,16 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 	}
 
 	public ItemInteractionResult onUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (level.isClientSide()) {
-			return ItemInteractionResult.sidedSuccess(true);
-		}
+		if (level.isClientSide()) return ItemInteractionResult.sidedSuccess(true);
+
 		ItemStack held = player.getItemInHand(hand);
 		Item hi = held.getItem();
-		if (hi == FseticketModItems.IC_CARD.get()) {
-			captureScan(player, hand, held, true);
+		boolean isCard = hi == FseticketModItems.IC_CARD.get();
+
+		if (isCard || isTicketItem(hi)) {
+			captureScan(player, hand, held, isCard);
 			setChanged();
-			peripheral.pushToComputers("ic_card_scanned", buildICInfo());
-			return ItemInteractionResult.sidedSuccess(false);
-		}
-		if (isTicketItem(hi)) {
-			captureScan(player, hand, held, false);
-			setChanged();
-			peripheral.pushToComputers("ticket_scanned", buildTicketInfo());
+			peripheral.pushToComputers(isCard ? "ic_card_scanned" : "ticket_scanned", isCard ? buildICInfo() : buildTicketInfo());
 			return ItemInteractionResult.sidedSuccess(false);
 		}
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
