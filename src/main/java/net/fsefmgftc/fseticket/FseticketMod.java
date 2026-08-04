@@ -53,8 +53,6 @@ public class FseticketMod {
 		FseticketModSounds.register(modEventBus);
 	}
 
-	// Start of user code block mod methods
-	// End of user code block mod methods
 	private static boolean networkingRegistered = false;
 	private static final Map<CustomPacketPayload.Type<?>, NetworkMessage<?>> MESSAGES = new HashMap<>();
 

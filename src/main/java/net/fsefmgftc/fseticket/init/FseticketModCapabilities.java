@@ -1,3 +1,4 @@
+
 package net.fsefmgftc.fseticket.init;
 
 import dan200.computercraft.api.peripheral.PeripheralCapability;

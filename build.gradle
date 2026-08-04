@@ -15,8 +15,7 @@ repositories {
 }
 
 dependencies {
-//    implementation fileTree(dir: 'run/mods', include: ['cc-tweaked-*.jar'])
-    implementation "maven.modrinth:cc-tweaked:8XEJbAee" // Use net download instead.
+    implementation "maven.modrinth:cc-tweaked:8XEJbAee"
     implementation 'com.googlecode.soundlibs:mp3spi:1.9.5.4'
     jarJar('com.googlecode.soundlibs:mp3spi:[1.9.5.4,1.9.6)')
     jarJar('com.googlecode.soundlibs:jlayer:[1.0.1.4,1.0.2)')
