@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractTicketScreen<T extends AbstractTicketMenu> extends AbstractContainerScreen<T>
 	implements FseticketModMenus.ScreenAccessor {
@@ -22,7 +23,7 @@ public abstract class AbstractTicketScreen<T extends AbstractTicketMenu> extends
 	private static final ResourceLocation OVERLAY_TEXTURE = ResourceLocation.parse("fseticket:textures/screens/che_piao_bei_jing2.png");
 	private static final ResourceLocation QR_BUTTON_TEXTURE = ResourceLocation.parse("fseticket:textures/screens/localticket.png");
 
-	protected static final Style JF = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath("fonts", "jnr"));
+	protected static final Style JF = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath(FseticketMod.MODID, "jnr"));
 	protected static final Style CF = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath("fonts", "misans_demibold"));
 	protected static final Style NUMBER_FONT = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath(FseticketMod.MODID, "monoid_regular"));
 
@@ -39,7 +40,7 @@ public abstract class AbstractTicketScreen<T extends AbstractTicketMenu> extends
 	}
 
 	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+	public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
 		super.render(graphics, mouseX, mouseY, partialTick);
 	}
 
@@ -115,7 +116,7 @@ public abstract class AbstractTicketScreen<T extends AbstractTicketMenu> extends
 			button -> openTicketDetail(ticketId)
 		) {
 			@Override
-			public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+			public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
 			}
 		});
 	}

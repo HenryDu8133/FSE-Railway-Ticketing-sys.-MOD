@@ -18,10 +18,10 @@ public final class FseticketModCapabilities {
 	@SubscribeEvent
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(PeripheralCapability.get(), FseticketModBlockEntities.TICKET_VENDING_MACHINE.get(),
-			(be, side) -> ((TicketVendingMachineBlockEntity) be).getPeripheral());
+			(be, side) -> be.getPeripheral());
 		event.registerBlockEntity(PeripheralCapability.get(), FseticketModBlockEntities.TICKET_INSPECTION_MACHINE.get(),
-			(be, side) -> ((TicketInspectionMachineBlockEntity) be).getPeripheral());
+			(be, side) -> be.getPeripheral());
 		event.registerBlockEntity(PeripheralCapability.get(), FseticketModBlockEntities.IC_REFILL_MACHINE.get(),
-			(be, side) -> ((ICRefillMachineBlockEntity) be).getPeripheral());
+			(be, side) -> be.getPeripheral());
 	}
 }

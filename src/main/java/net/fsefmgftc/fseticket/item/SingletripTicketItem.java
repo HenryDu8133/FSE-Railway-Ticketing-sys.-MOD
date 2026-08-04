@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
+import org.jetbrains.annotations.NotNull;
 
 public class SingletripTicketItem extends Item {
 	public SingletripTicketItem() {
@@ -21,7 +22,7 @@ public class SingletripTicketItem extends Item {
 		return CustomData.of(tag);
 	}
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltip, flag);
 
 		CompoundTag ticketData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();

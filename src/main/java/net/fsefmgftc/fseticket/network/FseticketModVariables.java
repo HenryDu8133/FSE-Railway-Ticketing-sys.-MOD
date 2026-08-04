@@ -23,13 +23,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.HolderLookup;
 
 import net.fsefmgftc.fseticket.FseticketMod;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 @EventBusSubscriber
 public class FseticketModVariables {
 	public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, FseticketMod.MODID);
-	public static final Supplier<AttachmentType<PlayerVariables>> PLAYER_VARIABLES = ATTACHMENT_TYPES.register("player_variables", () -> AttachmentType.serializable(() -> new PlayerVariables()).build());
+	public static final Supplier<AttachmentType<PlayerVariables>> PLAYER_VARIABLES = ATTACHMENT_TYPES.register("player_variables", () -> AttachmentType.serializable(PlayerVariables::new).build());
 
 	@SubscribeEvent
 	public static void init(FMLCommonSetupEvent event) {
@@ -87,7 +89,7 @@ public class FseticketModVariables {
 		public String terminal_name_en = "\"\"";
 
 		@Override
-		public CompoundTag serializeNBT(HolderLookup.Provider lookupProvider) {
+		public CompoundTag serializeNBT(HolderLookup.@NotNull Provider lookupProvider) {
 			CompoundTag nbt = new CompoundTag();
 			nbt.putDouble("ticketRides", ticketRides);
 			nbt.putString("ticketId", ticketId);
@@ -99,7 +101,7 @@ public class FseticketModVariables {
 		}
 
 		@Override
-		public void deserializeNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
+		public void deserializeNBT(HolderLookup.@NotNull Provider lookupProvider, CompoundTag nbt) {
 			ticketRides = nbt.getDouble("ticketRides");
 			ticketId = nbt.getString("ticketId");
 			cost = nbt.getDouble("cost");
@@ -118,12 +120,12 @@ public class FseticketModVariables {
 		public static final StreamCodec<RegistryFriendlyByteBuf, PlayerVariablesSyncMessage> STREAM_CODEC = StreamCodec
 				.of((RegistryFriendlyByteBuf buffer, PlayerVariablesSyncMessage message) -> buffer.writeNbt(message.data().serializeNBT(buffer.registryAccess())), (RegistryFriendlyByteBuf buffer) -> {
 					PlayerVariablesSyncMessage message = new PlayerVariablesSyncMessage(new PlayerVariables());
-					message.data.deserializeNBT(buffer.registryAccess(), buffer.readNbt());
+					message.data.deserializeNBT(buffer.registryAccess(), Objects.requireNonNull(buffer.readNbt()));
 					return message;
 				});
 
 		@Override
-		public Type<PlayerVariablesSyncMessage> type() {
+		public @NotNull Type<PlayerVariablesSyncMessage> type() {
 			return TYPE;
 		}
 

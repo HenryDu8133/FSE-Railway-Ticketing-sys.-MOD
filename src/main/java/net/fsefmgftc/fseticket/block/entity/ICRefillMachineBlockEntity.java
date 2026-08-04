@@ -49,17 +49,17 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 		private final Set<IComputerAccess> computers = new HashSet<>();
 
 		@Override
-		public String getType() {
+		public @NotNull String getType() {
 			return "ic_refill_machine";
 		}
 
 		@Override
-		public void attach(IComputerAccess c) {
+		public void attach(@NotNull IComputerAccess c) {
 			computers.add(c);
 		}
 
 		@Override
-		public void detach(IComputerAccess c) {
+		public void detach(@NotNull IComputerAccess c) {
 			computers.remove(c);
 		}
 
@@ -148,7 +148,7 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider r) {
+	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider r) {
 		super.saveAdditional(tag, r);
 		if (!insertedCard.isEmpty()) {
 			tag.put("Card", insertedCard.save(r));
@@ -156,7 +156,7 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider r) {
+	protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider r) {
 		super.loadAdditional(tag, r);
 		if (tag.contains("Card")) {
 			insertedCard = ItemStack.parse(r, tag.getCompound("Card")).orElse(ItemStack.EMPTY);

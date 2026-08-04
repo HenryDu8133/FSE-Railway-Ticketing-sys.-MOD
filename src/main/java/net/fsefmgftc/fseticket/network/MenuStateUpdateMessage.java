@@ -16,6 +16,7 @@ import net.minecraft.client.Minecraft;
 
 import net.fsefmgftc.fseticket.init.FseticketModMenus;
 import net.fsefmgftc.fseticket.FseticketMod;
+import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber
 public record MenuStateUpdateMessage(int elementType, String name, Object elementState) implements CustomPacketPayload {
@@ -49,7 +50,7 @@ public record MenuStateUpdateMessage(int elementType, String name, Object elemen
 	}
 
 	@Override
-	public Type<MenuStateUpdateMessage> type() {
+	public @NotNull Type<MenuStateUpdateMessage> type() {
 		return TYPE;
 	}
 

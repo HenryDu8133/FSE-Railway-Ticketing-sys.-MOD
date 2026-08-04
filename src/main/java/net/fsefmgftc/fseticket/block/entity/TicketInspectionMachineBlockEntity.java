@@ -28,6 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class TicketInspectionMachineBlockEntity extends BlockEntity {
 	private static final String ERROR_NO_TICKET_SCANNED = "no ticket scanned";
@@ -58,17 +59,17 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 		private final Set<IComputerAccess> computers = new HashSet<>();
 
 		@Override
-		public String getType() {
+		public @NotNull String getType() {
 			return "ticket_inspection_machine";
 		}
 
 		@Override
-		public void attach(IComputerAccess c) {
+		public void attach(@NotNull IComputerAccess c) {
 			computers.add(c);
 		}
 
 		@Override
-		public void detach(IComputerAccess c) {
+		public void detach(@NotNull IComputerAccess c) {
 			computers.remove(c);
 		}
 
@@ -84,12 +85,12 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 		}
 
 		@Override
-		public String[] getMethodNames() {
+		public String @NotNull [] getMethodNames() {
 			return new String[] { "getLastScanned", "destroyTicket", "deductICCard", "markEntered", "markExited", "resetTicketState" };
 		}
 
 		@Override
-		public MethodResult callMethod(IComputerAccess comp, ILuaContext ctx, int method, IArguments args) throws LuaException {
+		public @NotNull MethodResult callMethod(@NotNull IComputerAccess comp, @NotNull ILuaContext ctx, int method, @NotNull IArguments args) throws LuaException {
 			return switch (method) {
 				case 0 -> {
 					if (lastScannedData == null) yield MethodResult.of(null, ERROR_NO_TICKET_SCANNED);
@@ -220,7 +221,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider r) {
+	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider r) {
 		super.saveAdditional(tag, r);
 		if (lastScannedData != null) {
 			tag.put("LastScanned", lastScannedData);
@@ -233,7 +234,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider r) {
+	protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider r) {
 		super.loadAdditional(tag, r);
 		if (tag.contains("LastScanned")) {
 			lastScannedData = tag.getCompound("LastScanned");

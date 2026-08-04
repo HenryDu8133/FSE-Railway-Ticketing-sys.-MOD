@@ -12,6 +12,7 @@ import net.fsefmgftc.fseticket.world.inventory.FSEPassGUIMenu;
 import net.fsefmgftc.fseticket.init.FseticketModMenus;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import org.jetbrains.annotations.NotNull;
 
 public class FSEPassGUIScreen extends AbstractContainerScreen<FSEPassGUIMenu> implements FseticketModMenus.ScreenAccessor {
 	private final Level world;
@@ -34,12 +35,13 @@ public class FSEPassGUIScreen extends AbstractContainerScreen<FSEPassGUIMenu> im
 
 	@Override
 	public void updateMenuState(int elementType, String name, Object elementState) {
+		// ???
 		menuStateUpdateActive = true;
 		menuStateUpdateActive = false;
 	}
 
 	@Override
-	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+	public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
 		super.render(guiGraphics, mouseX, mouseY, partialTicks);
 		this.renderTooltip(guiGraphics, mouseX, mouseY);
 	}
@@ -50,14 +52,16 @@ public class FSEPassGUIScreen extends AbstractContainerScreen<FSEPassGUIMenu> im
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		guiGraphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
-		guiGraphics.blit(IMAGE_0, this.leftPos + -124, this.topPos + -73, 0, 0, 260, 163, 260, 163);
+		guiGraphics.blit(IMAGE_0, this.leftPos - 124, this.topPos - 73, 0, 0, 260, 163, 260, 163);
 		RenderSystem.disableBlend();
 	}
 
 	@Override
 	public boolean keyPressed(int key, int b, int c) {
 		if (key == 256) {
-			this.minecraft.player.closeContainer();
+            assert this.minecraft != null;
+            assert this.minecraft.player != null;
+            this.minecraft.player.closeContainer();
 			return true;
 		}
 		return super.keyPressed(key, b, c);

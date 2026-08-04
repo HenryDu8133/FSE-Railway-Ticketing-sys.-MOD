@@ -70,6 +70,6 @@ public final class OpenTicketWebProcedure {
 		}
 		CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 		String id = tag.getString("ticketId");
-		return id == null || id.isBlank() ? null : id;
+		return id.isBlank() ? null : id;
 	}
 }

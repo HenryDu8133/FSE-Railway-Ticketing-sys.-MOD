@@ -16,6 +16,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
 import net.fsefmgftc.fseticket.init.FseticketModMenus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class FSEPassGUIMenu extends AbstractContainerMenu implements FseticketMo
 		this.entity = inv.player;
 		this.world = inv.player.level();
 		this.internal = new ItemStackHandler(0);
-		BlockPos pos = null;
+		BlockPos pos;
 		if (extraData != null) {
 			pos = extraData.readBlockPos();
 			this.x = pos.getX();
@@ -58,7 +59,7 @@ public class FSEPassGUIMenu extends AbstractContainerMenu implements FseticketMo
 	}
 
 	@Override
-	public boolean stillValid(Player player) {
+	public boolean stillValid(@NotNull Player player) {
 		if (this.bound) {
 			if (this.boundItemMatcher != null)
 				return this.boundItemMatcher.get();
@@ -71,7 +72,7 @@ public class FSEPassGUIMenu extends AbstractContainerMenu implements FseticketMo
 	}
 
 	@Override
-	public ItemStack quickMoveStack(Player playerIn, int index) {
+	public @NotNull ItemStack quickMoveStack(@NotNull Player playerIn, int index) {
 		return ItemStack.EMPTY;
 	}
 

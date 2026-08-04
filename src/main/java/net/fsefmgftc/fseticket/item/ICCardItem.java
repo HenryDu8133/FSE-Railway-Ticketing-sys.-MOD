@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.fsefmgftc.fseticket.util.TicketDataUtil;
+import org.jetbrains.annotations.NotNull;
 
 public class ICCardItem extends Item {
 	public ICCardItem() {
@@ -28,12 +29,12 @@ public class ICCardItem extends Item {
 	}
 
 	@Override
-	public Component getName(ItemStack s) {
+	public @NotNull Component getName(@NotNull ItemStack s) {
 		return Component.literal("FSEICA");
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level w, Player e, InteractionHand h) {
+	public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level w, @NotNull Player e, @NotNull InteractionHand h) {
 		if (!(e instanceof ServerPlayer sp)) {
 			return super.use(w, e, h);
 		}
@@ -42,12 +43,12 @@ public class ICCardItem extends Item {
 		CompoundTag cardData = heldItem.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 		sp.openMenu(new MenuProvider() {
 			@Override
-			public Component getDisplayName() {
+			public @NotNull Component getDisplayName() {
 				return Component.literal("IC Card");
 			}
 
 			@Override
-			public AbstractContainerMenu createMenu(int id, Inventory inv, Player p) {
+			public AbstractContainerMenu createMenu(int id, @NotNull Inventory inv, @NotNull Player p) {
 				FriendlyByteBuf buffer = TicketDataUtil.createBuffer();
 				TicketDataUtil.writeICCardMenuData(buffer, e.blockPosition(), h, cardData);
 				return new net.fsefmgftc.fseticket.world.inventory.ICGUIMenu(id, inv, buffer);
@@ -58,7 +59,7 @@ public class ICCardItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack s, Item.TooltipContext ctx, java.util.List<Component> list, net.minecraft.world.item.TooltipFlag f) {
+	public void appendHoverText(@NotNull ItemStack s, Item.@NotNull TooltipContext ctx, java.util.@NotNull List<Component> list, net.minecraft.world.item.@NotNull TooltipFlag f) {
 		super.appendHoverText(s, ctx, list, f);
 
 		CompoundTag cardData = s.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();

@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 import net.fsefmgftc.fseticket.init.FseticketModMenus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -38,12 +39,12 @@ public class ICGUIMenu extends AbstractContainerMenu implements FseticketModMenu
     }
 
     @Override
-    public boolean stillValid(Player p) {
+    public boolean stillValid(@NotNull Player p) {
         return true;
     }
 
     @Override
-    public ItemStack quickMoveStack(Player p, int i) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player p, int i) {
         return ItemStack.EMPTY;
     }
 

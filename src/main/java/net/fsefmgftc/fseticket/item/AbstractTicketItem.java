@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractTicketItem extends Item {
 	protected AbstractTicketItem(Item.Properties properties, String ticketType) {
@@ -25,7 +26,7 @@ public abstract class AbstractTicketItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltip, flag);
 
 		CompoundTag ticketData = getTicketData(stack);
@@ -48,19 +49,19 @@ public abstract class AbstractTicketItem extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+	public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
 		if (player instanceof ServerPlayer serverPlayer) {
 			ItemStack heldItem = serverPlayer.getItemInHand(hand);
 			CompoundTag ticketData = getTicketData(heldItem);
 
 			serverPlayer.openMenu(new MenuProvider() {
 				@Override
-				public Component getDisplayName() {
+				public @NotNull Component getDisplayName() {
 					return Component.literal(getMenuTitle());
 				}
 
 				@Override
-				public AbstractContainerMenu createMenu(int id, Inventory inventory, Player menuPlayer) {
+				public AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory, @NotNull Player menuPlayer) {
 					FriendlyByteBuf buffer = TicketDataUtil.createBuffer();
 					TicketDataUtil.writeTicketMenuData(buffer, player.blockPosition(), hand, ticketData);
 					return createTicketMenu(id, inventory, buffer);
