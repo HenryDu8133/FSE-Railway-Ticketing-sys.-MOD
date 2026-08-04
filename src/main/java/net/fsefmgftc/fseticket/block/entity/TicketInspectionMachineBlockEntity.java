@@ -79,7 +79,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 
 		void pushToComputers(String event, Map<String, Object> info) {
 			for (IComputerAccess c : computers) {
-				c.queueEvent(event, new Object[] { info });
+				c.queueEvent(event, info);
 			}
 		}
 
@@ -145,7 +145,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 			t.putBoolean(TicketDataUtil.EXITED, exited);
 			if (entered && stationId != null && !stationId.isEmpty()) {
 				t.putString(TicketDataUtil.ENTRY_STATION, stationId);
-			} else if (exited || (!entered && !exited)) {
+			} else if (exited || !entered) {
 				t.remove(TicketDataUtil.ENTRY_STATION);
 			}
 			h.set(DataComponents.CUSTOM_DATA, CustomData.of(t));

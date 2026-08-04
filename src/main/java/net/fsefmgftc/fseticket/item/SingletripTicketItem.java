@@ -37,7 +37,9 @@ public class SingletripTicketItem extends Item {
 		tooltip.add(Component.translatable(
 			ticketData.getBoolean(TicketDataUtil.ENTERED)
 				? "tooltip.fseticket.entered"
-				: ticketData.getBoolean(TicketDataUtil.EXITED) ? "tooltip.fseticket.exited" : "tooltip.fseticket.not_entered"
+				: ticketData.getBoolean(TicketDataUtil.EXITED)
+				  ? "tooltip.fseticket.exited"
+				  : "tooltip.fseticket.not_entered"
 		));
 	}
 }

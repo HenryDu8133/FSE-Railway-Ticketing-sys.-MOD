@@ -69,9 +69,11 @@ public class ICCardItem extends Item {
 		if (TicketDataUtil.hasMeaningfulValue(cardId)) {
 			list.add(Component.translatable("tooltip.fseticket.card_id", cardId));
 		}
+
 		if (TicketDataUtil.hasMeaningfulValue(ownerName)) {
 			list.add(Component.translatable("tooltip.fseticket.owner_name", ownerName));
 		}
+
 		list.add(Component.translatable("tooltip.fseticket.balance", String.format("%.2f", balance)));
 	}
 }

@@ -39,13 +39,18 @@ public abstract class AbstractTicketItem extends Item {
 		tooltip.add(Component.translatable("tooltip.fseticket.cost", String.format("%.2f", ticketData.getDouble(TicketDataUtil.COST))));
 		tooltip.add(Component.translatable("tooltip.fseticket.rides", rides));
 		tooltip.add(Component.translatable("tooltip.fseticket.ticket_id", ticketData.getString(TicketDataUtil.TICKET_ID)));
-		tooltip.add(Component.translatable(entered ? "tooltip.fseticket.entered" : exited ? "tooltip.fseticket.exited" : "tooltip.fseticket.not_entered"));
+		tooltip.add(Component.translatable(entered
+				? "tooltip.fseticket.entered"
+				: exited
+				  ? "tooltip.fseticket.exited"
+				  : "tooltip.fseticket.not_entered"
+		));
 	}
 
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		if (player instanceof ServerPlayer serverPlayer) {
-			ItemStack heldItem = player.getItemInHand(hand);
+			ItemStack heldItem = serverPlayer.getItemInHand(hand);
 			CompoundTag ticketData = getTicketData(heldItem);
 
 			serverPlayer.openMenu(new MenuProvider() {
