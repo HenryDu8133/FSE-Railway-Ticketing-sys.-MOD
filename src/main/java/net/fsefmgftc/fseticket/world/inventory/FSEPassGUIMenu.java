@@ -13,6 +13,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
 import net.fsefmgftc.fseticket.init.FseticketModMenus;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -34,16 +35,16 @@ public class FSEPassGUIMenu extends AbstractContainerMenu implements FseticketMo
 	public int x, y, z;
 	private ContainerLevelAccess access = ContainerLevelAccess.NULL;
 	private final Map<Integer, Slot> customSlots = new HashMap<>();
-	private boolean bound = false;
-	private Supplier<Boolean> boundItemMatcher = null;
-	private Entity boundEntity = null;
-	private BlockEntity boundBlockEntity = null;
+	private final boolean bound = false;
+	private final Supplier<Boolean> boundItemMatcher = null;
+	private final Entity boundEntity = null;
+	private final BlockEntity boundBlockEntity = null;
 
 	public FSEPassGUIMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
 		super(FseticketModMenus.FSE_PASS_GUI.get(), id);
 		this.entity = inv.player;
 		this.world = inv.player.level();
-		this.internal = new ItemStackHandler(0);
+//		this.internal = new ItemStackHandler(0);
 		BlockPos pos;
 		if (extraData != null) {
 			pos = extraData.readBlockPos();
