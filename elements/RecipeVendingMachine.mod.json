@@ -1,0 +1,56 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 2,
+    "group": "",
+    "unlockingItems": [
+      {
+        "value": "Blocks.STONE"
+      },
+      {
+        "value": "Items.PAPER"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "Blocks.STONE"
+      },
+      {
+        "value": "Blocks.STONE"
+      },
+      {
+        "value": "Blocks.STONE"
+      },
+      {
+        "value": "Blocks.STONE"
+      },
+      {
+        "value": "Items.PAPER"
+      },
+      {
+        "value": "Blocks.STONE"
+      },
+      {
+        "value": "Blocks.STONE"
+      },
+      {
+        "value": "Blocks.STONE"
+      },
+      {
+        "value": "Blocks.STONE"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:TicketVendingMachine"
+    },
+    "name": "recipe_vending_machine",
+    "namespace": "mod"
+  }
+}
