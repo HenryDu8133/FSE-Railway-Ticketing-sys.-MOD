@@ -37,8 +37,6 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 	}
 
 	private class VendingPeripheral implements IDynamicPeripheral {
-		private final Set<IComputerAccess> computers = new HashSet<>();
-
 		@Override
 		public String getType() {
 			return "ticket_vending_machine";
@@ -46,12 +44,10 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 
 		@Override
 		public void attach(IComputerAccess c) {
-			computers.add(c);
 		}
 
 		@Override
 		public void detach(IComputerAccess c) {
-			computers.remove(c);
 		}
 
 		@Override

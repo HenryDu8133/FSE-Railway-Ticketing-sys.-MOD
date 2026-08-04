@@ -46,8 +46,6 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 	}
 
 	private class RefillPeripheral implements IDynamicPeripheral {
-		private final Set<IComputerAccess> computers = new HashSet<>();
-
 		@Override
 		public String getType() {
 			return "ic_refill_machine";
@@ -55,12 +53,10 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 
 		@Override
 		public void attach(IComputerAccess c) {
-			computers.add(c);
 		}
 
 		@Override
 		public void detach(IComputerAccess c) {
-			computers.remove(c);
 		}
 
 		@Override
