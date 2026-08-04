@@ -22,7 +22,5 @@ public final class FseticketModCapabilities {
 			(be, side) -> ((TicketInspectionMachineBlockEntity) be).getPeripheral());
 		event.registerBlockEntity(PeripheralCapability.get(), FseticketModBlockEntities.IC_REFILL_MACHINE.get(),
 			(be, side) -> ((ICRefillMachineBlockEntity) be).getPeripheral());
-		event.registerBlockEntity(PeripheralCapability.get(), FseticketModBlockEntities.BROADCAST_HOST.get(),
-			(be, side) -> ((net.fsefmgftc.fseticket.block.entity.BroadcastHostBlockEntity) be).getPeripheral());
 	}
 }

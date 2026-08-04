@@ -3,7 +3,7 @@
   "textures": {
     "down": "fseticket:block/disk_drive_top",
     "up": "fseticket:block/disk_drive_top",
-    "north": "fseticket:block/speaker_front",
+    "north": "fseticket:block/inspection-success",
     "east": "fseticket:block/disk_drive_side",
     "south": "fseticket:block/disk_drive_side",
     "west": "fseticket:block/disk_drive_side",

@@ -9,8 +9,6 @@ import net.minecraft.world.level.block.Block;
 import net.fsefmgftc.fseticket.block.TicketVendingMachineBlock;
 import net.fsefmgftc.fseticket.block.TicketInspectionMachineBlock;
 import net.fsefmgftc.fseticket.block.ICRefillMachineBlock;
-import net.fsefmgftc.fseticket.block.BroadcastHostBlock;
-import net.fsefmgftc.fseticket.block.BroadcastSpeakerBlock;
 import net.fsefmgftc.fseticket.FseticketMod;
 
 public final class FseticketModBlocks {
@@ -18,14 +16,10 @@ public final class FseticketModBlocks {
 	public static final DeferredBlock<Block> TICKET_VENDING_MACHINE;
 	public static final DeferredBlock<Block> TICKET_INSPECTION_MACHINE;
 	public static final DeferredBlock<Block> IC_REFILL_MACHINE;
-	public static final DeferredBlock<Block> BROADCAST_HOST;
-	public static final DeferredBlock<Block> BROADCAST_SPEAKER;
 	static {
 		TICKET_VENDING_MACHINE = REGISTRY.register("ticket_vending_machine", TicketVendingMachineBlock::new);
 		TICKET_INSPECTION_MACHINE = REGISTRY.register("ticket_inspection_machine", TicketInspectionMachineBlock::new);
 		IC_REFILL_MACHINE = REGISTRY.register("ic_refill_machine", ICRefillMachineBlock::new);
-		BROADCAST_HOST = REGISTRY.register("broadcast_host", BroadcastHostBlock::new);
-		BROADCAST_SPEAKER = REGISTRY.register("broadcast_speaker", BroadcastSpeakerBlock::new);
 	}
 
 	private FseticketModBlocks() {

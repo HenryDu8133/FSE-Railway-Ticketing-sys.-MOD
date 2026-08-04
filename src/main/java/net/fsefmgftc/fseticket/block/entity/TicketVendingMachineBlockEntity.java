@@ -106,6 +106,12 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 			ItemStack ticket = new ItemStack(getTicketItem(type));
 			ticket.set(DataComponents.CUSTOM_DATA, CustomData.of(ticketData));
 			spawnItem(ticket);
+			
+			if (level != null && !level.isClientSide()) {
+				level.setBlock(worldPosition, getBlockState().setValue(net.fsefmgftc.fseticket.block.TicketVendingMachineBlock.SUCCESS, true), 3);
+				level.scheduleTick(worldPosition, getBlockState().getBlock(), 20);
+			}
+			
 			return MethodResult.of(true, ticketId);
 		}
 
@@ -123,6 +129,12 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 			ItemStack card = new ItemStack(FseticketModItems.IC_CARD.get());
 			card.set(DataComponents.CUSTOM_DATA, CustomData.of(cardData));
 			spawnItem(card);
+
+			if (level != null && !level.isClientSide()) {
+				level.setBlock(worldPosition, getBlockState().setValue(net.fsefmgftc.fseticket.block.TicketVendingMachineBlock.SUCCESS, true), 3);
+				level.scheduleTick(worldPosition, getBlockState().getBlock(), 20);
+			}
+
 			return MethodResult.of(true, cardData.getString(TicketDataUtil.CARD_ID));
 		}
 

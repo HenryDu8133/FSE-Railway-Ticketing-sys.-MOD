@@ -14,12 +14,28 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.fsefmgftc.fseticket.block.entity.TicketVendingMachineBlockEntity;
 
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+
 public class TicketVendingMachineBlock extends Block implements net.minecraft.world.level.block.EntityBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-	public TicketVendingMachineBlock(){super(BlockBehaviour.Properties.of().strength(1f,10f));registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH));}
-	@Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> b){super.createBlockStateDefinition(b);b.add(FACING);}
+	public static final BooleanProperty SUCCESS = BooleanProperty.create("success");
+
+	public TicketVendingMachineBlock(){
+		super(BlockBehaviour.Properties.of().strength(1f,10f));
+		registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(SUCCESS, false));
+	}
+	@Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> b){super.createBlockStateDefinition(b);b.add(FACING, SUCCESS);}
 	@Override public BlockState getStateForPlacement(BlockPlaceContext c){return super.getStateForPlacement(c).setValue(FACING,c.getHorizontalDirection().getOpposite());}
 	public BlockState rotate(BlockState s,Rotation r){return s.setValue(FACING,r.rotate(s.getValue(FACING)));}
 	public BlockState mirror(BlockState s,Mirror m){return s.rotate(m.getRotation(s.getValue(FACING)));}
 	@Override public BlockEntity newBlockEntity(BlockPos p,BlockState s){return new TicketVendingMachineBlockEntity(p,s);}
+
+	@Override
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		if (state.getValue(SUCCESS)) {
+			level.setBlock(pos, state.setValue(SUCCESS, false), 3);
+		}
+	}
 }

@@ -8,8 +8,6 @@ import net.fsefmgftc.fseticket.FseticketMod;
 import net.fsefmgftc.fseticket.block.entity.TicketVendingMachineBlockEntity;
 import net.fsefmgftc.fseticket.block.entity.TicketInspectionMachineBlockEntity;
 import net.fsefmgftc.fseticket.block.entity.ICRefillMachineBlockEntity;
-import net.fsefmgftc.fseticket.block.entity.BroadcastHostBlockEntity;
-import net.fsefmgftc.fseticket.block.entity.BroadcastSpeakerBlockEntity;
 import java.util.function.Supplier;
 
 public final class FseticketModBlockEntities {
@@ -20,10 +18,6 @@ public final class FseticketModBlockEntities {
 		.register("ticket_inspection_machine", () -> BlockEntityType.Builder.of(TicketInspectionMachineBlockEntity::new, FseticketModBlocks.TICKET_INSPECTION_MACHINE.get()).build(null));
 	public static final Supplier<BlockEntityType<ICRefillMachineBlockEntity>> IC_REFILL_MACHINE = REGISTRY
 		.register("ic_refill_machine", () -> BlockEntityType.Builder.of(ICRefillMachineBlockEntity::new, FseticketModBlocks.IC_REFILL_MACHINE.get()).build(null));
-	public static final Supplier<BlockEntityType<BroadcastHostBlockEntity>> BROADCAST_HOST = REGISTRY
-		.register("broadcast_host", () -> BlockEntityType.Builder.of(BroadcastHostBlockEntity::new, FseticketModBlocks.BROADCAST_HOST.get()).build(null));
-	public static final Supplier<BlockEntityType<BroadcastSpeakerBlockEntity>> BROADCAST_SPEAKER = REGISTRY
-		.register("broadcast_speaker", () -> BlockEntityType.Builder.of(BroadcastSpeakerBlockEntity::new, FseticketModBlocks.BROADCAST_SPEAKER.get()).build(null));
 
 	private FseticketModBlockEntities() {
 	}
