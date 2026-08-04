@@ -11,7 +11,7 @@ import net.fsefmgftc.fseticket.client.gui.FSEPassGUIScreen;
 import net.fsefmgftc.fseticket.client.gui.ExpTicketGUIScreen;
 import net.fsefmgftc.fseticket.FseticketMod;
 
-@EventBusSubscriber(modid = FseticketMod.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = FseticketMod.MODID, value = Dist.CLIENT)
 public final class FseticketModScreens {
 	private FseticketModScreens() {
 	}

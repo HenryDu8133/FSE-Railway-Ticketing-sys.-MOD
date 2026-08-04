@@ -7,10 +7,8 @@ import dan200.computercraft.api.lua.MethodResult;
 import dan200.computercraft.api.peripheral.IDynamicPeripheral;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 import net.fsefmgftc.fseticket.block.ICRefillMachineBlock;
 import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
 import net.fsefmgftc.fseticket.init.FseticketModItems;
@@ -45,9 +43,7 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 		return peripheral;
 	}
 
-	private class RefillPeripheral implements IPeripheral, IDynamicPeripheral {
-		private final Set<IComputerAccess> computers = new HashSet<>();
-
+	private class RefillPeripheral implements IDynamicPeripheral {
 		@Override
 		public @NotNull String getType() {
 			return "ic_refill_machine";

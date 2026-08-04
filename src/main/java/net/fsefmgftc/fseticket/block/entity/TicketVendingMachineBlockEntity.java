@@ -7,8 +7,6 @@ import dan200.computercraft.api.lua.MethodResult;
 import dan200.computercraft.api.peripheral.IDynamicPeripheral;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
-import java.util.HashSet;
-import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -36,9 +34,7 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 		return peripheral;
 	}
 
-	private class VendingPeripheral implements IPeripheral, IDynamicPeripheral {
-		private final Set<IComputerAccess> computers = new HashSet<>();
-
+	private class VendingPeripheral implements IDynamicPeripheral {
 		@Override
 		public @NotNull String getType() {
 			return "ticket_vending_machine";

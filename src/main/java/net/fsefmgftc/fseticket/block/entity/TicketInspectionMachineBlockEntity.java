@@ -55,7 +55,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 		return peripheral;
 	}
 
-	private class InspectionPeripheral implements IPeripheral, IDynamicPeripheral {
+	private class InspectionPeripheral implements IDynamicPeripheral {
 		private final Set<IComputerAccess> computers = new HashSet<>();
 
 		@Override
