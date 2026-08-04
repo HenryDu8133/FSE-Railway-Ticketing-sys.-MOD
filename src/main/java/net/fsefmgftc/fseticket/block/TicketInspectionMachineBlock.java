@@ -19,7 +19,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.fsefmgftc.fseticket.block.entity.TicketInspectionMachineBlockEntity;
-import net.fsefmgftc.fseticket.block.entity.ICRefillMachineBlockEntity;
 
 public class TicketInspectionMachineBlock extends Block implements net.minecraft.world.level.block.EntityBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;

@@ -57,11 +57,11 @@ public final class FseticketModItems {
 		event.registerItem(Capabilities.ItemHandler.ITEM, (stack, context) -> new ExpTicketInventoryCapability(stack), EXP_TICKET.get());
 	}
 
-	private static DeferredItem<Item> block(DeferredHolder<Block, Block> block) {
+	private static DeferredItem<Item> block(net.neoforged.neoforge.registries.DeferredBlock<Block> block) {
 		return block(block, new Item.Properties());
 	}
 
-	private static DeferredItem<Item> block(DeferredHolder<Block, Block> block, Item.Properties properties) {
+	private static DeferredItem<Item> block(net.neoforged.neoforge.registries.DeferredBlock<Block> block, Item.Properties properties) {
 		return REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), properties));
 	}
 }

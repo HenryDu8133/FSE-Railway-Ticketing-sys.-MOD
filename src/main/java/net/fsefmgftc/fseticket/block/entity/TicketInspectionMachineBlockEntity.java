@@ -96,8 +96,14 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 					yield MethodResult.of(isICCard ? buildICInfo() : buildTicketInfo());
 				}
 				case 1 -> runOnServer(this::destroyItem);
-				case 2 -> runOnServer(() -> deductICCard(args.optDouble(0, 0.0)));
-				case 3 -> runOnServer(() -> updateTicketState(true, false, args.optString(0, "")));
+				case 2 -> {
+					double amt = args.optDouble(0, 0.0);
+					yield runOnServer(() -> deductICCard(amt));
+				}
+				case 3 -> {
+					String station = args.optString(0, "");
+					yield runOnServer(() -> updateTicketState(true, false, station));
+				}
 				case 4 -> runOnServer(() -> updateTicketState(false, true, ""));
 				case 5 -> runOnServer(() -> updateTicketState(false, false, ""));
 				default -> MethodResult.of();

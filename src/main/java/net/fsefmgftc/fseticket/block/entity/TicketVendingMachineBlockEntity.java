@@ -23,6 +23,7 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class TicketVendingMachineBlockEntity extends BlockEntity {
 	private final VendingPeripheral peripheral = new VendingPeripheral();
