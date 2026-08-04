@@ -26,5 +26,9 @@
   "gui.fseticket.exp_ticket_gui.label_tip1": "請凭此票在指定車站進站乘車",
   "gui.fseticket.exp_ticket_gui.label_tip2": "妥善保管 遺失不補",
   "gui.fseticket.exp_ticket_gui.tooltip_empty": "",
-  "gui.fseticket.icgui.label_title": "FSEIC交通卡"
+  "gui.fseticket.icgui.label_title": "FSEIC交通卡",
+  "message.fseticket.broadcast_host.bind_success": "扬声器绑定成功！广播主机：%s",
+  "message.fseticket.broadcast_host.already_bound": "该扬声器已绑定过此广播主机：%s",
+  "message.fseticket.broadcast_speaker.currently_bound": "当前扬声器绑定的广播主机：",
+  "message.fseticket.broadcast_speaker.not_bound": "暂无绑定"
 }

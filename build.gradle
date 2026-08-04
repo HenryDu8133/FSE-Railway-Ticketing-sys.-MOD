@@ -7,8 +7,16 @@ version = '1.10.5'
 base.archivesName = 'fseticket'
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
+repositories {
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+}
+
 dependencies {
-    implementation fileTree(dir: 'run/mods', include: ['cc-tweaked-*.jar'])
+//    implementation fileTree(dir: 'run/mods', include: ['cc-tweaked-*.jar'])
+    implementation "maven.modrinth:cc-tweaked:8XEJbAee" // Use net download instead.
     implementation 'com.googlecode.soundlibs:mp3spi:1.9.5.4'
     jarJar('com.googlecode.soundlibs:mp3spi:[1.9.5.4,1.9.6)')
     jarJar('com.googlecode.soundlibs:jlayer:[1.0.1.4,1.0.2)')
@@ -20,9 +28,13 @@ neoForge {
     runs {
         client { client() }
         server { server() }
-        configureEach { systemProperty 'forge.logging.markers','REGISTRIES'; logLevel=org.slf4j.event.Level.DEBUG }
+        configureEach { systemProperty 'forge.logging.markers', 'REGISTRIES'; logLevel = org.slf4j.event.Level.DEBUG }
     }
-    mods { fseticket { sourceSet sourceSets.main } }
+    mods {
+        fseticket {
+            sourceSet sourceSets.main
+        }
+    }
 }
 
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
