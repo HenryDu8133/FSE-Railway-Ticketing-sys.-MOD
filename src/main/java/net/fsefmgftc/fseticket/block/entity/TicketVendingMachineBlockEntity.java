@@ -131,6 +131,28 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 			return MethodResult.of(true, cardData.getString(TicketDataUtil.CARD_ID));
 		}
 		
+		private MethodResult issueFSEPass(IArguments args) throws LuaException {
+			CompoundTag passData = TicketDataUtil.createBaseTicketTag(TicketDataUtil.TYPE_FSE_PASS);
+			
+			passData.putString(TicketDataUtil.OWNER_NAME, args.optString(0, ""));
+			passData.putString(TicketDataUtil.START_NAME_EN, args.optString(1, "???"));
+			passData.putString(TicketDataUtil.TERMINAL_NAME_EN, args.optString(2, "???"));
+			
+			String ticketId = TicketDataUtil.generateTicketId();
+			passData.putString(TicketDataUtil.TICKET_ID, ticketId);
+			passData.putLong(TicketDataUtil.TIMESTAMP, System.currentTimeMillis());
+			passData.putDouble(TicketDataUtil.COST, args.optDouble(3, 0D));
+			passData.putString(TicketDataUtil.ORDER_DATETIME, TicketDataUtil.currentOrderDateTime());
+
+			ItemStack pass = new ItemStack(FseticketModItems.FSE_PASS.get());
+			pass.set(DataComponents.CUSTOM_DATA, CustomData.of(passData));
+			spawnItem(pass);
+			
+			triggerSuccessState();
+			
+			return MethodResult.of(true, ticketId);
+		}
+
 		private void triggerSuccessState() {
 			if (level != null && !level.isClientSide()) {
 				level.setBlock(worldPosition, getBlockState().setValue(net.fsefmgftc.fseticket.block.TicketVendingMachineBlock.SUCCESS, true), 3);
