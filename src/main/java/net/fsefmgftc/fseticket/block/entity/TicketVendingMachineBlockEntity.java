@@ -75,26 +75,27 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 		}
 
 		private MethodResult issueTicket(IArguments args) throws LuaException {
-			String startName = args.count() > 0 ? args.getString(0) : "???";
-			String terminalName = args.count() > 1 ? args.getString(1) : "???";
-			String type = args.count() > 2 ? args.getString(2) : TicketDataUtil.TYPE_LOCAL;
-			int rides = args.count() > 3 ? Math.max(1, args.getInt(3)) : 1;
-			double cost = args.count() > 4 ? args.getDouble(4) : 0D;
-			String startStation = args.count() > 5 ? args.getString(5) : "";
-			String terminalStation = args.count() > 6 ? args.getString(6) : "";
-			String fromNameCn = args.count() > 7 ? args.getString(7) : "";
-			String toNameCn = args.count() > 8 ? args.getString(8) : "";
+			String startName = args.optString(0, "???");
+			String terminalName = args.optString(1, "???");
+			String type = args.optString(2, TicketDataUtil.TYPE_LOCAL);
+			int rides = Math.max(1, args.optInt(3, 1));
+			double cost = args.optDouble(4, 0D);
+			String startStation = args.optString(5, "");
+			String terminalStation = args.optString(6, "");
+			String fromNameCn = args.optString(7, "");
+			String toNameCn = args.optString(8, "");
 
 			CompoundTag ticketData = TicketDataUtil.TYPE_SINGLE.equals(type)
 				? TicketDataUtil.createSingleTripTicketTag()
 				: TicketDataUtil.createBaseTicketTag(type);
-			ticketData.putString(TicketDataUtil.START_NAME_EN, startName != null ? startName : "???");
-			ticketData.putString(TicketDataUtil.TERMINAL_NAME_EN, terminalName != null ? terminalName : "???");
-			ticketData.putString(TicketDataUtil.LINE_NAME, TicketDataUtil.TYPE_SINGLE.equals(type) && startName != null ? startName : "");
-			ticketData.putString(TicketDataUtil.START_STATION, startStation != null ? startStation : "");
-			ticketData.putString(TicketDataUtil.TERMINAL_STATION, terminalStation != null ? terminalStation : "");
-			ticketData.putString(TicketDataUtil.FROM_NAME_CNU, fromNameCn != null ? fromNameCn : "");
-			ticketData.putString(TicketDataUtil.TO_NAME_CNU, toNameCn != null ? toNameCn : "");
+			
+			ticketData.putString(TicketDataUtil.START_NAME_EN, startName);
+			ticketData.putString(TicketDataUtil.TERMINAL_NAME_EN, terminalName);
+			ticketData.putString(TicketDataUtil.LINE_NAME, TicketDataUtil.TYPE_SINGLE.equals(type) ? startName : "");
+			ticketData.putString(TicketDataUtil.START_STATION, startStation);
+			ticketData.putString(TicketDataUtil.TERMINAL_STATION, terminalStation);
+			ticketData.putString(TicketDataUtil.FROM_NAME_CNU, fromNameCn);
+			ticketData.putString(TicketDataUtil.TO_NAME_CNU, toNameCn);
 			ticketData.putInt(TicketDataUtil.RIDES, rides);
 
 			String ticketId = TicketDataUtil.generateTicketId();
@@ -107,10 +108,7 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 			ticket.set(DataComponents.CUSTOM_DATA, CustomData.of(ticketData));
 			spawnItem(ticket);
 			
-			if (level != null && !level.isClientSide()) {
-				level.setBlock(worldPosition, getBlockState().setValue(net.fsefmgftc.fseticket.block.TicketVendingMachineBlock.SUCCESS, true), 3);
-				level.scheduleTick(worldPosition, getBlockState().getBlock(), 20);
-			}
+			triggerSuccessState();
 			
 			return MethodResult.of(true, ticketId);
 		}
@@ -119,10 +117,8 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 			CompoundTag cardData = TicketDataUtil.createICCardTag();
 			cardData.putString(TicketDataUtil.CARD_ID, TicketDataUtil.generateCardId());
 
-			String ownerName = args.count() > 0 ? args.getString(0) : "";
-			double balance = args.count() > 1 ? args.getDouble(1) : 0D;
-			cardData.putString(TicketDataUtil.OWNER_NAME, ownerName != null ? ownerName : "");
-			cardData.putDouble(TicketDataUtil.BALANCE, balance);
+			cardData.putString(TicketDataUtil.OWNER_NAME, args.optString(0, ""));
+			cardData.putDouble(TicketDataUtil.BALANCE, args.optDouble(1, 0D));
 			cardData.putBoolean(TicketDataUtil.ENTERED, false);
 			cardData.putString(TicketDataUtil.ENTRY_STATION, "");
 
@@ -130,12 +126,16 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 			card.set(DataComponents.CUSTOM_DATA, CustomData.of(cardData));
 			spawnItem(card);
 
+			triggerSuccessState();
+
+			return MethodResult.of(true, cardData.getString(TicketDataUtil.CARD_ID));
+		}
+		
+		private void triggerSuccessState() {
 			if (level != null && !level.isClientSide()) {
 				level.setBlock(worldPosition, getBlockState().setValue(net.fsefmgftc.fseticket.block.TicketVendingMachineBlock.SUCCESS, true), 3);
 				level.scheduleTick(worldPosition, getBlockState().getBlock(), 20);
 			}
-
-			return MethodResult.of(true, cardData.getString(TicketDataUtil.CARD_ID));
 		}
 
 		private Item getTicketItem(String type) {
