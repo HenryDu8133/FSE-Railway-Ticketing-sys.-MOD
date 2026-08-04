@@ -30,5 +30,16 @@
   "message.fseticket.broadcast_host.bind_success": "扬声器绑定成功！广播主机：%s",
   "message.fseticket.broadcast_host.already_bound": "该扬声器已绑定过此广播主机：%s",
   "message.fseticket.broadcast_speaker.currently_bound": "当前扬声器绑定的广播主机：",
-  "message.fseticket.broadcast_speaker.not_bound": "暂无绑定"
+  "message.fseticket.broadcast_speaker.not_bound": "暂无绑定",
+  "tooltip.fseticket.route": "§7区间：§f%s §7→ §f%s",
+  "tooltip.fseticket.ticket_range": "§7区间：§f%s",
+  "tooltip.fseticket.cost": "§7票价：§6¤%s",
+  "tooltip.fseticket.rides": "§7乘次：§f%s",
+  "tooltip.fseticket.ticket_id": "§7票号：§f%s",
+  "tooltip.fseticket.entered": "§a已进站",
+  "tooltip.fseticket.exited": "§e已出站",
+  "tooltip.fseticket.not_entered": "§7未进站",
+  "tooltip.fseticket.card_id": "§7卡号：§f%s",
+  "tooltip.fseticket.owner_name": "§7持卡人：§f%s",
+  "tooltip.fseticket.balance": "§7余额：§6%s"
 }

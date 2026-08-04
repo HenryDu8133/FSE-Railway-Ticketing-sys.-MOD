@@ -25,15 +25,43 @@ public class ICRefillMachineBlock extends Block implements net.minecraft.world.l
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty HAS_CARD = BooleanProperty.create("has_card");
 
-	public ICRefillMachineBlock(){super(BlockBehaviour.Properties.of().strength(1f,10f));registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(HAS_CARD,false));}
-	@Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> b){super.createBlockStateDefinition(b);b.add(FACING,HAS_CARD);}
-	@Override public BlockState getStateForPlacement(BlockPlaceContext c){return super.getStateForPlacement(c).setValue(FACING,c.getHorizontalDirection().getOpposite()).setValue(HAS_CARD,false);}
-	public BlockState rotate(BlockState s,Rotation r){return s.setValue(FACING,r.rotate(s.getValue(FACING)));}
-	public BlockState mirror(BlockState s,Mirror m){return s.rotate(m.getRotation(s.getValue(FACING)));}
-	@Override public BlockEntity newBlockEntity(BlockPos p,BlockState s){return new ICRefillMachineBlockEntity(p,s);}
-	@Override protected ItemInteractionResult useItemOn(ItemStack stack,BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit){
-		BlockEntity be=level.getBlockEntity(pos);
-		if(be instanceof ICRefillMachineBlockEntity rm)return rm.onUse(state,level,pos,player,hand,hit);
+	public ICRefillMachineBlock() {
+		super(BlockBehaviour.Properties.of().strength(1f, 10f));
+		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HAS_CARD, false));
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(FACING, HAS_CARD);
+	}
+
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(HAS_CARD, false);
+	}
+
+	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+	}
+
+	@Override
+	public BlockState mirror(BlockState state, Mirror mirror) {
+		return state.rotate(mirror.getRotation(state.getValue(FACING)));
+	}
+
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new ICRefillMachineBlockEntity(pos, state);
+	}
+
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (blockEntity instanceof ICRefillMachineBlockEntity refillMachine) {
+			return refillMachine.onUse(state, level, pos, player, hand, hit);
+		}
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 }

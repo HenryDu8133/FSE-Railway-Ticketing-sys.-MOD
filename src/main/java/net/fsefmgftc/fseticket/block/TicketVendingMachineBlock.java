@@ -22,15 +22,36 @@ public class TicketVendingMachineBlock extends Block implements net.minecraft.wo
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty SUCCESS = BooleanProperty.create("success");
 
-	public TicketVendingMachineBlock(){
-		super(BlockBehaviour.Properties.of().strength(1f,10f));
-		registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH).setValue(SUCCESS, false));
+	public TicketVendingMachineBlock() {
+		super(BlockBehaviour.Properties.of().strength(1f, 10f));
+		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(SUCCESS, false));
 	}
-	@Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> b){super.createBlockStateDefinition(b);b.add(FACING, SUCCESS);}
-	@Override public BlockState getStateForPlacement(BlockPlaceContext c){return super.getStateForPlacement(c).setValue(FACING,c.getHorizontalDirection().getOpposite());}
-	public BlockState rotate(BlockState s,Rotation r){return s.setValue(FACING,r.rotate(s.getValue(FACING)));}
-	public BlockState mirror(BlockState s,Mirror m){return s.rotate(m.getRotation(s.getValue(FACING)));}
-	@Override public BlockEntity newBlockEntity(BlockPos p,BlockState s){return new TicketVendingMachineBlockEntity(p,s);}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(FACING, SUCCESS);
+	}
+
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite());
+	}
+
+	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+	}
+
+	@Override
+	public BlockState mirror(BlockState state, Mirror mirror) {
+		return state.rotate(mirror.getRotation(state.getValue(FACING)));
+	}
+
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new TicketVendingMachineBlockEntity(pos, state);
+	}
 
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {

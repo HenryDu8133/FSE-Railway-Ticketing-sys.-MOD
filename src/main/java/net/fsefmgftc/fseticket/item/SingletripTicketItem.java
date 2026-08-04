@@ -19,8 +19,6 @@ public class SingletripTicketItem extends Item {
 		CompoundTag tag = TicketDataUtil.createSingleTripTicketTag();
 		return CustomData.of(tag);
 	}
-	// i18n when
-	// todo: add i18n & l10n
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltip, flag);
@@ -34,11 +32,11 @@ public class SingletripTicketItem extends Item {
 			routeName = ticketData.getString(TicketDataUtil.FROM_NAME_CNU);
 		}
 
-		tooltip.add(Component.literal("§7区间：§f" + TicketDataUtil.normalizedDisplay(routeName)));
-		tooltip.add(Component.literal(
+		tooltip.add(Component.translatable("tooltip.fseticket.ticket_range", TicketDataUtil.normalizedDisplay(routeName)));
+		tooltip.add(Component.translatable(
 			ticketData.getBoolean(TicketDataUtil.ENTERED)
-				? "§a已进站"
-				: ticketData.getBoolean(TicketDataUtil.EXITED) ? "§e已出站" : "§7未进站"
+				? "tooltip.fseticket.entered"
+				: ticketData.getBoolean(TicketDataUtil.EXITED) ? "tooltip.fseticket.exited" : "tooltip.fseticket.not_entered"
 		));
 	}
 }

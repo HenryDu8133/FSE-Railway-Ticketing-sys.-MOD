@@ -35,11 +35,11 @@ public abstract class AbstractTicketItem extends Item {
 		boolean entered = ticketData.getBoolean(TicketDataUtil.ENTERED);
 		boolean exited = ticketData.getBoolean(TicketDataUtil.EXITED);
 
-		tooltip.add(Component.literal("§7区间：§f" + from + "§7→§f" + to));
-		tooltip.add(Component.literal("§7票价：§6¤" + String.format("%.2f", ticketData.getDouble(TicketDataUtil.COST))));
-		tooltip.add(Component.literal("§7乘次：§f" + rides));
-		tooltip.add(Component.literal("§7票号：§f" + ticketData.getString(TicketDataUtil.TICKET_ID)));
-		tooltip.add(Component.literal(entered ? "§a已进站" : exited ? "§e已出站" : "§7未进站"));
+		tooltip.add(Component.translatable("tooltip.fseticket.route", from, to));
+		tooltip.add(Component.translatable("tooltip.fseticket.cost", String.format("%.2f", ticketData.getDouble(TicketDataUtil.COST))));
+		tooltip.add(Component.translatable("tooltip.fseticket.rides", rides));
+		tooltip.add(Component.translatable("tooltip.fseticket.ticket_id", ticketData.getString(TicketDataUtil.TICKET_ID)));
+		tooltip.add(Component.translatable(entered ? "tooltip.fseticket.entered" : exited ? "tooltip.fseticket.exited" : "tooltip.fseticket.not_entered"));
 	}
 
 	@Override

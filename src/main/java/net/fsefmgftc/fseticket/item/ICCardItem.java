@@ -67,11 +67,11 @@ public class ICCardItem extends Item {
 		double balance = cardData.getDouble(TicketDataUtil.BALANCE);
 
 		if (TicketDataUtil.hasMeaningfulValue(cardId)) {
-			list.add(Component.literal("§7卡号: §f" + cardId));
+			list.add(Component.translatable("tooltip.fseticket.card_id", cardId));
 		}
 		if (TicketDataUtil.hasMeaningfulValue(ownerName)) {
-			list.add(Component.literal("§7持卡人: §f" + ownerName));
+			list.add(Component.translatable("tooltip.fseticket.owner_name", ownerName));
 		}
-		list.add(Component.literal("§7余额: §6" + String.format("%.2f", balance)));
+		list.add(Component.translatable("tooltip.fseticket.balance", String.format("%.2f", balance)));
 	}
 }

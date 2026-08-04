@@ -79,5 +79,16 @@
   "message.fseticket.broadcast_host.bind_success": "Successfully bind speaker to a broadcast host: %s",
   "message.fseticket.broadcast_host.already_bound": "Speaker has already bound to broadcast host %s",
   "message.fseticket.broadcast_speaker.currently_bound": "Currently bound:",
-  "message.fseticket.broadcast_speaker.not_bound": "No."
+  "message.fseticket.broadcast_speaker.not_bound": "No.",
+  "tooltip.fseticket.route": "§7Route: §f%s §7-> §f%s",
+  "tooltip.fseticket.ticket_range": "§7Range: §f%s",
+  "tooltip.fseticket.cost": "§7Cost: §6¤%s",
+  "tooltip.fseticket.rides": "§7Rides: §f%s",
+  "tooltip.fseticket.ticket_id": "§7Ticket ID: §f%s",
+  "tooltip.fseticket.entered": "§aEntered",
+  "tooltip.fseticket.exited": "§eExited",
+  "tooltip.fseticket.not_entered": "§7Not Entered",
+  "tooltip.fseticket.card_id": "§7Card No: §f%s",
+  "tooltip.fseticket.owner_name": "§7Owner: §f%s",
+  "tooltip.fseticket.balance": "§7Balance: §6%s"
 }
