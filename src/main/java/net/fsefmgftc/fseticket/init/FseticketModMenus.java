@@ -51,6 +51,7 @@ public final class FseticketModMenus {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		default <T> T getMenuState(int elementType, String name, T defaultValue) {
 			try {
 				return (T) getMenuState().getOrDefault(elementType + ":" + name, defaultValue);

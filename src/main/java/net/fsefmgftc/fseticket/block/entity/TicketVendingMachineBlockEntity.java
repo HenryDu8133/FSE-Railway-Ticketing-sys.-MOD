@@ -36,7 +36,7 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 		return peripheral;
 	}
 
-	private class VendingPeripheral implements IPeripheral, IDynamicPeripheral {
+	private class VendingPeripheral implements IDynamicPeripheral {
 		private final Set<IComputerAccess> computers = new HashSet<>();
 
 		@Override

@@ -45,7 +45,7 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 		return peripheral;
 	}
 
-	private class RefillPeripheral implements IPeripheral, IDynamicPeripheral {
+	private class RefillPeripheral implements IDynamicPeripheral {
 		private final Set<IComputerAccess> computers = new HashSet<>();
 
 		@Override

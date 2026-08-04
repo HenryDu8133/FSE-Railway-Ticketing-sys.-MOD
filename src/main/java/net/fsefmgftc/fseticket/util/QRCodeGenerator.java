@@ -9,7 +9,7 @@ import net.neoforged.api.distmarker.Dist;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.net.URL;
+import java.net.URI;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CompletableFuture;
@@ -34,7 +34,7 @@ public class QRCodeGenerator {
 		CompletableFuture.runAsync(() -> {
 			try {
 				String api = "https://api.qrserver.com/v1/create-qr-code/?size=" + size + "x" + size + "&data=" + url;
-				BufferedImage img = ImageIO.read(new URL(api));
+				BufferedImage img = ImageIO.read(URI.create(api).toURL());
 				NativeImage ni = new NativeImage(size, size, false);
 				for (int x = 0; x < size; x++) for (int y = 0; y < size; y++) {
 					int rgb = img.getRGB(x, y); int r = (rgb >> 16) & 0xFF, g = (rgb >> 8) & 0xFF, b = rgb & 0xFF;
