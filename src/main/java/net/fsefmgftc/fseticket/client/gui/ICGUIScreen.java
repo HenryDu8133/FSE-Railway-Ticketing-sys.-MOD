@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ICGUIScreen extends AbstractContainerScreen<ICGUIMenu> implements FseticketModMenus.ScreenAccessor {
     private ResourceLocation qrTexture = null;
-    private static final Style FONT = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath("fonts", "misans_demibold"));
+    private static final Style FONT = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath(FseticketMod.MODID, "misans_demibold"));
     private static final Style NUMBER_FONT = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath(FseticketMod.MODID, "monoid_regular"));
 
     public ICGUIScreen(ICGUIMenu c, net.minecraft.world.entity.player.Inventory inv, Component text) {

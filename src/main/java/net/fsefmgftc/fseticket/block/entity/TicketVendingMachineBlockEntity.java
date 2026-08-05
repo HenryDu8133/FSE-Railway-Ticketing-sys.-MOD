@@ -23,8 +23,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Set;
+
 public class TicketVendingMachineBlockEntity extends BlockEntity {
 	private final VendingPeripheral peripheral = new VendingPeripheral();
+	public Set<IComputerAccess> computers;
 
 	public TicketVendingMachineBlockEntity(BlockPos pos, BlockState state) {
 		super(FseticketModBlockEntities.TICKET_VENDING_MACHINE.get(), pos, state);

@@ -24,7 +24,7 @@ public abstract class AbstractTicketScreen<T extends AbstractTicketMenu> extends
 	private static final ResourceLocation QR_BUTTON_TEXTURE = ResourceLocation.parse("fseticket:textures/screens/localticket.png");
 
 	protected static final Style JF = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath(FseticketMod.MODID, "jnr"));
-	protected static final Style CF = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath("fonts", "misans_demibold"));
+	protected static final Style CF = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath(FseticketMod.MODID, "misans_demibold"));
 	protected static final Style NUMBER_FONT = Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath(FseticketMod.MODID, "monoid_regular"));
 
 	private ResourceLocation qrTexture;
