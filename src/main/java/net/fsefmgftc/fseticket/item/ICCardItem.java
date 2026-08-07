@@ -34,12 +34,12 @@ public class ICCardItem extends Item {
 	}
 
 	@Override
-	public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level w, @NotNull Player e, @NotNull InteractionHand h) {
-		if (!(e instanceof ServerPlayer sp)) {
-			return super.use(w, e, h);
+	public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+		if (!(player instanceof ServerPlayer sp)) {
+			return super.use(level, player, hand);
 		}
 
-		ItemStack heldItem = e.getItemInHand(h);
+		ItemStack heldItem = player.getItemInHand(hand);
 		CompoundTag cardData = heldItem.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 		sp.openMenu(new MenuProvider() {
 			@Override
@@ -50,12 +50,12 @@ public class ICCardItem extends Item {
 			@Override
 			public AbstractContainerMenu createMenu(int id, @NotNull Inventory inv, @NotNull Player p) {
 				FriendlyByteBuf buffer = TicketDataUtil.createBuffer();
-				TicketDataUtil.writeICCardMenuData(buffer, e.blockPosition(), h, cardData);
+				TicketDataUtil.writeICCardMenuData(buffer, player.blockPosition(), hand, cardData);
 				return new net.fsefmgftc.fseticket.world.inventory.ICGUIMenu(id, inv, buffer);
 			}
-		}, buffer -> TicketDataUtil.writeICCardMenuData(buffer, e.blockPosition(), h, cardData));
+		}, buffer -> TicketDataUtil.writeICCardMenuData(buffer, player.blockPosition(), hand, cardData));
 
-		return super.use(w, e, h);
+		return super.use(level, player, hand);
 	}
 
 	@Override

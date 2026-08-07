@@ -33,7 +33,7 @@ public class FSEPassGUIMenu extends AbstractContainerMenu implements FseticketMo
 	public final Level world;
 	public final Player entity;
 	public int x, y, z;
-	private ContainerLevelAccess access = ContainerLevelAccess.NULL;
+	private ContainerLevelAccess access;
 	private final Map<Integer, Slot> customSlots = new HashMap<>();
 	private final boolean bound = false;
 	private final Supplier<Boolean> boundItemMatcher = null;
@@ -51,20 +51,24 @@ public class FSEPassGUIMenu extends AbstractContainerMenu implements FseticketMo
 			this.x = pos.getX();
 			this.y = pos.getY();
 			this.z = pos.getZ();
-			access = ContainerLevelAccess.create(world, pos);
+			this.access = ContainerLevelAccess.create(world, pos);
 		}
 	}
 
 	@Override
 	public boolean stillValid(@NotNull Player player) {
-		if (this.bound) {
-			if (this.boundItemMatcher != null)
-				return this.boundItemMatcher.get();
-			else if (this.boundBlockEntity != null)
-				return AbstractContainerMenu.stillValid(this.access, player, this.boundBlockEntity.getBlockState().getBlock());
-			else if (this.boundEntity != null)
-				return this.boundEntity.isAlive();
-		}
+		/// Vibed code shouldn't appear this lol.
+		/// Since field `bound` is always `false`;
+		/// `boundItemMatcher`, `boundBlockEntity` and `boundEntity` are always `null`.
+		/// Consider return true only.
+//		if (this.bound) {
+//			if (this.boundItemMatcher != null)
+//				return this.boundItemMatcher.get();
+//			else if (this.boundBlockEntity != null)
+//				return AbstractContainerMenu.stillValid(this.access, player, this.boundBlockEntity.getBlockState().getBlock());
+//			else if (this.boundEntity != null)
+//				return this.boundEntity.isAlive();
+//		}
 		return true;
 	}
 
