@@ -13,6 +13,7 @@ import net.fsefmgftc.fseticket.FseticketMod;
 
 public final class FseticketModTabs {
 	public static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, FseticketMod.MODID);
+	@SuppressWarnings("unused")
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> FSE_TICKET = REGISTRY.register("fse_ticket",
 			() -> CreativeModeTab.builder().title(Component.translatable("item_group.fseticket.fse_ticket")).icon(() -> new ItemStack(FseticketModBlocks.TICKET_VENDING_MACHINE.get())).displayItems((parameters, tabData) -> {
 				tabData.accept(FseticketModItems.LOCAL_TICKET.get());

@@ -17,6 +17,7 @@ import net.minecraft.core.SectionPos;
 
 import net.fsefmgftc.fseticket.procedures.OpenTicketWebProcedure;
 import net.fsefmgftc.fseticket.FseticketMod;
+import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber
 public record LocalTicketGUIButtonMessage(int buttonID, int x, int y, int z) implements CustomPacketPayload {
@@ -29,7 +30,7 @@ public record LocalTicketGUIButtonMessage(int buttonID, int x, int y, int z) imp
 	}, (RegistryFriendlyByteBuf buffer) -> new LocalTicketGUIButtonMessage(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt()));
 
 	@Override
-	public Type<LocalTicketGUIButtonMessage> type() {
+	public @NotNull Type<LocalTicketGUIButtonMessage> type() {
 		return TYPE;
 	}
 

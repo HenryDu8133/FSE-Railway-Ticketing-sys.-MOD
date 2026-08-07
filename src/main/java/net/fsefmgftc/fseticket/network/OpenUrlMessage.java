@@ -15,39 +15,40 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 
 import net.fsefmgftc.fseticket.FseticketMod;
+import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber
 public record OpenUrlMessage(String url) implements CustomPacketPayload {
-	public static final Type<OpenUrlMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(FseticketMod.MODID, "open_url"));
-	public static final StreamCodec<RegistryFriendlyByteBuf, OpenUrlMessage> STREAM_CODEC = StreamCodec.of(OpenUrlMessage::write, OpenUrlMessage::read);
+    public static final Type<OpenUrlMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(FseticketMod.MODID, "open_url"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, OpenUrlMessage> STREAM_CODEC = StreamCodec.of(OpenUrlMessage::write, OpenUrlMessage::read);
 
-	public static void write(FriendlyByteBuf buffer, OpenUrlMessage message) {
-		buffer.writeUtf(message.url, 2048);
-	}
+    public static void write(FriendlyByteBuf buffer, OpenUrlMessage message) {
+        buffer.writeUtf(message.url, 2048);
+    }
 
-	public static OpenUrlMessage read(FriendlyByteBuf buffer) {
-		return new OpenUrlMessage(buffer.readUtf(2048));
-	}
+    public static OpenUrlMessage read(FriendlyByteBuf buffer) {
+        return new OpenUrlMessage(buffer.readUtf(2048));
+    }
 
-	@Override
-	public Type<OpenUrlMessage> type() {
-		return TYPE;
-	}
+    @Override
+    public @NotNull Type<OpenUrlMessage> type() {
+        return TYPE;
+    }
 
-	public static void handleOpenUrl(final OpenUrlMessage message, final IPayloadContext context) {
-		if (context.flow() != PacketFlow.CLIENTBOUND || message.url == null || message.url.length() > 2048) {
-			return;
-		}
-		context.enqueueWork(() -> Util.getPlatform().openUri(message.url)).exceptionally(e -> {
-			context.connection().disconnect(Component.literal(e.getMessage()));
-			return null;
-		});
-	}
+    public static void handleOpenUrl(final OpenUrlMessage message, final IPayloadContext context) {
+        if (context.flow() != PacketFlow.CLIENTBOUND || message.url == null || message.url.length() > 2048) {
+            return;
+        }
+        context.enqueueWork(() -> Util.getPlatform().openUri(message.url)).exceptionally(e -> {
+            context.connection().disconnect(Component.literal(e.getMessage()));
+            return null;
+        });
+    }
 
-	@SubscribeEvent
-	public static void registerMessage(FMLCommonSetupEvent event) {
-		FseticketMod.addNetworkMessage(OpenUrlMessage.TYPE, OpenUrlMessage.STREAM_CODEC, OpenUrlMessage::handleOpenUrl);
-	}
+    @SubscribeEvent
+    public static void registerMessage(FMLCommonSetupEvent event) {
+        FseticketMod.addNetworkMessage(OpenUrlMessage.TYPE, OpenUrlMessage.STREAM_CODEC, OpenUrlMessage::handleOpenUrl);
+    }
 }
 
 

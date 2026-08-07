@@ -12,6 +12,7 @@ import net.minecraft.core.component.DataComponents;
 
 import net.fsefmgftc.fseticket.world.inventory.LocalTicketGUIMenu;
 import net.fsefmgftc.fseticket.init.FseticketModItems;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -36,7 +37,7 @@ public class LocalTicketInventoryCapability extends ComponentItemHandler {
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int slot) {
+	public @NotNull ItemStack getStackInSlot(int slot) {
 		return super.getStackInSlot(slot).copy();
 	}
 }

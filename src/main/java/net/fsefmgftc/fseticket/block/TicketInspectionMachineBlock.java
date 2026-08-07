@@ -19,6 +19,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.fsefmgftc.fseticket.block.entity.TicketInspectionMachineBlockEntity;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class TicketInspectionMachineBlock extends Block implements net.minecraft.world.level.block.EntityBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -29,34 +32,34 @@ public class TicketInspectionMachineBlock extends Block implements net.minecraft
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite());
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
-	public BlockState rotate(BlockState state, Rotation rotation) {
+	public @NotNull BlockState rotate(BlockState state, Rotation rotation) {
 		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
 	@Override
 	@SuppressWarnings("deprecation")
-	public BlockState mirror(BlockState state, Mirror mirror) {
+	public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
 		return state.rotate(mirror.getRotation(state.getValue(FACING)));
 	}
 
 	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TicketInspectionMachineBlockEntity(pos, state);
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof TicketInspectionMachineBlockEntity inspectionMachine) {
 			return inspectionMachine.onUse(state, level, pos, player, hand, hit);

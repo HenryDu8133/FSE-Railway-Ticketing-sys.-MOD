@@ -9,21 +9,52 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 import net.fsefmgftc.fseticket.init.FseticketModMenus;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
+// Code.java.zip
 public class ICGUIMenu extends AbstractContainerMenu implements FseticketModMenus.MenuAccessor {
-	public final Map<String,Object> menuState=new HashMap<>();
-	public final Level world;public final Player entity;public int x,y,z;
-	public String cardId="",ownerName="";public double balance=0;
+    public final Map<String, Object> menuState = new HashMap<>();
+    public final Level world;
+    public final Player entity;
+    public int x, y, z;
+    public String cardId = "", ownerName = "";
+    public double balance = 0;
 
-	public ICGUIMenu(int id,Inventory inv,FriendlyByteBuf buf){
-		super(FseticketModMenus.ICGUI.get(),id);
-		entity=inv.player;world=inv.player.level();
-		if(buf!=null){BlockPos p=buf.readBlockPos();x=p.getX();y=p.getY();z=p.getZ();buf.readByte();
-		cardId=buf.readUtf();ownerName=buf.readUtf();balance=buf.readDouble();}
-	}
-	@Override public boolean stillValid(Player p){return true;}
-	@Override public ItemStack quickMoveStack(Player p,int i){return ItemStack.EMPTY;}
-	@Override public Map<Integer,Slot> getSlots(){return Collections.emptyMap();}
-	@Override public Map<String,Object> getMenuState(){return menuState;}
+    public ICGUIMenu(int id, Inventory inv, FriendlyByteBuf buf) {
+        super(FseticketModMenus.ICGUI.get(), id);
+        entity = inv.player;
+        world = inv.player.level();
+        if (buf != null) {
+            BlockPos p = buf.readBlockPos();
+            x = p.getX();
+            y = p.getY();
+            z = p.getZ();
+            buf.readByte();
+            cardId = buf.readUtf();
+            ownerName = buf.readUtf();
+            balance = buf.readDouble();
+        }
+    }
+
+    @Override
+    public boolean stillValid(@NotNull Player p) {
+        return true;
+    }
+
+    @Override
+    public @NotNull ItemStack quickMoveStack(@NotNull Player p, int i) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public Map<Integer, Slot> getSlots() {
+        return Collections.emptyMap();
+    }
+
+    @Override
+    public Map<String, Object> getMenuState() {
+        return menuState;
+    }
 }

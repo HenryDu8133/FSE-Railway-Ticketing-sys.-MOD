@@ -17,6 +17,9 @@ import net.fsefmgftc.fseticket.block.entity.TicketVendingMachineBlockEntity;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class TicketVendingMachineBlock extends Block implements net.minecraft.world.level.block.EntityBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -28,34 +31,33 @@ public class TicketVendingMachineBlock extends Block implements net.minecraft.wo
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, SUCCESS);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite());
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
-	public BlockState rotate(BlockState state, Rotation rotation) {
+	public @NotNull BlockState rotate(BlockState state, Rotation rotation) {
 		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
-	public BlockState mirror(BlockState state, Mirror mirror) {
+	public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
 		return state.rotate(mirror.getRotation(state.getValue(FACING)));
 	}
 
 	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TicketVendingMachineBlockEntity(pos, state);
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+	public void tick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (state.getValue(SUCCESS)) {
 			level.setBlock(pos, state.setValue(SUCCESS, false), 3);
 		}

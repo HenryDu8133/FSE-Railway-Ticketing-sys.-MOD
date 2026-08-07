@@ -36,6 +36,7 @@ public final class FseticketModMenus {
 		REGISTRY.register(eventBus);
 	}
 
+	@SuppressWarnings("unchecked") // L55 Cast
 	public interface MenuAccessor {
 		Map<String, Object> getMenuState();
 
