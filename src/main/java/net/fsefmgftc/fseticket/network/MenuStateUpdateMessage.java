@@ -38,14 +38,12 @@ public record MenuStateUpdateMessage(int elementType, String name, Object elemen
 	public static MenuStateUpdateMessage read(FriendlyByteBuf buffer) {
 		int elementType = buffer.readInt();
 		String name = buffer.readUtf();
-		Object elementState = null;
-		if (elementType == 0) {
-			elementState = buffer.readUtf();
-		} else if (elementType == 1) {
-			elementState = buffer.readBoolean();
-		} else if (elementType == 2) {
-			elementState = buffer.readDouble();
-		}
+		Object elementState = switch (elementType) {
+			case 0 -> buffer.readUtf();
+			case 1 -> buffer.readBoolean();
+			case 2 -> buffer.readDouble();
+			default -> null;
+		};
 		return new MenuStateUpdateMessage(elementType, name, elementState);
 	}
 
