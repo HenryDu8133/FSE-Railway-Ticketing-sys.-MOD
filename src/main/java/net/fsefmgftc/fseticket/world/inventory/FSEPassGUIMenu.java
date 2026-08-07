@@ -59,8 +59,8 @@ public class FSEPassGUIMenu extends AbstractContainerMenu implements FseticketMo
 	public boolean stillValid(@NotNull Player player) {
 		/// Vibed code shouldn't appear this lol.
 		/// Since field `bound` is always `false`;
-		/// `boundItemMatcher`, `boundBlockEntity` and `boundEntity` are always `null`.
-		/// Consider return true only.
+		/// `boundItemMatcher`, `boundBlockEntity` and `boundEntity` are always `null`,
+		/// consider `return true` only.
 //		if (this.bound) {
 //			if (this.boundItemMatcher != null)
 //				return this.boundItemMatcher.get();
@@ -69,7 +69,7 @@ public class FSEPassGUIMenu extends AbstractContainerMenu implements FseticketMo
 //			else if (this.boundEntity != null)
 //				return this.boundEntity.isAlive();
 //		}
-		return true;
+        return true;
 	}
 
 	@Override

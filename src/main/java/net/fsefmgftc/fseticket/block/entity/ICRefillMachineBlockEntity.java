@@ -33,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 public class ICRefillMachineBlockEntity extends BlockEntity {
 	private static final String ERROR_NO_CARD = "no card";
 	private static final String ERROR_INSUFFICIENT = "insufficient";
+	private static final String ERROR_NEGATIVE_DELTA = "negative delta";
 
 	private final RefillPeripheral peripheral = new RefillPeripheral();
 	private ItemStack insertedCard = ItemStack.EMPTY;
@@ -69,6 +70,8 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 		}
 
 		// todo: merge $refill & $deduct into a method
+		// eg: refill(-10086) == deduct(10086)
+		// and: deduct(-10086) == refill(10086)
 		@Override
 		public String @NotNull [] getMethodNames() {
 			return new String[] { "getCardInfo", "refill", "deduct", "setBalance" };
@@ -83,9 +86,9 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 			CompoundTag cardData = insertedCard.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 			return switch (method) {
 				case 0 -> MethodResult.of(buildCardInfo(cardData));
-				case 1 -> modifyBalance(cardData, args.optDouble(0, 0.0), false);
-				case 2 -> modifyBalance(cardData, -args.optDouble(0, 0.0), true);
-				case 3 -> setBalance(cardData, args.optDouble(0, 0.0));
+				case 1 -> modifyBalance(cardData, args.optDouble(0, 0), false);
+				case 2 -> modifyBalance(cardData, -args.optDouble(0, 0), true);
+				case 3 -> setBalance(cardData, args.optDouble(0, 0));
 				default -> MethodResult.of();
 			};
 		}
@@ -107,7 +110,9 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 			return MethodResult.of(true, cardData.getDouble(TicketDataUtil.BALANCE));
 		}
 
+		// Consider always (not to) block negative result.
 		private MethodResult modifyBalance(CompoundTag cardData, double delta, boolean blockNegativeResult) {
+			if (delta < 0 && !blockNegativeResult) return MethodResult.of(false, ERROR_NEGATIVE_DELTA);
 			double newBalance = cardData.getDouble(TicketDataUtil.BALANCE) + delta;
 			if (blockNegativeResult && newBalance < 0) return MethodResult.of(false, ERROR_INSUFFICIENT);
 
