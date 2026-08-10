@@ -294,4 +294,3 @@ local okOrNil, r2 = refill.deduct(amount)
 - `entered`：是否已进站
 - `entry_station`：进站站点 ID/代码（可能为空）
 - `passenger`：扫描者玩家名（仅检票机事件与 getLastScanned 返回中提供）
-
