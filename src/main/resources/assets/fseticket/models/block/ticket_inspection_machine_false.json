@@ -3,7 +3,7 @@
   "textures": {
     "down": "fseticket:block/ticketblock_top",
     "up": "fseticket:block/ticketblock_top",
-    "north": "fseticket:block/ticketinspection",
+    "north": "fseticket:block/ticketinspection_false",
     "east": "fseticket:block/ticketblock_side",
     "south": "fseticket:block/ticketblock_side",
     "west": "fseticket:block/ticketblock_side",
