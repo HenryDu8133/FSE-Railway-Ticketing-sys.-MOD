@@ -27,13 +27,15 @@ public class ICRefillMachineBlock extends Block implements net.minecraft.world.l
 
 	public ICRefillMachineBlock() {
 		super(BlockBehaviour.Properties.of().strength(1f, 10f));
-		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HAS_CARD, false));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, HAS_CARD);
+		registerDefaultState(this.stateDefinition.any()
+			.setValue(FACING, Direction.NORTH)
+			.setValue(HAS_CARD, false));
 	}
 
 	@Override
