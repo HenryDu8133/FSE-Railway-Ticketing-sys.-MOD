@@ -85,7 +85,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 
 		@Override
 		public String[] getMethodNames() {
-			return new String[] { "getLastScanned", "destroyTicket", "deductICCard", "markEntered", "markExited", "resetTicketState" };
+			return new String[] { "getLastScanned", "destroyTicket", "deductICCard", "markEntered", "markExited", "resetTicketState", "setInspectionSuccess", "setInspectionFail" };
 		}
 
 		@Override
@@ -106,8 +106,23 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 				}
 				case 4 -> runOnServer(() -> updateTicketState(false, true, ""));
 				case 5 -> runOnServer(() -> updateTicketState(false, false, ""));
+				case 6 -> {
+					int ticks = args.optInt(1, 20);
+					yield runOnServer(() -> flashResult(InspectionResult.SUCCESS, ticks));
+				}
+				case 7 -> {
+					int ticks = args.optInt(1, 20);
+					yield runOnServer(() -> flashResult(InspectionResult.FAIL, ticks));
+				}
 				default -> MethodResult.of();
 			};
+		}
+
+		private void flashResult(InspectionResult result, int ticks) {
+			if (level == null || level.isClientSide()) return;
+			int duration = Math.max(1, ticks);
+			level.setBlock(worldPosition, getBlockState().setValue(TicketInspectionMachineBlock.RESULT, result), 3);
+			level.scheduleTick(worldPosition, getBlockState().getBlock(), duration);
 		}
 
 		private MethodResult runOnServer(Runnable action) {

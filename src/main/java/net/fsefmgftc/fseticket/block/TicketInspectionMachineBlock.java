@@ -1,6 +1,7 @@
 package net.fsefmgftc.fseticket.block;
 
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -18,25 +19,28 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.fsefmgftc.fseticket.block.entity.TicketInspectionMachineBlockEntity;
 
 public class TicketInspectionMachineBlock extends Block implements net.minecraft.world.level.block.EntityBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+	public static final EnumProperty<InspectionResult> RESULT = EnumProperty.create("result", InspectionResult.class);
 
 	public TicketInspectionMachineBlock() {
 		super(BlockBehaviour.Properties.of().strength(1f, 10f));
-		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
+		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(RESULT, InspectionResult.NONE));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(FACING);
+		builder.add(FACING, RESULT);
 	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite());
+		return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(RESULT, InspectionResult.NONE);
 	}
 
 	@Override
@@ -62,5 +66,12 @@ public class TicketInspectionMachineBlock extends Block implements net.minecraft
 			return inspectionMachine.onUse(state, level, pos, player, hand, hit);
 		}
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	}
+
+	@Override
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		if (state.getValue(RESULT) != InspectionResult.NONE) {
+			level.setBlock(pos, state.setValue(RESULT, InspectionResult.NONE), 3);
+		}
 	}
 }

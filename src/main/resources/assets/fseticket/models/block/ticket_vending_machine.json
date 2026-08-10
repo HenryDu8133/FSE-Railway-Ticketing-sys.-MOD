@@ -3,8 +3,8 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "fseticket:block/ticketvending",
-		"1": "fseticket:block/disk_drive_side",
-		"2": "fseticket:block/disk_drive_top",
+		"1": "fseticket:block/ticketblock_side",
+		"2": "fseticket:block/ticketblock_top",
 		"3": "fseticket:block/black",
 		"particle": "fseticket:block/ticketvending"
 	},
@@ -188,7 +188,9 @@
 			"scale": [0.4, 0.4, 0.4]
 		},
 		"gui": {
-			"rotation": [0, 180, 0]
+			"rotation": [0, 180, 0],
+			"translation": [0, 0, 0],
+			"scale": [0.625, 0.625, 0.625]
 		},
 		"on_shelf": {
 			"rotation": [0, 180, 0]
