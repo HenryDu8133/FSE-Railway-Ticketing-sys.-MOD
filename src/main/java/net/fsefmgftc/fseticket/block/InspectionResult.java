@@ -7,19 +7,19 @@ public enum InspectionResult implements StringRepresentable {
 	SUCCESS("success"),
 	FAIL("fail");
 
-	private final String name;
+	private final String serializedName;
 
-	private InspectionResult(String name) {
-		this.name = name;
+	InspectionResult(String serializedName) {
+		this.serializedName = serializedName;
 	}
 
 	@Override
 	public String getSerializedName() {
-		return this.name;
+		return this.serializedName;
 	}
 
 	@Override
 	public String toString() {
-		return this.name;
+		return this.serializedName;
 	}
 }
