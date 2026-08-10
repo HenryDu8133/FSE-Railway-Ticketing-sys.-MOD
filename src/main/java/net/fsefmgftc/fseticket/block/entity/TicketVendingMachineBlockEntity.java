@@ -10,6 +10,8 @@ import dan200.computercraft.api.peripheral.IPeripheral;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.fsefmgftc.fseticket.block.VendingType;
+import net.fsefmgftc.fseticket.block.TicketVendingMachineBlock;
 import net.fsefmgftc.fseticket.init.FseticketModItems;
 import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
 import net.fsefmgftc.fseticket.util.TicketDataUtil;
@@ -101,9 +103,13 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 			ItemStack ticket = new ItemStack(getTicketItem(type));
 			ticket.set(DataComponents.CUSTOM_DATA, CustomData.of(ticketData));
 			spawnItem(ticket);
-			
-			triggerSuccessState();
-			
+
+			if (TicketDataUtil.TYPE_LIMITED_EXPRESS.equals(type) || TicketDataUtil.TYPE_SINGLE.equals(type)) {
+				triggerSuccessState(VendingType.EXP_TICKET);
+			} else {
+				triggerSuccessState(VendingType.LOCAL_TICKET);
+			}
+
 			return MethodResult.of(true, ticketId);
 		}
 
@@ -120,7 +126,7 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 			card.set(DataComponents.CUSTOM_DATA, CustomData.of(cardData));
 			spawnItem(card);
 
-			triggerSuccessState();
+			triggerSuccessState(VendingType.IC_CARD);
 
 			return MethodResult.of(true, cardData.getString(TicketDataUtil.CARD_ID));
 		}
@@ -142,14 +148,14 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 			pass.set(DataComponents.CUSTOM_DATA, CustomData.of(passData));
 			spawnItem(pass);
 			
-			triggerSuccessState();
+			triggerSuccessState(VendingType.EXP_TICKET);
 			
 			return MethodResult.of(true, ticketId);
 		}
 
-		private void triggerSuccessState() {
+		private void triggerSuccessState(VendingType type) {
 			if (level != null && !level.isClientSide()) {
-				level.setBlock(worldPosition, getBlockState().setValue(net.fsefmgftc.fseticket.block.TicketVendingMachineBlock.SUCCESS, true), 3);
+				level.setBlock(worldPosition, getBlockState().setValue(TicketVendingMachineBlock.VENDING_TYPE, type), 3);
 				level.scheduleTick(worldPosition, getBlockState().getBlock(), 20);
 			}
 		}

@@ -44,8 +44,10 @@ local ok, ticketId = vending.issueTicket(
 - 返回
   - `ok`：`true`
   - `ticketId`：生成的票 ID（形如 `AB-12345678`）
-- 方块状态
-  - 方法成功返回时，售票机方块模型会暂时切换到 `ticket_vending_machine_success`（出票成功状态），持续约 20 tick（1 秒）后自动恢复基础款模型。
+- 方块状态 / 模型切换（对应票种）
+  - 当 `type` 为 `"local"` 时：成功调用后，方块模型暂时切换为 `ticket_vending_machine_success_localticket`（露出绿票 / 本地票图案）。
+  - 当 `type` 为 `"limited_express"` 或 `"single"` 时：暂时切换为 `ticket_vending_machine_success_expticket`（露出橙红特急票 / 单程票图案）。
+  - 两种状态持续约 20 tick（1 秒）后自动恢复基础款模型 `ticket_vending_machine`。
 
 ### 方法：issueICCard
 
@@ -61,8 +63,8 @@ local ok, cardId = vending.issueICCard(ownerName, balance)
 - 返回
   - `ok`：`true`
   - `cardId`：生成的卡号（形如 `IC-xxxxxxxx`）
-- 方块状态
-  - 方法成功返回时，售票机方块模型同样切换到 `ticket_vending_machine_success`，20 tick 后恢复。
+- 方块状态 / 模型切换
+  - 方法成功返回时，方块模型暂时切换到 `ticket_vending_machine_success_ic`（正面露出 IC 卡图案），20 tick（1 秒）后自动恢复基础款模型。
 
 ### 方法：issueFSEPass
 
@@ -80,8 +82,8 @@ local ok, ticketId = vending.issueFSEPass(ownerName, startNameEn, terminalNameEn
 - 返回
   - `ok`：`true`
   - `ticketId`：生成的通票 ID（同样形如 `AB-12345678`）
-- 方块状态
-  - 成功时同样切换到 `ticket_vending_machine_success` 模型，20 tick 后恢复。
+- 方块状态 / 模型切换
+  - 方法成功返回时，方块模型暂时切换为 `ticket_vending_machine_success_expticket`（与特急票款外观），20 tick 后恢复基础款模型。
 
 ## 外设：ticket\_inspection\_machine（检票机）
 
@@ -113,6 +115,7 @@ local ok, err = gate.destroyTicket()
   - `false, "not server level"`：当前世界不是服务端世界
 
 注意：该方法当前实现为“投递执行”，不会把实际销毁结果回传给 Lua；建议通过事件与 `getLastScanned()` 侧面确认状态。
+
 - 方块状态
   - 成功执行：方块模型切换到 `ticket_inspection_machine_success`（绿灯通过状态）
   - 执行失败（如找不到扫描玩家）：切换到 `ticket_inspection_machine_false`（红灯拒绝状态）
@@ -133,6 +136,7 @@ local ok, err = gate.deductICCard(amount)
   - `false, "not server level"`：当前世界不是服务端世界
 
 注意：当前实现同样不会把扣费后的余额回传给 Lua；如果需要余额，请调用 `getLastScanned()` 或使用充值机外设完成扣费/查询。
+
 - 方块状态
   - 成功扣费：`_success`（绿灯）40 tick
   - 失败（非 IC 卡 / 找不到玩家 / 卡片不匹配 / 余额不足）：`_false`（红灯）40 tick
@@ -152,6 +156,7 @@ local ok, err = gate.markEntered(entryStationId)
   - `false, "not server level"`
 
 执行后会推送 `ticket_state_updated` 或 `ic_card_state_updated` 事件（取决于最近扫描的是票还是卡）。
+
 - 方块状态
   - 成功写入：`_success`（绿灯）40 tick
   - 失败（玩家/票卡无效）：`_false`（红灯）40 tick
