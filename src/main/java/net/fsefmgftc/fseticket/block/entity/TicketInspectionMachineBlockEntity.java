@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import net.fsefmgftc.fseticket.block.InspectionResult;
+import net.fsefmgftc.fseticket.block.TicketInspectionMachineBlock;
 import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
 import net.fsefmgftc.fseticket.init.FseticketModItems;
 import net.fsefmgftc.fseticket.util.TicketDataUtil;
@@ -85,7 +87,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 
 		@Override
 		public String[] getMethodNames() {
-			return new String[] { "getLastScanned", "destroyTicket", "deductICCard", "markEntered", "markExited", "resetTicketState", "setInspectionSuccess", "setInspectionFail" };
+			return new String[] { "getLastScanned", "destroyTicket", "deductICCard", "markEntered", "markExited", "resetTicketState" };
 		}
 
 		@Override
@@ -106,23 +108,14 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 				}
 				case 4 -> runOnServer(() -> updateTicketState(false, true, ""));
 				case 5 -> runOnServer(() -> updateTicketState(false, false, ""));
-				case 6 -> {
-					int ticks = args.optInt(1, 20);
-					yield runOnServer(() -> flashResult(InspectionResult.SUCCESS, ticks));
-				}
-				case 7 -> {
-					int ticks = args.optInt(1, 20);
-					yield runOnServer(() -> flashResult(InspectionResult.FAIL, ticks));
-				}
 				default -> MethodResult.of();
 			};
 		}
 
-		private void flashResult(InspectionResult result, int ticks) {
+		private void flashResult(InspectionResult result) {
 			if (level == null || level.isClientSide()) return;
-			int duration = Math.max(1, ticks);
 			level.setBlock(worldPosition, getBlockState().setValue(TicketInspectionMachineBlock.RESULT, result), 3);
-			level.scheduleTick(worldPosition, getBlockState().getBlock(), duration);
+			level.scheduleTick(worldPosition, getBlockState().getBlock(), 40);
 		}
 
 		private MethodResult runOnServer(Runnable action) {
@@ -136,23 +129,29 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 		private MethodResult destroyItem() {
 			Player p = getLastScanner();
 			if (p == null) {
-				return MethodResult.of(false, level == null || lastScannerUUID == null ? ERROR_NO_SCANNER : ERROR_PLAYER_NOT_FOUND);
+				String err = level == null || lastScannerUUID == null ? ERROR_NO_SCANNER : ERROR_PLAYER_NOT_FOUND;
+				flashResult(InspectionResult.FAIL);
+				return MethodResult.of(false, err);
 			}
 			p.setItemInHand(lastScanHand, ItemStack.EMPTY);
 			lastScannedData = null;
 			setChanged();
+			flashResult(InspectionResult.SUCCESS);
 			return MethodResult.of(true);
 		}
 
 		private MethodResult updateTicketState(boolean entered, boolean exited, String stationId) {
 			Player p = getLastScanner();
 			if (p == null) {
-				return MethodResult.of(false, level == null || lastScannerUUID == null ? ERROR_NO_SCANNER : ERROR_PLAYER_NOT_FOUND);
+				String err = level == null || lastScannerUUID == null ? ERROR_NO_SCANNER : ERROR_PLAYER_NOT_FOUND;
+				flashResult(InspectionResult.FAIL);
+				return MethodResult.of(false, err);
 			}
 			ItemStack h = p.getItemInHand(lastScanHand);
 			Item item = h.getItem();
 			boolean valid = isCurrentHeldItemValid(item);
 			if (!valid) {
+				flashResult(InspectionResult.FAIL);
 				return MethodResult.of(false, ERROR_NO_VALID_TICKET_OR_CARD);
 			}
 			CompoundTag t = h.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
@@ -169,24 +168,30 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 			setChanged();
 			Map<String, Object> info = isICCard ? buildICInfo() : buildTicketInfo();
 			peripheral.pushToComputers(isICCard ? "ic_card_state_updated" : "ticket_state_updated", info);
+			flashResult(InspectionResult.SUCCESS);
 			return MethodResult.of(true, info);
 		}
 
 		private MethodResult deductICCard(double amt) {
 			if (!isICCard) {
+				flashResult(InspectionResult.FAIL);
 				return MethodResult.of(false, ERROR_NO_IC_CARD);
 			}
 			Player p = getLastScanner();
 			if (p == null) {
-				return MethodResult.of(false, level == null || lastScannerUUID == null ? ERROR_NO_IC_CARD : ERROR_PLAYER_NOT_FOUND);
+				String err = level == null || lastScannerUUID == null ? ERROR_NO_IC_CARD : ERROR_PLAYER_NOT_FOUND;
+				flashResult(InspectionResult.FAIL);
+				return MethodResult.of(false, err);
 			}
 			ItemStack h = p.getItemInHand(lastScanHand);
 			if (h.getItem() != FseticketModItems.IC_CARD.get()) {
+				flashResult(InspectionResult.FAIL);
 				return MethodResult.of(false, ERROR_NO_CARD);
 			}
 			CompoundTag t = h.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 			double bal = t.getDouble(TicketDataUtil.BALANCE);
 			if (bal < amt) {
+				flashResult(InspectionResult.FAIL);
 				return MethodResult.of(false, ERROR_INSUFFICIENT);
 			}
 			t.putDouble(TicketDataUtil.BALANCE, bal - amt);
@@ -194,6 +199,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 			syncHeldItem(p);
 			lastScannedData = t;
 			setChanged();
+			flashResult(InspectionResult.SUCCESS);
 			return MethodResult.of(true, t.getDouble(TicketDataUtil.BALANCE));
 		}
 	}
