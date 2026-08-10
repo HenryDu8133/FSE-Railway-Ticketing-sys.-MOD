@@ -29,15 +29,15 @@ public class TicketInspectionMachineBlock extends Block implements net.minecraft
 
 	public TicketInspectionMachineBlock() {
 		super(BlockBehaviour.Properties.of().strength(1f, 10f));
+		registerDefaultState(this.stateDefinition.any()
+			.setValue(FACING, Direction.NORTH)
+			.setValue(RESULT, InspectionResult.NONE));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, RESULT);
-		registerDefaultState(this.stateDefinition.any()
-			.setValue(FACING, Direction.NORTH)
-			.setValue(RESULT, InspectionResult.NONE));
 	}
 
 	@Override

@@ -24,15 +24,15 @@ public class TicketVendingMachineBlock extends Block implements net.minecraft.wo
 
 	public TicketVendingMachineBlock() {
 		super(BlockBehaviour.Properties.of().strength(1f, 10f));
+		registerDefaultState(this.stateDefinition.any()
+			.setValue(FACING, Direction.NORTH)
+			.setValue(VENDING_TYPE, VendingType.NONE));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, VENDING_TYPE);
-		registerDefaultState(this.stateDefinition.any()
-			.setValue(FACING, Direction.NORTH)
-			.setValue(VENDING_TYPE, VendingType.NONE));
 	}
 
 	@Override
