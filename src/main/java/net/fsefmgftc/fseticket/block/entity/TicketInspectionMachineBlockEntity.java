@@ -87,7 +87,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 
 		@Override
 		public String[] getMethodNames() {
-			return new String[] { "getLastScanned", "destroyTicket", "deductICCard", "markEntered", "markExited", "resetTicketState" };
+			return new String[] { "getLastScanned", "destroyTicket", "deductICCard", "markEntered", "markExited", "resetTicketState", "markFault" };
 		}
 
 		@Override
@@ -108,6 +108,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 				}
 				case 4 -> runOnServer(() -> updateTicketState(false, true, ""));
 				case 5 -> runOnServer(() -> updateTicketState(false, false, ""));
+				case 6 -> runOnServer(() -> flashResult(InspectionResult.FAIL));
 				default -> MethodResult.of();
 			};
 		}
