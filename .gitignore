@@ -8,3 +8,5 @@ Monoid-Regular.ttf
 .mcreator/
 .vscode/
 **/*.bbmodel
+.trae/
+**/*.json
