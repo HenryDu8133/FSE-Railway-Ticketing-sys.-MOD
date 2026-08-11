@@ -4,6 +4,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 
 import net.minecraft.world.inventory.Slot;
@@ -11,13 +13,13 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.client.Minecraft;
 
 import net.fsefmgftc.fseticket.world.inventory.LocalTicketGUIMenu;
 import net.fsefmgftc.fseticket.world.inventory.ICGUIMenu;
 import net.fsefmgftc.fseticket.world.inventory.FSEPassGUIMenu;
 import net.fsefmgftc.fseticket.world.inventory.ExpTicketGUIMenu;
 import net.fsefmgftc.fseticket.network.MenuStateUpdateMessage;
+import net.fsefmgftc.fseticket.client.FseticketClientHooks;
 import net.fsefmgftc.fseticket.FseticketMod;
 
 import java.util.Map;
@@ -36,7 +38,7 @@ public final class FseticketModMenus {
 		REGISTRY.register(eventBus);
 	}
 
-	@SuppressWarnings("unchecked") // L55 Cast
+	@SuppressWarnings("unchecked")
 	public interface MenuAccessor {
 		Map<String, Object> getMenuState();
 
@@ -46,8 +48,8 @@ public final class FseticketModMenus {
 			getMenuState().put(elementType + ":" + name, elementState);
 			if (player instanceof ServerPlayer serverPlayer) {
 				PacketDistributor.sendToPlayer(serverPlayer, new MenuStateUpdateMessage(elementType, name, elementState));
-			} else if (player != null && player.level().isClientSide) {
-				ClientMenuAccessorUpdater.updateClient(elementType, name, elementState, needClientUpdate);
+			} else if (player != null && player.level().isClientSide && FMLEnvironment.dist == Dist.CLIENT) {
+				FseticketClientHooks.updateMenuScreen(elementType, name, elementState, needClientUpdate);
 				PacketDistributor.sendToServer(new MenuStateUpdateMessage(elementType, name, elementState));
 			}
 		}
@@ -58,14 +60,6 @@ public final class FseticketModMenus {
 				return (T) getMenuState().getOrDefault(elementType + ":" + name, defaultValue);
 			} catch (ClassCastException e) {
 				return defaultValue;
-			}
-		}
-	}
-
-	private static class ClientMenuAccessorUpdater {
-		public static void updateClient(int elementType, String name, Object elementState, boolean needClientUpdate) {
-			if (needClientUpdate && Minecraft.getInstance().screen instanceof ScreenAccessor accessor) {
-				accessor.updateMenuState(elementType, name, elementState);
 			}
 		}
 	}

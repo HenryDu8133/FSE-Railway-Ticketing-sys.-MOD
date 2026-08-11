@@ -1,6 +1,8 @@
 package net.fsefmgftc.fseticket.network;
 
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -12,9 +14,9 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.client.Minecraft;
 
 import net.fsefmgftc.fseticket.init.FseticketModMenus;
+import net.fsefmgftc.fseticket.client.FseticketClientHooks;
 import net.fsefmgftc.fseticket.FseticketMod;
 import org.jetbrains.annotations.NotNull;
 
@@ -58,22 +60,14 @@ public record MenuStateUpdateMessage(int elementType, String name, Object elemen
 		context.enqueueWork(() -> {
 			if (context.player().containerMenu instanceof FseticketModMenus.MenuAccessor menu) {
 				menu.getMenuState().put(message.elementType + ":" + message.name, message.elementState);
-				if (context.flow() == PacketFlow.CLIENTBOUND) {
-					ClientMenuUpdater.updateClient(message);
+				if (context.flow() == PacketFlow.CLIENTBOUND && FMLEnvironment.dist == Dist.CLIENT) {
+					FseticketClientHooks.handleClientboundMenuState(message);
 				}
 			}
 		}).exceptionally(e -> {
 			context.connection().disconnect(Component.literal(e.getMessage()));
 			return null;
 		});
-	}
-
-	private static class ClientMenuUpdater {
-		public static void updateClient(MenuStateUpdateMessage message) {
-			if (Minecraft.getInstance().screen instanceof FseticketModMenus.ScreenAccessor accessor) {
-				accessor.updateMenuState(message.elementType, message.name, message.elementState);
-			}
-		}
 	}
 
 	@SubscribeEvent
