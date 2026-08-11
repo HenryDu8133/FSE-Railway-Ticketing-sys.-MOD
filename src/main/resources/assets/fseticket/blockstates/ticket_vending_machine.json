@@ -1,34 +1,23 @@
 {
   "variants": {
-    "facing=north,success=false": {
-      "model": "fseticket:block/ticket_vending_machine"
-    },
-    "facing=east,success=false": {
-      "model": "fseticket:block/ticket_vending_machine",
-      "y": 90
-    },
-    "facing=south,success=false": {
-      "model": "fseticket:block/ticket_vending_machine",
-      "y": 180
-    },
-    "facing=west,success=false": {
-      "model": "fseticket:block/ticket_vending_machine",
-      "y": 270
-    },
-    "facing=north,success=true": {
-      "model": "fseticket:block/ticket_vending_machine_success"
-    },
-    "facing=east,success=true": {
-      "model": "fseticket:block/ticket_vending_machine_success",
-      "y": 90
-    },
-    "facing=south,success=true": {
-      "model": "fseticket:block/ticket_vending_machine_success",
-      "y": 180
-    },
-    "facing=west,success=true": {
-      "model": "fseticket:block/ticket_vending_machine_success",
-      "y": 270
-    }
+    "facing=north,vending_type=none":         { "model": "fseticket:block/ticket_vending_machine" },
+    "facing=east,vending_type=none":          { "model": "fseticket:block/ticket_vending_machine",          "y": 90 },
+    "facing=south,vending_type=none":         { "model": "fseticket:block/ticket_vending_machine",          "y": 180 },
+    "facing=west,vending_type=none":          { "model": "fseticket:block/ticket_vending_machine",          "y": 270 },
+
+    "facing=north,vending_type=local_ticket": { "model": "fseticket:block/ticket_vending_machine_success_localticket" },
+    "facing=east,vending_type=local_ticket":  { "model": "fseticket:block/ticket_vending_machine_success_localticket",  "y": 90 },
+    "facing=south,vending_type=local_ticket": { "model": "fseticket:block/ticket_vending_machine_success_localticket",  "y": 180 },
+    "facing=west,vending_type=local_ticket":  { "model": "fseticket:block/ticket_vending_machine_success_localticket",  "y": 270 },
+
+    "facing=north,vending_type=exp_ticket":   { "model": "fseticket:block/ticket_vending_machine_success_expticket" },
+    "facing=east,vending_type=exp_ticket":    { "model": "fseticket:block/ticket_vending_machine_success_expticket",    "y": 90 },
+    "facing=south,vending_type=exp_ticket":   { "model": "fseticket:block/ticket_vending_machine_success_expticket",    "y": 180 },
+    "facing=west,vending_type=exp_ticket":    { "model": "fseticket:block/ticket_vending_machine_success_expticket",    "y": 270 },
+
+    "facing=north,vending_type=ic_card":      { "model": "fseticket:block/ticket_vending_machine_success_ic" },
+    "facing=east,vending_type=ic_card":       { "model": "fseticket:block/ticket_vending_machine_success_ic",       "y": 90 },
+    "facing=south,vending_type=ic_card":      { "model": "fseticket:block/ticket_vending_machine_success_ic",       "y": 180 },
+    "facing=west,vending_type=ic_card":       { "model": "fseticket:block/ticket_vending_machine_success_ic",       "y": 270 }
   }
 }

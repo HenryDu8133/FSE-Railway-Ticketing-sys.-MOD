@@ -2,11 +2,12 @@
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "fseticket:block/limitcard_refill_front",
+		"0": "fseticket:block/ticketvending_success",
 		"1": "fseticket:block/ticketblock_side",
 		"2": "fseticket:block/ticketblock_top",
 		"3": "fseticket:block/black",
-		"particle": "fseticket:block/limitcard_refill_front"
+		"4": "fseticket:item/expticket",
+		"particle": "fseticket:block/ticketvending_success"
 	},
 	"elements": [
 		{
@@ -163,37 +164,19 @@
 				"up": {"uv": [2, 2, 14, 14], "texture": "#2"},
 				"down": {"uv": [0, 1, 12, 13], "texture": "#2"}
 			}
+		},
+		{
+			"from": [6.5, 4, -1],
+			"to": [9.5, 4.3, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 4.15, 0.5]},
+			"faces": {
+				"north": {"uv": [1, 1.7, 4, 2], "texture": "#1"},
+				"east": {"uv": [0, 1.7, 3, 2], "texture": "#1"},
+				"south": {"uv": [0, 1.7, 3, 2], "texture": "#1"},
+				"west": {"uv": [0, 1.7, 3, 2], "texture": "#1"},
+				"up": {"uv": [0, 2, 16, 14], "rotation": 270, "texture": "#4"},
+				"down": {"uv": [16, 2, 0, 14], "rotation": 270, "texture": "#4"}
+			}
 		}
-	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [-180, 0, -180],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [-180, 0, -180],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"firstperson_righthand": {
-			"rotation": [123, 0, -180],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"firstperson_lefthand": {
-			"rotation": [123, 0, -180],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"ground": {
-			"rotation": [-180, 0, -180],
-			"translation": [0, 3, 0],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"gui": {
-			"rotation": [0, 180, 0],
-			"translation": [0, 0, 0],
-			"scale": [0.625, 0.625, 0.625]
-		},
-		"on_shelf": {
-			"rotation": [0, 180, 0]
-		}
-	}
+	]
 }

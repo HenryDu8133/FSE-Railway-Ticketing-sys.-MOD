@@ -1,19 +1,16 @@
 {
   "variants": {
-    "facing=north": {
-      "model": "fseticket:block/ticket_inspection_machine"
-    },
-    "facing=east": {
-      "model": "fseticket:block/ticket_inspection_machine",
-      "y": 90
-    },
-    "facing=south": {
-      "model": "fseticket:block/ticket_inspection_machine",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "fseticket:block/ticket_inspection_machine",
-      "y": 270
-    }
+    "facing=north,result=none":   { "model": "fseticket:block/ticket_inspection_machine" },
+    "facing=east,result=none":    { "model": "fseticket:block/ticket_inspection_machine", "y": 90 },
+    "facing=south,result=none":   { "model": "fseticket:block/ticket_inspection_machine", "y": 180 },
+    "facing=west,result=none":    { "model": "fseticket:block/ticket_inspection_machine", "y": 270 },
+    "facing=north,result=success":{ "model": "fseticket:block/ticket_inspection_machine_success" },
+    "facing=east,result=success": { "model": "fseticket:block/ticket_inspection_machine_success", "y": 90 },
+    "facing=south,result=success":{ "model": "fseticket:block/ticket_inspection_machine_success", "y": 180 },
+    "facing=west,result=success": { "model": "fseticket:block/ticket_inspection_machine_success", "y": 270 },
+    "facing=north,result=fail":   { "model": "fseticket:block/ticket_inspection_machine_false" },
+    "facing=east,result=fail":    { "model": "fseticket:block/ticket_inspection_machine_false", "y": 90 },
+    "facing=south,result=fail":   { "model": "fseticket:block/ticket_inspection_machine_false", "y": 180 },
+    "facing=west,result=fail":    { "model": "fseticket:block/ticket_inspection_machine_false", "y": 270 }
   }
 }
