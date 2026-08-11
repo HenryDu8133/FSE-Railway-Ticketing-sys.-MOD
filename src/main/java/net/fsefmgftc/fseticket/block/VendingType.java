@@ -1,6 +1,7 @@
 package net.fsefmgftc.fseticket.block;
 
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
 public enum VendingType implements StringRepresentable {
 	NONE("none"),
@@ -10,12 +11,12 @@ public enum VendingType implements StringRepresentable {
 
 	private final String name;
 
-	private VendingType(String name) {
+	VendingType(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String getSerializedName() {
+	public @NotNull String getSerializedName() {
 		return this.name;
 	}
 

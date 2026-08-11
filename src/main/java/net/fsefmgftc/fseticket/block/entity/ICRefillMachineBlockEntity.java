@@ -9,6 +9,8 @@ import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+
 import net.fsefmgftc.fseticket.block.ICRefillMachineBlock;
 import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
 import net.fsefmgftc.fseticket.init.FseticketModItems;
@@ -31,9 +33,12 @@ import org.jetbrains.annotations.NotNull;
 public class ICRefillMachineBlockEntity extends BlockEntity {
 	private static final String ERROR_NO_CARD = "no card";
 	private static final String ERROR_INSUFFICIENT = "insufficient";
+	private static final String ERROR_NEGATIVE_DELTA = "negative delta";
 
 	private final RefillPeripheral peripheral = new RefillPeripheral();
 	private ItemStack insertedCard = ItemStack.EMPTY;
+
+	public Set<IComputerAccess> computers;
 
 	public ICRefillMachineBlockEntity(BlockPos pos, BlockState state) {
 		super(FseticketModBlockEntities.IC_REFILL_MACHINE.get(), pos, state);
@@ -45,16 +50,18 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 
 	private class RefillPeripheral implements IDynamicPeripheral {
 		@Override
-		public String getType() {
+		public @NotNull String getType() {
 			return "ic_refill_machine";
 		}
 
 		@Override
-		public void attach(IComputerAccess c) {
+		public void attach(@NotNull IComputerAccess c) {
+			computers.add(c);
 		}
 
 		@Override
-		public void detach(IComputerAccess c) {
+		public void detach(@NotNull IComputerAccess c) {
+			computers.remove(c);
 		}
 
 		@Override
@@ -63,6 +70,8 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 		}
 
 		// todo: merge $refill & $deduct into a method
+		// eg: refill(-10086) == deduct(10086)
+		// and: deduct(-10086) == refill(10086)
 		@Override
 		public String @NotNull [] getMethodNames() {
 			return new String[] { "getCardInfo", "refill", "deduct", "setBalance" };
@@ -77,9 +86,9 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 			CompoundTag cardData = insertedCard.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 			return switch (method) {
 				case 0 -> MethodResult.of(buildCardInfo(cardData));
-				case 1 -> modifyBalance(cardData, args.optDouble(0, 0.0), false);
-				case 2 -> modifyBalance(cardData, -args.optDouble(0, 0.0), true);
-				case 3 -> setBalance(cardData, args.optDouble(0, 0.0));
+				case 1 -> modifyBalance(cardData, args.optDouble(0, 0), false);
+				case 2 -> modifyBalance(cardData, -args.optDouble(0, 0), true);
+				case 3 -> setBalance(cardData, args.optDouble(0, 0));
 				default -> MethodResult.of();
 			};
 		}
@@ -101,7 +110,9 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 			return MethodResult.of(true, cardData.getDouble(TicketDataUtil.BALANCE));
 		}
 
+		// Consider always (not to) block negative result.
 		private MethodResult modifyBalance(CompoundTag cardData, double delta, boolean blockNegativeResult) {
+			if (delta < 0 && !blockNegativeResult) return MethodResult.of(false, ERROR_NEGATIVE_DELTA);
 			double newBalance = cardData.getDouble(TicketDataUtil.BALANCE) + delta;
 			if (blockNegativeResult && newBalance < 0) return MethodResult.of(false, ERROR_INSUFFICIENT);
 
@@ -142,7 +153,7 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider r) {
+	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider r) {
 		super.saveAdditional(tag, r);
 		if (!insertedCard.isEmpty()) {
 			tag.put("Card", insertedCard.save(r));
@@ -150,7 +161,7 @@ public class ICRefillMachineBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider r) {
+	protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider r) {
 		super.loadAdditional(tag, r);
 		if (tag.contains("Card")) {
 			insertedCard = ItemStack.parse(r, tag.getCompound("Card")).orElse(ItemStack.EMPTY);

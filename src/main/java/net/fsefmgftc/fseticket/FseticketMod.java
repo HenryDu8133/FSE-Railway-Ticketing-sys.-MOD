@@ -26,69 +26,66 @@ import net.fsefmgftc.fseticket.init.FseticketModBlocks;
 import net.fsefmgftc.fseticket.init.FseticketModBlockEntities;
 import net.fsefmgftc.fseticket.init.FseticketModSounds;
 
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.Queue;
-import java.util.PriorityQueue;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Comparator;
 
 import it.unimi.dsi.fastutil.ints.IntObjectPair;
 import it.unimi.dsi.fastutil.ints.IntObjectImmutablePair;
 
 @Mod("fseticket")
 public class FseticketMod {
-	public static final Logger LOGGER = LogManager.getLogger(FseticketMod.class);
-	public static final String MODID = "fseticket";
+    public static final Logger LOGGER = LogManager.getLogger(FseticketMod.class);
+    public static final String MODID = "fseticket";
 
-	public FseticketMod(IEventBus modEventBus) {
-		NeoForge.EVENT_BUS.register(this);
-		modEventBus.addListener(this::registerNetworking);
-		FseticketModBlockEntities.register(modEventBus);
-		FseticketModBlocks.register(modEventBus);
-		FseticketModItems.register(modEventBus);
-		FseticketModTabs.register(modEventBus);
-		FseticketModVariables.ATTACHMENT_TYPES.register(modEventBus);
-		FseticketModMenus.register(modEventBus);
-		FseticketModSounds.register(modEventBus);
-	}
+    public FseticketMod(IEventBus modEventBus) {
+        NeoForge.EVENT_BUS.register(this);
+        modEventBus.addListener(this::registerNetworking);
+        FseticketModBlockEntities.register(modEventBus);
+        FseticketModBlocks.register(modEventBus);
+        FseticketModItems.register(modEventBus);
+        FseticketModTabs.register(modEventBus);
+        FseticketModVariables.ATTACHMENT_TYPES.register(modEventBus);
+        FseticketModMenus.register(modEventBus);
+        FseticketModSounds.register(modEventBus);
+    }
 
-	private static boolean networkingRegistered = false;
-	private static final Map<CustomPacketPayload.Type<?>, NetworkMessage<?>> MESSAGES = new HashMap<>();
+    private static boolean networkingRegistered = false;
+    private static final Map<CustomPacketPayload.Type<?>, NetworkMessage<?>> MESSAGES = new HashMap<>();
 
-	private record NetworkMessage<T extends CustomPacketPayload>(StreamCodec<? extends FriendlyByteBuf, T> reader, IPayloadHandler<T> handler) {
-	}
+    private record NetworkMessage<T extends CustomPacketPayload>(StreamCodec<? extends FriendlyByteBuf, T> reader,
+                                                                 IPayloadHandler<T> handler) {
+    }
 
-	public static <T extends CustomPacketPayload> void addNetworkMessage(CustomPacketPayload.Type<T> id, StreamCodec<? extends FriendlyByteBuf, T> reader, IPayloadHandler<T> handler) {
-		if (networkingRegistered)
-			throw new IllegalStateException("Cannot register new network messages after networking has been registered");
-		MESSAGES.put(id, new NetworkMessage<>(reader, handler));
-	}
+    public static <T extends CustomPacketPayload> void addNetworkMessage(CustomPacketPayload.Type<T> id, StreamCodec<? extends FriendlyByteBuf, T> reader, IPayloadHandler<T> handler) {
+        if (networkingRegistered)
+            throw new IllegalStateException("Cannot register new network messages after networking has been registered");
+        MESSAGES.put(id, new NetworkMessage<>(reader, handler));
+    }
 
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	private void registerNetworking(final RegisterPayloadHandlersEvent event) {
-		final PayloadRegistrar registrar = event.registrar(MODID);
-		MESSAGES.forEach((id, networkMessage) -> registrar.playBidirectional(id, ((NetworkMessage) networkMessage).reader(), ((NetworkMessage) networkMessage).handler()));
-		networkingRegistered = true;
-	}
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private void registerNetworking(final RegisterPayloadHandlersEvent event) {
+        final PayloadRegistrar registrar = event.registrar(MODID);
+        MESSAGES.forEach((id, networkMessage) -> registrar.playBidirectional(id, ((NetworkMessage) networkMessage).reader(), ((NetworkMessage) networkMessage).handler()));
+        networkingRegistered = true;
+    }
 
-	private static final Queue<IntObjectPair<Runnable>> workToBeScheduled = new ConcurrentLinkedQueue<>();
-	private static final PriorityQueue<TickTask> workQueue = new PriorityQueue<>(Comparator.comparingInt(TickTask::getTick));
+    private static final Queue<IntObjectPair<Runnable>> workToBeScheduled = new ConcurrentLinkedQueue<>();
+    private static final PriorityQueue<TickTask> workQueue = new PriorityQueue<>(Comparator.comparingInt(TickTask::getTick));
 
-	public static void queueServerWork(int delay, Runnable action) {
-		if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
-			workToBeScheduled.add(new IntObjectImmutablePair<>(delay, action));
-	}
+    public static void queueServerWork(int delay, Runnable action) {
+        if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
+            workToBeScheduled.add(new IntObjectImmutablePair<>(delay, action));
+    }
 
-	@SubscribeEvent
-	public void tick(ServerTickEvent.Post event) {
-		int currentTick = event.getServer().getTickCount();
-		IntObjectPair<Runnable> work;
-		while ((work = workToBeScheduled.poll()) != null) {
-			workQueue.add(new TickTask(currentTick + work.leftInt(), work.right()));
-		}
-		while (!workQueue.isEmpty() && currentTick >= workQueue.peek().getTick()) {
-			workQueue.poll().run();
-		}
-	}
+    @SubscribeEvent
+    public void tick(ServerTickEvent.Post event) {
+        int currentTick = event.getServer().getTickCount();
+        IntObjectPair<Runnable> work;
+        while ((work = workToBeScheduled.poll()) != null) {
+            workQueue.add(new TickTask(currentTick + work.leftInt(), work.right()));
+        }
+        while (!workQueue.isEmpty() && currentTick >= workQueue.peek().getTick()) {
+            Objects.requireNonNull(workQueue.poll()).run();
+        }
+    }
 }

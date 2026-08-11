@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.fsefmgftc.fseticket.util.TicketDataUtil;
+import org.jetbrains.annotations.NotNull;
 
 public class ICCardItem extends Item {
 	public ICCardItem() {
@@ -28,37 +29,37 @@ public class ICCardItem extends Item {
 	}
 
 	@Override
-	public Component getName(ItemStack s) {
+	public @NotNull Component getName(@NotNull ItemStack s) {
 		return Component.literal("FSEICA");
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level w, Player e, InteractionHand h) {
-		if (!(e instanceof ServerPlayer sp)) {
-			return super.use(w, e, h);
+	public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+		if (!(player instanceof ServerPlayer sp)) {
+			return super.use(level, player, hand);
 		}
 
-		ItemStack heldItem = e.getItemInHand(h);
+		ItemStack heldItem = player.getItemInHand(hand);
 		CompoundTag cardData = heldItem.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 		sp.openMenu(new MenuProvider() {
 			@Override
-			public Component getDisplayName() {
+			public @NotNull Component getDisplayName() {
 				return Component.literal("IC Card");
 			}
 
 			@Override
-			public AbstractContainerMenu createMenu(int id, Inventory inv, Player p) {
+			public AbstractContainerMenu createMenu(int id, @NotNull Inventory inv, @NotNull Player p) {
 				FriendlyByteBuf buffer = TicketDataUtil.createBuffer();
-				TicketDataUtil.writeICCardMenuData(buffer, e.blockPosition(), h, cardData);
+				TicketDataUtil.writeICCardMenuData(buffer, player.blockPosition(), hand, cardData);
 				return new net.fsefmgftc.fseticket.world.inventory.ICGUIMenu(id, inv, buffer);
 			}
-		}, buffer -> TicketDataUtil.writeICCardMenuData(buffer, e.blockPosition(), h, cardData));
+		}, buffer -> TicketDataUtil.writeICCardMenuData(buffer, player.blockPosition(), hand, cardData));
 
-		return super.use(w, e, h);
+		return super.use(level, player, hand);
 	}
 
 	@Override
-	public void appendHoverText(ItemStack s, Item.TooltipContext ctx, java.util.List<Component> list, net.minecraft.world.item.TooltipFlag f) {
+	public void appendHoverText(@NotNull ItemStack s, Item.@NotNull TooltipContext ctx, java.util.@NotNull List<Component> list, net.minecraft.world.item.@NotNull TooltipFlag f) {
 		super.appendHoverText(s, ctx, list, f);
 
 		CompoundTag cardData = s.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
@@ -69,9 +70,11 @@ public class ICCardItem extends Item {
 		if (TicketDataUtil.hasMeaningfulValue(cardId)) {
 			list.add(Component.translatable("tooltip.fseticket.card_id", cardId));
 		}
+
 		if (TicketDataUtil.hasMeaningfulValue(ownerName)) {
 			list.add(Component.translatable("tooltip.fseticket.owner_name", ownerName));
 		}
+
 		list.add(Component.translatable("tooltip.fseticket.balance", String.format("%.2f", balance)));
 	}
 }

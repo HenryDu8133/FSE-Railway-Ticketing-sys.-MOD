@@ -13,6 +13,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
 import net.fsefmgftc.fseticket.init.FseticketModMenus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 import java.util.Map;
@@ -31,42 +32,47 @@ public class FSEPassGUIMenu extends AbstractContainerMenu implements FseticketMo
 	public final Level world;
 	public final Player entity;
 	public int x, y, z;
-	private ContainerLevelAccess access = ContainerLevelAccess.NULL;
+	private ContainerLevelAccess access;
 	private final Map<Integer, Slot> customSlots = new HashMap<>();
-	private boolean bound = false;
-	private Supplier<Boolean> boundItemMatcher = null;
-	private Entity boundEntity = null;
-	private BlockEntity boundBlockEntity = null;
+	private final boolean bound = false;
+	private final Supplier<Boolean> boundItemMatcher = null;
+	private final Entity boundEntity = null;
+	private final BlockEntity boundBlockEntity = null;
 
 	public FSEPassGUIMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
 		super(FseticketModMenus.FSE_PASS_GUI.get(), id);
 		this.entity = inv.player;
 		this.world = inv.player.level();
-		BlockPos pos = null;
+//		this.internal = new ItemStackHandler(0);
+		BlockPos pos;
 		if (extraData != null) {
 			pos = extraData.readBlockPos();
 			this.x = pos.getX();
 			this.y = pos.getY();
 			this.z = pos.getZ();
-			access = ContainerLevelAccess.create(world, pos);
+			this.access = ContainerLevelAccess.create(world, pos);
 		}
 	}
 
 	@Override
-	public boolean stillValid(Player player) {
-		if (this.bound) {
-			if (this.boundItemMatcher != null)
-				return this.boundItemMatcher.get();
-			else if (this.boundBlockEntity != null)
-				return AbstractContainerMenu.stillValid(this.access, player, this.boundBlockEntity.getBlockState().getBlock());
-			else if (this.boundEntity != null)
-				return this.boundEntity.isAlive();
-		}
-		return true;
+	public boolean stillValid(@NotNull Player player) {
+		/// Vibed code shouldn't appear this lol.
+		/// Since field `bound` is always `false`;
+		/// `boundItemMatcher`, `boundBlockEntity` and `boundEntity` are always `null`,
+		/// consider `return true` only.
+//		if (this.bound) {
+//			if (this.boundItemMatcher != null)
+//				return this.boundItemMatcher.get();
+//			else if (this.boundBlockEntity != null)
+//				return AbstractContainerMenu.stillValid(this.access, player, this.boundBlockEntity.getBlockState().getBlock());
+//			else if (this.boundEntity != null)
+//				return this.boundEntity.isAlive();
+//		}
+        return true;
 	}
 
 	@Override
-	public ItemStack quickMoveStack(Player playerIn, int index) {
+	public @NotNull ItemStack quickMoveStack(@NotNull Player playerIn, int index) {
 		return ItemStack.EMPTY;
 	}
 

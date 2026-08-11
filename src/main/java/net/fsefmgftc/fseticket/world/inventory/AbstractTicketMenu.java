@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractTicketMenu extends AbstractContainerMenu implements FseticketModMenus.MenuAccessor {
 	public final Map<String, Object> menuState = new HashMap<>();
@@ -64,12 +65,12 @@ public abstract class AbstractTicketMenu extends AbstractContainerMenu implement
 	}
 
 	@Override
-	public boolean stillValid(Player player) {
+	public boolean stillValid(@NotNull Player player) {
 		return true;
 	}
 
 	@Override
-	public ItemStack quickMoveStack(Player player, int index) {
+	public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
 		return ItemStack.EMPTY;
 	}
 
