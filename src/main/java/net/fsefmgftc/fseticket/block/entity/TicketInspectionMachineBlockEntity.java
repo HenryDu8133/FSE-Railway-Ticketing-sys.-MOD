@@ -90,12 +90,12 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
         }
 
 		@Override
-		public String[] getMethodNames() {
+		public String @NotNull [] getMethodNames() {
 			return new String[] { "getLastScanned", "destroyTicket", "deductICCard", "markEntered", "markExited", "resetTicketState", "markFault" };
 		}
 
 		@Override
-		public MethodResult callMethod(IComputerAccess computer, ILuaContext ctx, int method, IArguments args) throws LuaException {
+		public @NotNull MethodResult callMethod(@NotNull IComputerAccess computer, @NotNull ILuaContext ctx, int method, @NotNull IArguments args) throws LuaException {
 			return switch (method) {
 				case 0 -> {
 					if (lastScannedData == null) yield MethodResult.of(null, ERROR_NO_TICKET_SCANNED);
@@ -138,7 +138,7 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 				flashResult(InspectionResult.FAIL);
 				return MethodResult.of(false, err);
 			}
-			p.setItemInHand(lastScanHand, ItemStack.EMPTY);
+			player.setItemInHand(lastScanHand, ItemStack.EMPTY);
 			lastScannedData = null;
 			setChanged();
 			flashResult(InspectionResult.SUCCESS);
@@ -164,10 +164,10 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 			tag.putBoolean(TicketDataUtil.EXITED, exited);
 			if (entered && stationId != null && !stationId.isEmpty()) {
 				tag.putString(TicketDataUtil.ENTRY_STATION, stationId);
-			} else if (exited || (!entered && !exited)) {
+			} else if (exited || !entered) {
 				tag.remove(TicketDataUtil.ENTRY_STATION);
 			}
-			itemInHand.set(DataComponents.CUSTOM_DATA, CustomData.of(t));
+			itemInHand.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
 			syncHeldItem(player);
 			lastScannedData = tag;
 			setChanged();
@@ -188,20 +188,20 @@ public class TicketInspectionMachineBlockEntity extends BlockEntity {
 				flashResult(InspectionResult.FAIL);
 				return MethodResult.of(false, err);
 			}
-			ItemStack h = p.getItemInHand(lastScanHand);
+			ItemStack h = player.getItemInHand(lastScanHand);
 			if (h.getItem() != FseticketModItems.IC_CARD.get()) {
 				flashResult(InspectionResult.FAIL);
 				return MethodResult.of(false, ERROR_NO_CARD);
 			}
 			CompoundTag t = h.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-			double bal = t.getDouble(TicketDataUtil.BALANCE);
-			if (bal < amt) {
+			double balance = t.getDouble(TicketDataUtil.BALANCE);
+			if (balance < amount) {
 				flashResult(InspectionResult.FAIL);
 				return MethodResult.of(false, ERROR_INSUFFICIENT);
 			}
-			t.putDouble(TicketDataUtil.BALANCE, bal - amt);
+			t.putDouble(TicketDataUtil.BALANCE, balance - amount);
 			h.set(DataComponents.CUSTOM_DATA, CustomData.of(t));
-			syncHeldItem(p);
+			syncHeldItem(player);
 			lastScannedData = t;
 			setChanged();
 			flashResult(InspectionResult.SUCCESS);

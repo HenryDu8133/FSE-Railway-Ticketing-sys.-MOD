@@ -74,7 +74,7 @@ public class TicketInspectionMachineBlock extends Block implements net.minecraft
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+	public void tick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (state.getValue(RESULT) != InspectionResult.NONE) {
 			level.setBlock(pos, state.setValue(RESULT, InspectionResult.NONE), 3);
 		}

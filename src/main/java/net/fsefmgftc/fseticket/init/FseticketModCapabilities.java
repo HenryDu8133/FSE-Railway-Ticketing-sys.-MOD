@@ -3,9 +3,6 @@ package net.fsefmgftc.fseticket.init;
 
 import dan200.computercraft.api.peripheral.PeripheralCapability;
 import net.fsefmgftc.fseticket.FseticketMod;
-import net.fsefmgftc.fseticket.block.entity.TicketVendingMachineBlockEntity;
-import net.fsefmgftc.fseticket.block.entity.TicketInspectionMachineBlockEntity;
-import net.fsefmgftc.fseticket.block.entity.ICRefillMachineBlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;

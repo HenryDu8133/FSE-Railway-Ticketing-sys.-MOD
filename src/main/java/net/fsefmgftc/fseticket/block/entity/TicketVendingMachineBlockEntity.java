@@ -25,8 +25,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Set;
-
 public class TicketVendingMachineBlockEntity extends BlockEntity {
 	private final VendingPeripheral peripheral = new VendingPeripheral();
 
@@ -40,16 +38,16 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 
 	private class VendingPeripheral implements IDynamicPeripheral {
 		@Override
-		public String getType() {
+		public @NotNull String getType() {
 			return "ticket_vending_machine";
 		}
 
 		@Override
-		public void attach(IComputerAccess c) {
+		public void attach(@NotNull IComputerAccess c) {
 		}
 
 		@Override
-		public void detach(IComputerAccess c) {
+		public void detach(@NotNull IComputerAccess c) {
 		}
 
 		@Override
@@ -177,7 +175,8 @@ public class TicketVendingMachineBlockEntity extends BlockEntity {
 			Direction facing = state.hasProperty(HorizontalDirectionalBlock.FACING)
 				? state.getValue(HorizontalDirectionalBlock.FACING)
 				: Direction.NORTH;
-			level.addFreshEntity(new ItemEntity(
+            assert level != null;
+            level.addFreshEntity(new ItemEntity(
 				level,
 				worldPosition.getX() + 0.5 + facing.getStepX() * 0.7,
 				worldPosition.getY() + 0.8,

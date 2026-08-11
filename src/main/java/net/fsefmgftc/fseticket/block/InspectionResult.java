@@ -1,6 +1,7 @@
 package net.fsefmgftc.fseticket.block;
 
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
 public enum InspectionResult implements StringRepresentable {
 	NONE("none"),
@@ -14,7 +15,7 @@ public enum InspectionResult implements StringRepresentable {
 	}
 
 	@Override
-	public String getSerializedName() {
+	public @NotNull String getSerializedName() {
 		return this.serializedName;
 	}
 

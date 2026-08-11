@@ -59,7 +59,7 @@ public class TicketVendingMachineBlock extends Block implements net.minecraft.wo
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+	public void tick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (state.getValue(VENDING_TYPE) != VendingType.NONE) {
 			level.setBlock(pos, state.setValue(VENDING_TYPE, VendingType.NONE), 3);
 		}

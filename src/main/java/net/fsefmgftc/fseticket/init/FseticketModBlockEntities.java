@@ -10,6 +10,7 @@ import net.fsefmgftc.fseticket.block.entity.TicketInspectionMachineBlockEntity;
 import net.fsefmgftc.fseticket.block.entity.ICRefillMachineBlockEntity;
 import java.util.function.Supplier;
 
+@SuppressWarnings("DataFlowIssue")
 public final class FseticketModBlockEntities {
 	public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, FseticketMod.MODID);
 	public static final Supplier<BlockEntityType<TicketVendingMachineBlockEntity>> TICKET_VENDING_MACHINE = REGISTRY
